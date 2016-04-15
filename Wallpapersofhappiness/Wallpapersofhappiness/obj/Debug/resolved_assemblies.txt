@@ -1,0 +1,12 @@
+C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\Wallpapersofhappiness.dll
+C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\Mono.Android.dll
+C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\mscorlib.dll
+C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\System.Core.dll
+C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\System.dll
+C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\System.Xml.dll
+C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\Xamarin.Android.Support.v4.dll
+C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\Xamarin.Android.Support.v7.AppCompat.dll
+C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\Xamarin.Insights.dll
+C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\System.Runtime.Serialization.dll
+C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\System.ServiceModel.Internals.dll
+C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\System.Net.Http.dll
