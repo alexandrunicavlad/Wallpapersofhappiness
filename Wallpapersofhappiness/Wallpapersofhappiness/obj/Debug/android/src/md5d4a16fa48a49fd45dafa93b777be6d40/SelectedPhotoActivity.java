@@ -2,7 +2,7 @@ package md5d4a16fa48a49fd45dafa93b777be6d40;
 
 
 public class SelectedPhotoActivity
-	extends android.app.Activity
+	extends md5d4a16fa48a49fd45dafa93b777be6d40.BaseActivity
 	implements
 		mono.android.IGCUserPeer
 {
@@ -10,7 +10,6 @@ public class SelectedPhotoActivity
 	static {
 		__md_methods = 
 			"n_onCreate:(Landroid/os/Bundle;)V:GetOnCreate_Landroid_os_Bundle_Handler\n" +
-			"n_onActivityResult:(IILandroid/content/Intent;)V:GetOnActivityResult_IILandroid_content_Intent_Handler\n" +
 			"";
 		mono.android.Runtime.register ("Wallpapersofhappiness.SelectedPhotoActivity, Wallpapersofhappiness, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", SelectedPhotoActivity.class, __md_methods);
 	}
@@ -30,14 +29,6 @@ public class SelectedPhotoActivity
 	}
 
 	private native void n_onCreate (android.os.Bundle p0);
-
-
-	public void onActivityResult (int p0, int p1, android.content.Intent p2)
-	{
-		n_onActivityResult (p0, p1, p2);
-	}
-
-	private native void n_onActivityResult (int p0, int p1, android.content.Intent p2);
 
 	java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)
