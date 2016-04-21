@@ -72,10 +72,23 @@ namespace Wallpapersofhappiness
 		private bool bestBool = false;
 		private bool categoryBool = false;
 		private bool randomBool = false;
+
+		private bool loveBool = false;
+		private bool happinesBool = false;
+		private bool sportBool = false;
+		private bool coupleBool = false;
+		private bool motivationBool = false;
+
 		private TextView best;
 		private TextView category;
 		private TextView random;
 		private TextView item;
+
+		private LinearLayout lovelayout;
+		private LinearLayout happineslayout;
+		private LinearLayout sportlayout;
+		private LinearLayout couplelayout;
+		private LinearLayout motivationlayout;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -94,25 +107,41 @@ namespace Wallpapersofhappiness
 			category = mainSlider.FindViewById<TextView> (Resource.Id.categoryItem);
 			random = mainSlider.FindViewById<TextView> (Resource.Id.randomItem);
 			best.Background = Resources.GetDrawable (Resource.Drawable.button_round_green);
+
+			lovelayout = mainSlider.FindViewById<LinearLayout> (Resource.Id.Lovelayout);
+			happineslayout = mainSlider.FindViewById<LinearLayout> (Resource.Id.Happineslayout);
+			sportlayout = mainSlider.FindViewById<LinearLayout> (Resource.Id.Sportlayout);
+			couplelayout = mainSlider.FindViewById<LinearLayout> (Resource.Id.Couplelayout);
+			motivationlayout = mainSlider.FindViewById<LinearLayout> (Resource.Id.Motivationlayout);
+
 			bestBool = true;
 			best.Click += delegate {
 				if (bestBool) {
 					return;
 				} else {				
 					ThreadPool.QueueUserWorkItem (o => GetData ("best"));
-					ClickValidator ().SetBackgroundResource (Color.Transparent);
-					best.Background = Resources.GetDrawable (Resource.Drawable.button_round_green);
-					bestBool = true;
+					RunOnUiThread (() => {
+						ClickValidator ().SetBackgroundResource (Color.Transparent);
+						best.Background = Resources.GetDrawable (Resource.Drawable.button_round_green);
+						bestBool = true;
+					});
 				}
 			};
 			category.Click += delegate {
 				if (categoryBool) {
 					return;
 				} else {					
-					ThreadPool.QueueUserWorkItem (o => GetData ("categories"));
-					ClickValidator ().SetBackgroundResource (Color.Transparent);
-					category.Background = Resources.GetDrawable (Resource.Drawable.button_round_green);
-					categoryBool = true;
+					ThreadPool.QueueUserWorkItem (o => GetData ("categories/love"));
+					RunOnUiThread (() => {
+						ClickValidator ().SetBackgroundResource (Color.Transparent);
+						ClickCategoryValidator ();
+						mainSlider.FindViewById<LinearLayout> (Resource.Id.category_slider).Visibility = ViewStates.Visible;
+						category.Background = Resources.GetDrawable (Resource.Drawable.button_round_green);
+						mainSlider.FindViewById<TextView> (Resource.Id.loveText).SetTextColor (Resources.GetColor (Resource.Color.green_main));
+						mainSlider.FindViewById<ImageView> (Resource.Id.loveImage).SetImageResource (Resource.Drawable.ic_format_text);
+						categoryBool = true;
+						loveBool = true;
+					});
 				}
 
 			};
@@ -121,13 +150,98 @@ namespace Wallpapersofhappiness
 					return;
 				} else {					
 					ThreadPool.QueueUserWorkItem (o => GetData ("random"));
-					ClickValidator ().SetBackgroundResource (Color.Transparent);
-					random.Background = Resources.GetDrawable (Resource.Drawable.button_round_green);
-					randomBool = true;
-
+					RunOnUiThread (() => {
+						ClickValidator ().SetBackgroundResource (Color.Transparent);
+						random.Background = Resources.GetDrawable (Resource.Drawable.button_round_green);
+						randomBool = true;
+					});
 				}
 			};
+		
+		
+			lovelayout.Click += delegate {
+				lovelayout.Clickable = false;
+				ThreadPool.QueueUserWorkItem (o => GetData ("categories/love"));
+				RunOnUiThread (() => {
+					mainSlider.FindViewById<TextView> (Resource.Id.loveText).SetTextColor (Resources.GetColor (Resource.Color.green_main));
+					mainSlider.FindViewById<ImageView> (Resource.Id.loveImage).SetImageResource (Resource.Drawable.ic_format_text);
+					ClickCategoryValidator ();
+					loveBool = true;
+				});
+			};
+			happineslayout.Click += delegate {
+				happineslayout.Clickable = false;
+				ThreadPool.QueueUserWorkItem (o => GetData ("categories/happiness"));
+				RunOnUiThread (() => {
+					mainSlider.FindViewById<TextView> (Resource.Id.HappinesText).SetTextColor (Resources.GetColor (Resource.Color.green_main));
+					mainSlider.FindViewById<ImageView> (Resource.Id.HappinesImage).SetImageResource (Resource.Drawable.ic_format_text);
+					ClickCategoryValidator ();
+					happinesBool = true;
+				});
 
+			};
+			sportlayout.Click += delegate {
+				sportlayout.Clickable = false;
+				ThreadPool.QueueUserWorkItem (o => GetData ("categories/sport"));
+				RunOnUiThread (() => {
+					mainSlider.FindViewById<TextView> (Resource.Id.SportText).SetTextColor (Resources.GetColor (Resource.Color.green_main));
+					mainSlider.FindViewById<ImageView> (Resource.Id.SportImage).SetImageResource (Resource.Drawable.ic_format_text);
+					ClickCategoryValidator ();
+					sportBool = true;
+				});
+			};
+			couplelayout.Click += delegate {
+				couplelayout.Clickable = false;
+				ThreadPool.QueueUserWorkItem (o => GetData ("categories/couple"));
+				RunOnUiThread (() => {
+					mainSlider.FindViewById<TextView> (Resource.Id.CoupleText).SetTextColor (Resources.GetColor (Resource.Color.green_main));
+					mainSlider.FindViewById<ImageView> (Resource.Id.CoupleImage).SetImageResource (Resource.Drawable.ic_format_text);
+					ClickCategoryValidator ();
+					coupleBool = true;
+				});
+			};
+			motivationlayout.Click += delegate {
+				motivationlayout.Clickable = false;
+				RunOnUiThread (() => {
+					ThreadPool.QueueUserWorkItem (o => GetData ("categories/motivation"));
+					mainSlider.FindViewById<TextView> (Resource.Id.MotivationText).SetTextColor (Resources.GetColor (Resource.Color.green_main));
+					mainSlider.FindViewById<ImageView> (Resource.Id.MotivationImage).SetImageResource (Resource.Drawable.ic_format_text);
+					ClickCategoryValidator ();
+					motivationBool = true;
+				});
+			};
+
+		}
+
+		private void ClickCategoryValidator ()
+		{
+			if (loveBool) {
+				loveBool = false;
+				mainSlider.FindViewById<TextView> (Resource.Id.loveText).SetTextColor (Resources.GetColor (Resource.Color.gray));
+				mainSlider.FindViewById<ImageView> (Resource.Id.loveImage).SetImageResource (Resource.Drawable.ic_palette);
+				lovelayout.Clickable = true;
+			} else if (happinesBool) {
+				happinesBool = false;
+				mainSlider.FindViewById<TextView> (Resource.Id.HappinesText).SetTextColor (Resources.GetColor (Resource.Color.gray));
+				mainSlider.FindViewById<ImageView> (Resource.Id.HappinesImage).SetImageResource (Resource.Drawable.ic_palette);
+				happineslayout.Clickable = true;
+			} else if (sportBool) {
+				sportBool = false;
+				mainSlider.FindViewById<TextView> (Resource.Id.SportText).SetTextColor (Resources.GetColor (Resource.Color.gray));
+				mainSlider.FindViewById<ImageView> (Resource.Id.SportImage).SetImageResource (Resource.Drawable.ic_palette);
+				sportlayout.Clickable = true;
+			} else if (coupleBool) {
+				coupleBool = false;
+				mainSlider.FindViewById<TextView> (Resource.Id.CoupleText).SetTextColor (Resources.GetColor (Resource.Color.gray));
+				mainSlider.FindViewById<ImageView> (Resource.Id.CoupleImage).SetImageResource (Resource.Drawable.ic_palette);
+				couplelayout.Clickable = true;
+			} else if (motivationBool) {
+				motivationBool = false;
+				mainSlider.FindViewById<TextView> (Resource.Id.MotivationText).SetTextColor (Resources.GetColor (Resource.Color.gray));
+				mainSlider.FindViewById<ImageView> (Resource.Id.MotivationImage).SetImageResource (Resource.Drawable.ic_palette);
+				motivationlayout.Clickable = true;
+			}
+			//return item;
 		}
 
 		private TextView ClickValidator ()
@@ -139,6 +253,8 @@ namespace Wallpapersofhappiness
 			} else if (categoryBool) {
 				categoryBool = false;
 				item = category;
+				ClickCategoryValidator ();
+				mainSlider.FindViewById<LinearLayout> (Resource.Id.category_slider).Visibility = ViewStates.Gone;
 			} else if (randomBool) {
 				randomBool = false;
 				item = random;

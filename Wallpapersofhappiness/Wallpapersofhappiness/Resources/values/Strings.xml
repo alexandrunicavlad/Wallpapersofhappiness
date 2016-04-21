@@ -16,4 +16,10 @@
 	<string name="Selectlanguage">Select your language</string>
 	<string name="Previewbackground">Preview background</string>
 	<string name="Defaultbackground">Default background</string>
+	<!--category-->
+	<string name="Love">Love</string>
+	<string name="Happines">Happines</string>
+	<string name="Sport">Sport</string>
+	<string name="Couple">Couple</string>
+	<string name="Motivation">Motivation</string>
 </resources>

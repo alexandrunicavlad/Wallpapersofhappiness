@@ -1,11 +1,10 @@
 ﻿<Properties StartupItem="Wallpapersofhappiness\Wallpapersofhappiness.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.TA92917UH0" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Wallpapersofhappiness\Activities\SelectedPhotoActivity.cs">
     <Files>
       <File FileName="Wallpapersofhappiness\MainActivity.cs" Line="9" Column="13" />
-      <File FileName="Wallpapersofhappiness\Activities\SelectedPhotoActivity.cs" Line="32" Column="34" />
-      <File FileName="Wallpapersofhappiness\Activities\PictureActivity.cs" Line="43" Column="1" />
-      <File FileName="Wallpapersofhappiness\Activities\BaseActivity.cs" Line="128" Column="4" />
+      <File FileName="Wallpapersofhappiness\Activities\SelectedPhotoActivity.cs" Line="83" Column="1" />
+      <File FileName="Wallpapersofhappiness\Activities\PictureActivity.cs" Line="44" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

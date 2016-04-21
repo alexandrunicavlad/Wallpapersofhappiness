@@ -193,6 +193,7 @@
     <AndroidResource Include="Resources\layout\main_slider_layout.axml" />
     <AndroidResource Include="Resources\drawable\bar_round_gray.xml" />
     <AndroidResource Include="Resources\drawable\button_round_green.xml" />
+    <AndroidResource Include="Resources\layout\category_slider_layout.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
