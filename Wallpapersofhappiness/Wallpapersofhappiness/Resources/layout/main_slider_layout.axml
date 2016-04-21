@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:background="@color/green_main">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:weightSum="0.9"
+        android:background="@drawable/bar_round_gray"
+        android:paddingRight="2dp"
+        android:paddingLeft="2dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:text="BEST"
+            android:layout_weight="0.3"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:id="@+id/bestItem" />
+        <TextView
+            android:layout_width="match_parent"
+            android:text="CATEGORY"
+            android:layout_weight="0.3"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:id="@+id/categoryItem" />
+        <TextView
+            android:layout_width="match_parent"
+            android:text="RANDOM"
+            android:layout_weight="0.3"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:id="@+id/randomItem" />
+    </LinearLayout>
+</LinearLayout>

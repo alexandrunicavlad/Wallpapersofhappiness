@@ -66,6 +66,12 @@
     <Reference Include="Xamarin.Android.Support.Design">
       <HintPath>..\packages\Xamarin.Android.Support.Design.23.2.1\lib\MonoAndroid43\Xamarin.Android.Support.Design.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.CardView">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.CardView.23.3.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.CardView.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -77,6 +83,9 @@
     <Compile Include="MoveText\MoveImageView.cs" />
     <Compile Include="Activities\LanguageActivity.cs" />
     <Compile Include="Activities\BaseActivity.cs" />
+    <Compile Include="Helpers\TextListAdapter.cs" />
+    <Compile Include="Models\ImageModel.cs" />
+    <Compile Include="Helpers\ImageAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -85,7 +94,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable-hdpi\app_icon.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_cancel.png" />
@@ -166,11 +174,31 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_gb.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_ro.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_ru.png" />
+    <AndroidResource Include="Resources\layout\textItems_listview.axml" />
+    <AndroidResource Include="Resources\layout\textItems_row.axml" />
+    <AndroidResource Include="Resources\layout\slider_size_layout.axml" />
+    <AndroidResource Include="Resources\drawable\seekbar_progress.xml" />
+    <AndroidResource Include="Resources\layout\color_text_layout.axml" />
+    <AndroidResource Include="Resources\drawable\round_purple.xml" />
+    <AndroidResource Include="Resources\drawable\round_black.xml" />
+    <AndroidResource Include="Resources\drawable\round_blue.xml" />
+    <AndroidResource Include="Resources\drawable\round_blue_light.xml" />
+    <AndroidResource Include="Resources\drawable\round_green.xml" />
+    <AndroidResource Include="Resources\drawable\round_orange.xml" />
+    <AndroidResource Include="Resources\drawable\round_pink.xml" />
+    <AndroidResource Include="Resources\drawable\round_red.xml" />
+    <AndroidResource Include="Resources\drawable\round_whit.xml" />
+    <AndroidResource Include="Resources\drawable\round_yellow.xml" />
+    <AndroidResource Include="Resources\layout\picture_layout.axml" />
+    <AndroidResource Include="Resources\layout\main_slider_layout.axml" />
+    <AndroidResource Include="Resources\drawable\bar_round_gray.xml" />
+    <AndroidResource Include="Resources\drawable\button_round_green.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
     <Folder Include="Helpers\" />
     <Folder Include="Resources\menu\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Insights.1.11.2\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\packages\Xamarin.Insights.1.11.2\build\MonoAndroid10\Xamarin.Insights.targets')" />

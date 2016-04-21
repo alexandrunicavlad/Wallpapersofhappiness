@@ -6,13 +6,13 @@ using Android.Graphics;
 
 namespace Wallpapersofhappiness
 {
-	[Activity (MainLauncher = true, Theme = "@style/NoActionBar")]
+	[Activity (Theme = "@style/NoActionBar")]
 	public class MainActivity : Activity
 	{
 		protected override void OnCreate (Bundle bundle)
 		{			
 			base.OnCreate (bundle);
-			SetContentView (Resource.Layout.Main);
+			SetContentView (Resource.Layout.main);
 			var progressBar = FindViewById<ProgressBar> (Resource.Id.splash_progressBar);
 
 			progressBar.IndeterminateDrawable.SetColorFilter (Resources.GetColor (Resource.Color.green_main), PorterDuff.Mode.SrcAtop);

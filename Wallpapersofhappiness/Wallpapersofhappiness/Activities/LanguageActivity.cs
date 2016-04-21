@@ -36,6 +36,7 @@ namespace Wallpapersofhappiness
 			SetContentView (Resource.Layout.language_layout);
 			ConstructActionBar ();
 			SetTitle (GetString (Resource.String.Selectlanguage));
+
 		}
 	}
 }

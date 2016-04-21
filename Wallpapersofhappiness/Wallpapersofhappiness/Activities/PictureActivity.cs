@@ -15,6 +15,7 @@ using Android.Provider;
 using MoveText;
 using Android.Graphics.Drawables;
 using Android.Media;
+using System.Net;
 
 
 
@@ -25,13 +26,10 @@ namespace Wallpapersofhappiness
 	{
 
 		private Bitmap bitmap;
-		private Bitmap newBitmap;
 		private MoveImageView imageView;
 		private string imagePath;
 		private Android.Net.Uri saveUri = null;
-		private float xPos;
-		private float yPos;
-		private HighlightView Crop;
+
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -42,14 +40,19 @@ namespace Wallpapersofhappiness
 			Bundle extras = Intent.Extras;
 
 			if (extras != null) {
-				imagePath = extras.GetString ("image-path");
-				saveUri = GetImageUri (imagePath);
-				if (extras.GetString (MediaStore.ExtraOutput) != null) {
-					saveUri = GetImageUri (extras.GetString (MediaStore.ExtraOutput));
+				if (extras.GetString ("image-number").Equals ("")) {		
+				
+					imagePath = extras.GetString ("image-path");
+					saveUri = GetImageUri (imagePath);
+					if (extras.GetString (MediaStore.ExtraOutput) != null) {
+						saveUri = GetImageUri (extras.GetString (MediaStore.ExtraOutput));
+					}
+					bitmap = GetBitmap (imagePath);
+				} else {
+					var url = extras.GetString ("image-number");
+					bitmap = GetImageBitmapFromUrl (url);
 				}
-				bitmap = GetBitmap (imagePath);
 
-				//Window.AddFlags (WindowManagerFlags.Fullscreen);
 				imageView.SetImageBitmap (bitmap);
 			}
 
@@ -72,9 +75,10 @@ namespace Wallpapersofhappiness
 				SaveImage (newbitmapnew);
 				OnBackPressed ();
 			};
-			editIcon.Click += delegate {				
-				imageView.EnterText (WindowManager.DefaultDisplay.Height);
-				imageView.Invalidate ();
+			editIcon.Click += delegate {			
+				SelectText ();
+				//imageView.EnterText (WindowManager.DefaultDisplay.Height);
+				//imageView.Invalidate ();
 			};
 			settingIcon.Click += delegate {
 				if (palletteIcon.Visibility == ViewStates.Visible) {
@@ -90,6 +94,136 @@ namespace Wallpapersofhappiness
 				}
 
 			};
+
+			palletteIcon.Click += delegate {
+				
+				AlertDialog.Builder alert = new AlertDialog.Builder (this);
+				alert.SetTitle ("Chose color");
+				var infate = LayoutInflater.Inflate (Resource.Layout.color_text_layout, null);
+				var seekBar = infate.FindViewById<SeekBar> (Resource.Id.edit_seekBar);
+				var indicator = infate.FindViewById<TextView> (Resource.Id.text_seekBar_indicator);
+				alert.SetView (infate);
+				var colorSelected = Resource.Color.white;
+				infate.FindViewById<ImageView> (Resource.Id.purpleColor).Click += delegate {
+					colorSelected = Resource.Color.purple_text;
+				};
+				infate.FindViewById<ImageView> (Resource.Id.blueColor).Click += delegate {
+					colorSelected = Resource.Color.blue_text;
+				};
+				infate.FindViewById<ImageView> (Resource.Id.blueLightColor).Click += delegate {
+					colorSelected = Resource.Color.blue_light_text;
+				};
+				infate.FindViewById<ImageView> (Resource.Id.greenColor).Click += delegate {
+					colorSelected = Resource.Color.green_text;
+				};
+				infate.FindViewById<ImageView> (Resource.Id.pinkColor).Click += delegate {
+					colorSelected = Resource.Color.pink_text;
+				};
+				infate.FindViewById<ImageView> (Resource.Id.redColor).Click += delegate {
+					colorSelected = Resource.Color.red_text;
+				};
+				infate.FindViewById<ImageView> (Resource.Id.orangeColor).Click += delegate {
+					colorSelected = Resource.Color.orange_text;
+				};
+				infate.FindViewById<ImageView> (Resource.Id.yellowColor).Click += delegate {
+					colorSelected = Resource.Color.yellow_text;
+				};
+				infate.FindViewById<ImageView> (Resource.Id.blackColor).Click += delegate {
+					colorSelected = Resource.Color.black_text;
+				};
+				infate.FindViewById<ImageView> (Resource.Id.whiteColor).Click += delegate {
+					colorSelected = Resource.Color.white_text;
+				};
+				alert.SetPositiveButton ("Done", delegate {	
+					imageView.TextColor (colorSelected);
+					imageView.Invalidate ();
+				});
+				alert.SetNegativeButton ("Cancel", delegate {
+
+				});
+				alert.Show ();
+			};
+			textIcon.Click += delegate {
+				AlertDialog.Builder alert = new AlertDialog.Builder (this);
+				alert.SetTitle ("Select font size");
+				var infate = LayoutInflater.Inflate (Resource.Layout.slider_size_layout, null);
+				var seekBar = infate.FindViewById<SeekBar> (Resource.Id.edit_seekBar);
+				var indicator = infate.FindViewById<TextView> (Resource.Id.text_seekBar_indicator);
+				alert.SetView (infate);
+				alert.SetPositiveButton ("Done", delegate {		
+					imageView.SizeText ((float)seekBar.Progress);
+					imageView.Invalidate ();
+				});
+				alert.SetNegativeButton ("Cancel", delegate {
+					
+				});
+
+				var isLoaded = false;
+
+				seekBar.LayoutChange += delegate(object sender, View.LayoutChangeEventArgs e) {
+					var surfaceOrientation = Resources.Configuration.Orientation;
+					if (isLoaded)
+						return;
+
+					isLoaded = true;
+					indicator.Text = (seekBar.Progress).ToString ();
+					indicator.Visibility = ViewStates.Visible;
+
+					SeekBarIndicator (seekBar, indicator);
+				};
+
+				seekBar.ProgressChanged += delegate (object sender, SeekBar.ProgressChangedEventArgs args) {
+					if (!args.FromUser)
+						return;
+
+					indicator.Text = (seekBar.Progress).ToString ();
+
+					SeekBarIndicator (seekBar, indicator);
+				};
+
+				alert.Show ();
+			};
+
+		}
+
+		private void SeekBarIndicator (SeekBar seekBar, TextView indicator)
+		{
+			RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WrapContent, RelativeLayout.LayoutParams.WrapContent);
+			Rect thumbRect = seekBar.Thumb.Bounds;
+			var abc = thumbRect.CenterX ();
+
+				
+			p.SetMargins (abc, 0, 0, 0);
+
+
+			indicator.LayoutParameters = p;
+		}
+
+
+		private void SelectText ()
+		{
+			Dialog dialog = new Dialog (this);
+//			dialog.Window.RequestFeature (WindowFeatures.NoTitle);
+			dialog.SetContentView (Resource.Layout.textItems_listview);
+			dialog.Window.SetGravity (GravityFlags.Center);
+			dialog.Window.SetLayout (WindowManager.DefaultDisplay.Width - 100, WindowManagerLayoutParams.WrapContent);
+			dialog.SetCancelable (true);
+			dialog.SetCanceledOnTouchOutside (true);
+			var listView = dialog.FindViewById<ListView> (Resource.Id.listview);
+			List<String> values = new List<String> { "Android", "iPhonagasgagasgasgasgasgasgfasfafasfafasfaasgage", "WindowsMobile",
+				"Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X", "Ubuntu", "Windows7", "Max OS X", "Ubuntu", "Windows7", "Max OS X",
+				"Linux"
+			};
+			var listAdapter = new TextListAdapter (this, values);
+			listView.Adapter = listAdapter;
+			listView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
+				dialog.Dismiss ();
+				imageView.PutText (values [e.Position]);
+				imageView.EnterText (WindowManager.DefaultDisplay.Height);
+				imageView.Invalidate ();
+			};
+			dialog.Show ();
+
 		}
 
 		private Bitmap GetBitmap (String path)
@@ -235,6 +369,27 @@ namespace Wallpapersofhappiness
 			} catch (Exception) {
 				return null;
 			}
+		}
+
+		public Bitmap GetImageBitmapFromUrl (string url)
+		{
+			Bitmap imageBitmap = null;
+			Bitmap newImageBitmap = null;
+			using (var webClient = new WebClient ()) {
+				try {
+					var imageBytes = webClient.DownloadData (url);
+					if (imageBytes != null && imageBytes.Length > 0) {
+						imageBitmap = BitmapFactory.DecodeByteArray (imageBytes, 0, imageBytes.Length);
+						//					var heigh = (int)context.Resources.DisplayMetrics.HeightPixels / 4;
+						//					var width = Convert.ToInt32 (context.Resources.DisplayMetrics.WidthPixels / 3.5);
+						//					newImageBitmap = GetResizedBitmap (imageBitmap, heigh, width);
+					}
+				} catch (Exception ex) {
+					var a = 0;
+				}
+			
+			}
+			return imageBitmap;
 		}
 
 		public Bitmap LoadAndResizeBitmap (string fileName, int width, int height)

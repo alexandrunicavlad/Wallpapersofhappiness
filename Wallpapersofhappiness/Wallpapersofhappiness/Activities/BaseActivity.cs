@@ -17,6 +17,8 @@ using Android.Support.Design.Widget;
 using Android.Provider;
 using Android.Graphics;
 using Uri = Android.Net.Uri;
+using System.Net;
+using Java.Net;
 
 namespace Wallpapersofhappiness
 {
@@ -44,6 +46,7 @@ namespace Wallpapersofhappiness
 
 			SetSupportActionBar (toolbar);
 			SupportActionBar.SetDisplayShowTitleEnabled (false);
+
 			drawerLayout = FindViewById<DrawerLayout> (Resource.Id.DrawerLayout);
 			var navigationView = FindViewById<NavigationView> (Resource.Id.nav_view);
 			//			var inflate = LayoutInflater.Inflate (Resource.Layout.header, null);
@@ -81,6 +84,12 @@ namespace Wallpapersofhappiness
 
 			externalPhoto.Click += delegate {
 				drawerLayout.CloseDrawers ();
+				if (this is SelectedPhotoActivity) {
+					
+				} else {
+					StartActivity (typeof(SelectedPhotoActivity));
+					Finish ();
+				}
 			};
 
 			languageLayout.Click += delegate {
@@ -107,6 +116,32 @@ namespace Wallpapersofhappiness
 		public void SetIconRight (int resource)
 		{
 			toolbar.FindViewById<ImageView> (Resource.Id.iconRight).SetImageResource (resource);
+		}
+
+		public Bitmap GetImageBitmapFromUrl (string url)
+		{
+			Bitmap imageBitmap = null;
+			Bitmap newImageBitmap = null;
+			using (var webClient = new WebClient ()) {
+				try {					
+					var position = url.IndexOf ("upload");
+					var subUrl = url.Substring (0, position + 7);
+					var afterUrl = url.Substring (position + 7);
+					var newUrl = string.Format ("{0}w_{1},h_{2},c_fill/{3}", subUrl, Resources.DisplayMetrics.WidthPixels / 3, Resources.DisplayMetrics.HeightPixels / 3, afterUrl);
+					var imageBytes = webClient.DownloadData (newUrl);
+					if (imageBytes != null && imageBytes.Length > 0) {
+						imageBitmap = BitmapFactory.DecodeByteArray (imageBytes, 0, imageBytes.Length);
+						//					var heigh = (int)context.Resources.DisplayMetrics.HeightPixels / 4;
+						//					var width = Convert.ToInt32 (context.Resources.DisplayMetrics.WidthPixels / 3.5);
+						//					newImageBitmap = GetResizedBitmap (imageBitmap, heigh, width);
+					}
+				} catch (Exception ex) {
+					var a = 0;
+				}
+
+			}
+
+			return imageBitmap;
 		}
 
 		protected override void OnActivityResult (int requestCode, Result resultCode, Intent data)

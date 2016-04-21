@@ -23,7 +23,7 @@ namespace MoveText
 		private Boolean putText = false;
 		private int textColor = Resource.Color.white;
 		private string textString = "testingggg";
-		private float textSize = 40f;
+		private float textSize = 20f;
 		private Typeface typefaces = Typeface.Create (Typeface.Default, TypefaceStyle.BoldItalic);
 
 		public MoveImageView (Context context, IAttributeSet attrs)
@@ -39,6 +39,11 @@ namespace MoveText
 			y = height / 2;
 		}
 
+		public void PutText (string text)
+		{			
+			textString = text;
+		}
+
 		protected override void OnDraw (Canvas canvas)
 		{
 			{
@@ -49,13 +54,24 @@ namespace MoveText
 			}
 		}
 
+		public void SizeText (float size)
+		{
+			
+			textSize = size;
+
+		}
+
+		public void TextColor (int color)
+		{
+			textColor = color;
+		}
+
 		public void CreateBitmapWithText (Canvas canvas)
 		{
 			string str = textString;
-
+			var activit = (PictureActivity)context;
 			TextPaint mTextPaint = new TextPaint ();
-			mTextPaint.TextSize = textSize;
-
+			mTextPaint.TextSize = textSize * activit.Resources.DisplayMetrics.Density;		
 			mTextPaint.TextAlign = Paint.Align.Center;
 			mTextPaint.Color = Resources.GetColor (textColor);
 			mTextPaint.SetTypeface (typefaces);
