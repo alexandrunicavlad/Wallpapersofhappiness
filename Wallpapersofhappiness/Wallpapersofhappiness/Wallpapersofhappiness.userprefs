@@ -1,0 +1,19 @@
+﻿<Properties StartupItem="Wallpapersofhappiness\Wallpapersofhappiness.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.TA92917UH0" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Wallpapersofhappiness\Activities\PictureActivity.cs">
+    <Files>
+      <File FileName="Wallpapersofhappiness\MainActivity.cs" Line="1" Column="1" />
+      <File FileName="Wallpapersofhappiness\Activities\SelectedPhotoActivity.cs" Line="101" Column="57" />
+      <File FileName="Wallpapersofhappiness\Activities\PictureActivity.cs" Line="246" Column="6" />
+      <File FileName="Wallpapersofhappiness\MoveText\MoveImageView.cs" Line="47" Column="27" />
+      <File FileName="Wallpapersofhappiness\Models\TextModel.cs" Line="1" Column="1" />
+      <File FileName="Wallpapersofhappiness\Models\ImageModel.cs" Line="1" Column="1" />
+      <File FileName="Wallpapersofhappiness\Resources\values\Strings.xml" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Wallpapersofhappiness AndroidDesignerPreferredDevice="Nexus 4" />
+</Properties>

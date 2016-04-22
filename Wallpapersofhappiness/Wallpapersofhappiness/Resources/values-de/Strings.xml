@@ -1,0 +1,31 @@
+<resources>
+	<string name="app_name">Wallpapers of happiness</string>
+	<string name="open_drawer">Open drawer</string>
+	<string name="close_drawer">Close drawer</string>
+	<string name="take_photo">FOTO MACHEN</string>
+	<string name="chose_from">WÄHLEN SIE VON FOTOS</string>
+	<string name="external_photo">AUSSEN FOTOS</string>
+	<string name="language">SPRACHE</string>
+	<!--language-->
+	<string name="English">Englisch</string>
+	<string name="German">Deutsche</string>
+	<string name="Romanian">Rumänisch</string>
+	<string name="Russian">Russisch</string>
+	<!--toolbar title-->
+	<string name="Selectlanguage">Wähle deine Sprache</string>
+	<string name="Previewbackground">Vorschau Hintergrund</string>
+	<string name="Defaultbackground">Standard Hintergrund</string>
+	<!--category-->
+	<string name="Love">Liebe</string>
+	<string name="Happines">Glück</string>
+	<string name="Sport">Sport</string>
+	<string name="Couple">Paar</string>
+	<string name="Motivation">Motivation</string>
+	<!--error-->
+	<string name="ValidationErrorConverting">Kann keine Daten abgerufen werden!</string>
+	<string name="TryAgainLater">Error completing current action. Please try again later</string>
+	<string name="TryAgain">Bitte versuche es erneut</string>
+	<string name="ValidationRequestTimeOut">Problem mit dem Server verbinden. Bitte versuche es erneut</string>
+	<string name="ValidationCannotCast">Sorry, es gab ein Problem zu verbinden. Bitte versuche es erneut</string>
+	<string name="ValidationIntPtr">Your picture was not loaded correctly</string>
+</resources>
