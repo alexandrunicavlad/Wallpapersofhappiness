@@ -75,10 +75,10 @@ namespace Wallpapersofhappiness
 				saveIcon.Clickable = false;
 				imageView.DrawingCacheEnabled = true;
 				Bitmap newbitmapnew = imageView.DrawingCache;
+
 				SaveImage (newbitmapnew);
-				OnBackPressed ();
 			};
-			editIcon.Click += delegate {
+			editIcon.Click += delegate {		
 				ThreadPool.QueueUserWorkItem (o => GetData ());
 				//imageView.EnterText (WindowManager.DefaultDisplay.Height);
 				//imageView.Invalidate ();
@@ -90,7 +90,8 @@ namespace Wallpapersofhappiness
 					textIcon.Visibility = ViewStates.Gone;
 					fontIcon.Visibility = ViewStates.Gone;
 				} else {
-					settingIcon.SetImageResource (Resource.Drawable.ic_cancel);
+					settingIcon.SetImageResource (Resource.Drawable.ic_close);
+					settingIcon.Background = Resources.GetDrawable (Resource.Drawable.round_green_main);
 					palletteIcon.Visibility = ViewStates.Visible;
 					textIcon.Visibility = ViewStates.Visible;
 					fontIcon.Visibility = ViewStates.Visible;
@@ -177,8 +178,6 @@ namespace Wallpapersofhappiness
 					alertDialog.Dismiss ();
 
 				};
-
-
 			};
 			textIcon.Click += delegate {
 				AlertDialog.Builder alert = new AlertDialog.Builder (this);
@@ -274,7 +273,7 @@ namespace Wallpapersofhappiness
 					Toast.MakeText (this, GetString (Resource.String.ValidationText), ToastLength.Short);
 				} else {
 					SelectText ();
-				}
+				}			
 			});
 		}
 
@@ -297,8 +296,9 @@ namespace Wallpapersofhappiness
 			dialog.Window.SetGravity (GravityFlags.Center);
 			dialog.Window.SetLayout (WindowManager.DefaultDisplay.Width - 100, WindowManagerLayoutParams.WrapContent);
 			dialog.SetCancelable (true);
+			dialog.SetTitle ("Chose text");
 			dialog.SetCanceledOnTouchOutside (true);
-			var listView = dialog.FindViewById<ListView> (Resource.Id.listview);
+			var listView = dialog.FindViewById<ListView> (Resource.Id.listview);				
 			var values = textList.english;
 			var listAdapter = new TextListAdapter (this, values);
 			listView.Adapter = listAdapter;
@@ -309,7 +309,6 @@ namespace Wallpapersofhappiness
 				imageView.Invalidate ();
 			};
 			dialog.Show ();
-
 		}
 
 		private Bitmap GetBitmap (String path)
@@ -420,8 +419,7 @@ namespace Wallpapersofhappiness
 		}
 
 		private void SaveImage (Bitmap finalBitmap)
-		{
-
+		{		
 			String root = Android.OS.Environment.GetExternalStoragePublicDirectory (Android.OS.Environment.DirectoryPictures).ToString ();
 
 			File myDir = new File (root + "/Wallpapers");    
@@ -441,10 +439,44 @@ namespace Wallpapersofhappiness
 				byte[] byteArray = stream.ToArray ();
 				fo.Write (byteArray);
 				fo.Close ();
-
+				DialogToSetWallpaper (byteArray);
 			} catch (Exception e) {
 				var mess = e.Message;
 			}
+		}
+
+		private void DialogToSetWallpaper (byte[] bitmap)
+		{
+			AlertDialog.Builder alert = new AlertDialog.Builder (this);
+			alert.SetTitle ("Your wallpapers was saved to your album");
+			alert.SetNegativeButton ("Cancel", delegate {
+				OnBackPressed ();
+			});
+			alert.SetPositiveButton ("How to set as wallpaper?", delegate {
+				WallpaperManager myWallpaper = WallpaperManager.GetInstance (this);
+				try {
+					int height = Resources.DisplayMetrics.HeightPixels;
+					int width = Resources.DisplayMetrics.WidthPixels;
+					myWallpaper.SetBitmap (GetResizedBitmap (Decode (bitmap), width, height));
+				} catch (IOException e) {
+					e.PrintStackTrace ();
+				}
+				OnBackPressed ();
+			});
+			AlertDialog alertDialog = alert.Show ();
+		}
+
+		public Bitmap GetResizedBitmap (Bitmap bm, int newWidth, int newHeight)
+		{
+			int width = bm.Width;
+			int height = bm.Height;
+			float scaleWidth = ((float)newWidth) / width;
+			float scaleHeight = ((float)newHeight) / height;
+			Matrix matrix = new Matrix ();
+			matrix.PostScale (scaleWidth, scaleHeight);
+			Bitmap resizedBitmap = Bitmap.CreateBitmap (bm, 0, 0, width, height, matrix, false);
+			bm.Recycle ();	
+			return resizedBitmap;
 		}
 
 		public  Bitmap Decode (byte[] encodeByte)
@@ -498,6 +530,23 @@ namespace Wallpapersofhappiness
 			Bitmap resizedBitmap = BitmapFactory.DecodeFile (fileName, options);
 
 			return resizedBitmap;
+		}
+
+		protected void ShowRetry (RelativeLayout loading, Context context)
+		{
+			RunOnUiThread (() => {
+
+				var progress = loading.FindViewById<ProgressBar> (Resource.Id.splash_progressBar);
+				var retry = loading.FindViewById<Button> (Resource.Id.loading_retry);
+
+				progress.Visibility = ViewStates.Gone;
+				retry.Visibility = ViewStates.Visible;
+
+				retry.Click += delegate {					
+					StartActivity (context.GetType ());
+					Finish ();
+				};
+			});
 		}
 	}
 

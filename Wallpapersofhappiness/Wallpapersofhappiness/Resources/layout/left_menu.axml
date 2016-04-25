@@ -20,7 +20,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_palette" />
+            android:src="@drawable/ic_take_camera" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_palette" />
+            android:src="@drawable/ic_chose_photos" />
         <TextView
             android:layout_height="wrap_content"
             android:text="@string/chose_from"
@@ -68,7 +68,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_palette" />
+            android:src="@drawable/ic_external_photo" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_palette" />
+            android:src="@drawable/ic_language" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -51,7 +51,6 @@
             android:maxHeight="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:thumb="@drawable/ic_cancel"
             android:layout_toRightOf="@+id/edit_slider_start_text"
             android:layout_toLeftOf="@+id/edit_slider_end_text"
             android:layout_centerVertical="true"

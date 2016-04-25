@@ -78,7 +78,7 @@ namespace Wallpapersofhappiness
 		private bool sportBool = false;
 		private bool coupleBool = false;
 		private bool motivationBool = false;
-
+		private bool retrying = false;
 		private TextView best;
 		private TextView category;
 		private TextView random;
@@ -90,6 +90,10 @@ namespace Wallpapersofhappiness
 		private LinearLayout couplelayout;
 		private LinearLayout motivationlayout;
 
+		private RelativeLayout loading;
+		private RelativeLayout homePage;
+		private RelativeLayout loadingRec;
+
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
@@ -98,12 +102,18 @@ namespace Wallpapersofhappiness
 			UpdateTexts ();
 			SetTitle (GetString (Resource.String.Defaultbackground));
 
+			loading = FindViewById<RelativeLayout> (Resource.Id.main_loading);
+			loadingRec = FindViewById<RelativeLayout> (Resource.Id.main_loading_recycler);
+			homePage = FindViewById<RelativeLayout> (Resource.Id.homepage);
+			homePage.Visibility = ViewStates.Visible;
+
 			ThreadPool.QueueUserWorkItem (o => GetData ("best"));
 
 			recyclerView = FindViewById<RecyclerView> (Resource.Id.image_recycler);
 			GridLayoutManager glm = new GridLayoutManager (this, 3);
 			recyclerView.SetLayoutManager (glm);
 			mainSlider = FindViewById<LinearLayout> (Resource.Id.main_slider);
+
 			best = mainSlider.FindViewById<TextView> (Resource.Id.bestItem);
 			category = mainSlider.FindViewById<TextView> (Resource.Id.categoryItem);
 			random = mainSlider.FindViewById<TextView> (Resource.Id.randomItem);
@@ -120,6 +130,8 @@ namespace Wallpapersofhappiness
 				if (bestBool) {
 					return;
 				} else {				
+					recyclerView.Visibility = ViewStates.Gone;
+					loadingRec.Visibility = ViewStates.Visible;
 					ThreadPool.QueueUserWorkItem (o => GetData ("best"));
 					RunOnUiThread (() => {
 						ClickValidator ().SetBackgroundResource (Color.Transparent);
@@ -131,7 +143,9 @@ namespace Wallpapersofhappiness
 			category.Click += delegate {
 				if (categoryBool) {
 					return;
-				} else {					
+				} else {			
+					recyclerView.Visibility = ViewStates.Gone;
+					loadingRec.Visibility = ViewStates.Visible;
 					ThreadPool.QueueUserWorkItem (o => GetData ("categories/love"));
 					RunOnUiThread (() => {
 						ClickValidator ().SetBackgroundResource (Color.Transparent);
@@ -139,7 +153,7 @@ namespace Wallpapersofhappiness
 						mainSlider.FindViewById<LinearLayout> (Resource.Id.category_slider).Visibility = ViewStates.Visible;
 						category.Background = Resources.GetDrawable (Resource.Drawable.button_round_green);
 						mainSlider.FindViewById<TextView> (Resource.Id.loveText).SetTextColor (Resources.GetColor (Resource.Color.green_main));
-						mainSlider.FindViewById<ImageView> (Resource.Id.loveImage).SetImageResource (Resource.Drawable.ic_format_text);
+						mainSlider.FindViewById<ImageView> (Resource.Id.loveImage).SetImageResource (Resource.Drawable.ic_love_green);
 						categoryBool = true;
 						loveBool = true;
 					});
@@ -149,7 +163,9 @@ namespace Wallpapersofhappiness
 			random.Click += delegate {
 				if (randomBool) {
 					return;
-				} else {					
+				} else {	
+					recyclerView.Visibility = ViewStates.Gone;
+					loadingRec.Visibility = ViewStates.Visible;
 					ThreadPool.QueueUserWorkItem (o => GetData ("random"));
 					RunOnUiThread (() => {
 						ClickValidator ().SetBackgroundResource (Color.Transparent);
@@ -162,20 +178,24 @@ namespace Wallpapersofhappiness
 		
 			lovelayout.Click += delegate {
 				lovelayout.Clickable = false;
+				recyclerView.Visibility = ViewStates.Gone;
+				loadingRec.Visibility = ViewStates.Visible;
 				ThreadPool.QueueUserWorkItem (o => GetData ("categories/love"));
 				RunOnUiThread (() => {
 					mainSlider.FindViewById<TextView> (Resource.Id.loveText).SetTextColor (Resources.GetColor (Resource.Color.green_main));
-					mainSlider.FindViewById<ImageView> (Resource.Id.loveImage).SetImageResource (Resource.Drawable.ic_format_text);
+					mainSlider.FindViewById<ImageView> (Resource.Id.loveImage).SetImageResource (Resource.Drawable.ic_love_green);
 					ClickCategoryValidator ();
 					loveBool = true;
 				});
 			};
 			happineslayout.Click += delegate {
 				happineslayout.Clickable = false;
+				recyclerView.Visibility = ViewStates.Gone;
+				loadingRec.Visibility = ViewStates.Visible;
 				ThreadPool.QueueUserWorkItem (o => GetData ("categories/happiness"));
 				RunOnUiThread (() => {
 					mainSlider.FindViewById<TextView> (Resource.Id.HappinesText).SetTextColor (Resources.GetColor (Resource.Color.green_main));
-					mainSlider.FindViewById<ImageView> (Resource.Id.HappinesImage).SetImageResource (Resource.Drawable.ic_format_text);
+					mainSlider.FindViewById<ImageView> (Resource.Id.HappinesImage).SetImageResource (Resource.Drawable.ic_happiness_green);
 					ClickCategoryValidator ();
 					happinesBool = true;
 				});
@@ -183,30 +203,37 @@ namespace Wallpapersofhappiness
 			};
 			sportlayout.Click += delegate {
 				sportlayout.Clickable = false;
+				recyclerView.Visibility = ViewStates.Gone;
+				loadingRec.Visibility = ViewStates.Visible;
 				ThreadPool.QueueUserWorkItem (o => GetData ("categories/sport"));
 				RunOnUiThread (() => {
 					mainSlider.FindViewById<TextView> (Resource.Id.SportText).SetTextColor (Resources.GetColor (Resource.Color.green_main));
-					mainSlider.FindViewById<ImageView> (Resource.Id.SportImage).SetImageResource (Resource.Drawable.ic_format_text);
+					mainSlider.FindViewById<ImageView> (Resource.Id.SportImage).SetImageResource (Resource.Drawable.ic_sport_green);
 					ClickCategoryValidator ();
 					sportBool = true;
 				});
 			};
 			couplelayout.Click += delegate {
 				couplelayout.Clickable = false;
+				recyclerView.Visibility = ViewStates.Gone;
+				loadingRec.Visibility = ViewStates.Visible;
 				ThreadPool.QueueUserWorkItem (o => GetData ("categories/couple"));
-				RunOnUiThread (() => {
+				RunOnUiThread (() => {				
+
 					mainSlider.FindViewById<TextView> (Resource.Id.CoupleText).SetTextColor (Resources.GetColor (Resource.Color.green_main));
-					mainSlider.FindViewById<ImageView> (Resource.Id.CoupleImage).SetImageResource (Resource.Drawable.ic_format_text);
+					mainSlider.FindViewById<ImageView> (Resource.Id.CoupleImage).SetImageResource (Resource.Drawable.ic_couple_green);
 					ClickCategoryValidator ();
 					coupleBool = true;
 				});
 			};
 			motivationlayout.Click += delegate {
 				motivationlayout.Clickable = false;
-				RunOnUiThread (() => {
-					ThreadPool.QueueUserWorkItem (o => GetData ("categories/motivation"));
+				recyclerView.Visibility = ViewStates.Gone;
+				loadingRec.Visibility = ViewStates.Visible;
+				ThreadPool.QueueUserWorkItem (o => GetData ("categories/motivation"));
+				RunOnUiThread (() => {	
 					mainSlider.FindViewById<TextView> (Resource.Id.MotivationText).SetTextColor (Resources.GetColor (Resource.Color.green_main));
-					mainSlider.FindViewById<ImageView> (Resource.Id.MotivationImage).SetImageResource (Resource.Drawable.ic_format_text);
+					mainSlider.FindViewById<ImageView> (Resource.Id.MotivationImage).SetImageResource (Resource.Drawable.ic_motivation_green);
 					ClickCategoryValidator ();
 					motivationBool = true;
 				});
@@ -219,27 +246,27 @@ namespace Wallpapersofhappiness
 			if (loveBool) {
 				loveBool = false;
 				mainSlider.FindViewById<TextView> (Resource.Id.loveText).SetTextColor (Resources.GetColor (Resource.Color.gray));
-				mainSlider.FindViewById<ImageView> (Resource.Id.loveImage).SetImageResource (Resource.Drawable.ic_palette);
+				mainSlider.FindViewById<ImageView> (Resource.Id.loveImage).SetImageResource (Resource.Drawable.ic_love);
 				lovelayout.Clickable = true;
 			} else if (happinesBool) {
 				happinesBool = false;
 				mainSlider.FindViewById<TextView> (Resource.Id.HappinesText).SetTextColor (Resources.GetColor (Resource.Color.gray));
-				mainSlider.FindViewById<ImageView> (Resource.Id.HappinesImage).SetImageResource (Resource.Drawable.ic_palette);
+				mainSlider.FindViewById<ImageView> (Resource.Id.HappinesImage).SetImageResource (Resource.Drawable.ic_happiness);
 				happineslayout.Clickable = true;
 			} else if (sportBool) {
 				sportBool = false;
 				mainSlider.FindViewById<TextView> (Resource.Id.SportText).SetTextColor (Resources.GetColor (Resource.Color.gray));
-				mainSlider.FindViewById<ImageView> (Resource.Id.SportImage).SetImageResource (Resource.Drawable.ic_palette);
+				mainSlider.FindViewById<ImageView> (Resource.Id.SportImage).SetImageResource (Resource.Drawable.ic_sport);
 				sportlayout.Clickable = true;
 			} else if (coupleBool) {
 				coupleBool = false;
 				mainSlider.FindViewById<TextView> (Resource.Id.CoupleText).SetTextColor (Resources.GetColor (Resource.Color.gray));
-				mainSlider.FindViewById<ImageView> (Resource.Id.CoupleImage).SetImageResource (Resource.Drawable.ic_palette);
+				mainSlider.FindViewById<ImageView> (Resource.Id.CoupleImage).SetImageResource (Resource.Drawable.ic_couple);
 				couplelayout.Clickable = true;
 			} else if (motivationBool) {
 				motivationBool = false;
 				mainSlider.FindViewById<TextView> (Resource.Id.MotivationText).SetTextColor (Resources.GetColor (Resource.Color.gray));
-				mainSlider.FindViewById<ImageView> (Resource.Id.MotivationImage).SetImageResource (Resource.Drawable.ic_palette);
+				mainSlider.FindViewById<ImageView> (Resource.Id.MotivationImage).SetImageResource (Resource.Drawable.ic_motivation);
 				motivationlayout.Clickable = true;
 			}
 			//return item;
@@ -284,20 +311,25 @@ namespace Wallpapersofhappiness
 				
 			} catch (Exception ex) {
 				HandleErrors (ex);
-				return;
+				retrying = true;
 			}
-
-			bitmaps = new List<Bitmap> ();
-			foreach (var img in images) {				
-				bitmaps.Add (GetImageBitmapFromUrl (img.url));
-			}
-
 			RunOnUiThread (() => {
-				FindViewById<RelativeLayout> (Resource.Id.homepage).Visibility = ViewStates.Gone;
+				homePage.Visibility = ViewStates.Gone;
+				if (retrying) {
+					ShowRetry (loading, this);
+					loading.Visibility = ViewStates.Visible;
+					return;
+				}
+
+				bitmaps = new List<Bitmap> ();
+				foreach (var img in images) {				
+					bitmaps.Add (GetImageBitmapFromUrl (img.url));
+				}
 				FindViewById<LinearLayout> (Resource.Id.selectedpagelayout).Visibility = ViewStates.Visible;
 				adapter = new ImageAdapter (this, bitmaps);
 				adapter.ItemClick += OnItemClick;
 				recyclerView.SetAdapter (adapter);
+				recyclerView.Visibility = ViewStates.Visible;
 			});
 		}
 

@@ -99,6 +99,23 @@ namespace Wallpapersofhappiness
 			};
 		}
 
+		protected void ShowRetry (RelativeLayout loading, Context context)
+		{
+			RunOnUiThread (() => {
+				
+				var progress = loading.FindViewById<ProgressBar> (Resource.Id.splash_progressBar);
+				var retry = loading.FindViewById<Button> (Resource.Id.loading_retry);
+
+				progress.Visibility = ViewStates.Gone;
+				retry.Visibility = ViewStates.Visible;
+
+				retry.Click += delegate {					
+					StartActivity (context.GetType ());
+					Finish ();
+				};
+			});
+		}
+
 		public void UpdateTexts ()
 		{
 			leftMenu.FindViewById<TextView> (Resource.Id.take_Text).Text = GetString (Resource.String.take_photo);
@@ -240,6 +257,9 @@ namespace Wallpapersofhappiness
 						ShowToast (Resource.String.ValidationIntPtr);
 						break;
 					} else if (e.Message.Contains ("attempt to re-open an already-closed object: SQLiteDatabase:")) {
+						ShowToast (Resource.String.TryAgain);
+						break;
+					} else if (e.Message.Contains ("Error: ConnectFailure (Network is unreachable)")) {
 						ShowToast (Resource.String.TryAgain);
 						break;
 					} else {
