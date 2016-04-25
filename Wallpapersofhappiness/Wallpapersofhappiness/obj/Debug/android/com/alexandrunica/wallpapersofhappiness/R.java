@@ -2745,7 +2745,8 @@ containing a value of this type.
         public static final int support_simple_spinner_dropdown_item=0x7f03003d;
         public static final int textitems_listview=0x7f03003e;
         public static final int textitems_row=0x7f03003f;
-        public static final int tool_bar=0x7f030040;
+        public static final int texttypeface_row=0x7f030040;
+        public static final int tool_bar=0x7f030041;
     }
     public static final class menu {
         public static final int navmenu=0x7f0c0000;

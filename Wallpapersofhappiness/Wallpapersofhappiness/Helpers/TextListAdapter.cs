@@ -3,6 +3,7 @@ using Android.Widget;
 using Android.Content;
 using Android.Views;
 using System.Collections.Generic;
+using Android.Graphics;
 
 namespace Wallpapersofhappiness
 {
@@ -11,7 +12,7 @@ namespace Wallpapersofhappiness
 	{
 		private List<String> _items;
 		private Context _context;
-
+		private List<Typeface> _typefaces;
 
 		public TextListAdapter (Context context, List<String> items)
 		{

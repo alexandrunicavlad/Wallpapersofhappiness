@@ -2980,7 +2980,10 @@ namespace Wallpapersofhappiness
 			public const int textItems_row = 2130903103;
 			
 			// aapt resource value: 0x7f030040
-			public const int tool_bar = 2130903104;
+			public const int textTypeface_row = 2130903104;
+			
+			// aapt resource value: 0x7f030041
+			public const int tool_bar = 2130903105;
 			
 			static Layout()
 			{

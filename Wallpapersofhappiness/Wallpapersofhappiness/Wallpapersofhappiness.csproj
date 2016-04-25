@@ -88,6 +88,8 @@
     <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Helpers\ImageAdapter.cs" />
     <Compile Include="Models\TextModel.cs" />
+    <Compile Include="Helpers\TypeFaceListAdapter.cs" />
+    <Compile Include="Models\TypefaceModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -293,6 +295,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_pencil_tip.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_type_filled.png" />
     <AndroidResource Include="Resources\drawable\round_green_main.xml" />
+    <AndroidResource Include="Resources\layout\textTypeface_row.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -307,4 +310,9 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
   <Import Project="..\packages\Xamarin.Insights.1.12.3\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\packages\Xamarin.Insights.1.12.3\build\MonoAndroid10\Xamarin.Insights.targets')" />
+  <ItemGroup>
+    <AndroidAsset Include="Assets\AlexBrush-Regular.ttf" />
+    <AndroidAsset Include="Assets\Aller_Rg.ttf" />
+    <AndroidAsset Include="Assets\ostrich-regular.ttf" />
+  </ItemGroup>
 </Project>

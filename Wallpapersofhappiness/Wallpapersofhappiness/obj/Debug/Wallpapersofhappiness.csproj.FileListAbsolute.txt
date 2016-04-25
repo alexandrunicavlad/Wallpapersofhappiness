@@ -285,5 +285,6 @@ C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofha
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-hdpi\ic_pencil_tip.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-hdpi\ic_type_filled.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\round_green_main.xml
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\layout\texttypeface_row.xml
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\Wallpapersofhappiness.dll.mdb
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Wallpapersofhappiness.dll.mdb

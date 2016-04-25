@@ -23,7 +23,8 @@ using System.Threading;
 
 namespace Wallpapersofhappiness
 {
-	[Activity (Label = "PictureActivity", Theme = "@style/NoActionBar")]			
+	[Activity (Label = "PictureActivity", Theme = "@style/NoActionBar", ConfigurationChanges =
+		(Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize))]			
 	public class PictureActivity : Activity
 	{
 
@@ -222,29 +223,28 @@ namespace Wallpapersofhappiness
 				alert.Show ();
 			};
 			fontIcon.Click += delegate {
-				var listOfTypeface = new List<Typeface> ();
-				var listOfName = new List<String> ();
-				listOfTypeface.Add (Typeface.Create (Typeface.Default, TypefaceStyle.Bold));
-				listOfTypeface.Add (Typeface.Create (Typeface.Default, TypefaceStyle.BoldItalic));
-				listOfTypeface.Add (Typeface.Create (Typeface.Default, TypefaceStyle.Italic));
-				listOfTypeface.Add (Typeface.Create (Typeface.Default, TypefaceStyle.Normal));
+				var listOfTypeface = new List<TypefaceModel> ();
+
+
+				listOfTypeface.Add (new TypefaceModel (Typeface.CreateFromAsset (Assets, "AlexBrush-Regular.ttf"), "Brush"));
+				listOfTypeface.Add (new TypefaceModel (Typeface.CreateFromAsset (Assets, "Aller_Rg.ttf"), "Aller"));
+				listOfTypeface.Add (new TypefaceModel (Typeface.CreateFromAsset (Assets, "ostrich-regular.ttf"), "Ostrich"));
+				listOfTypeface.Add (new TypefaceModel (Typeface.Create (Typeface.Default, TypefaceStyle.Normal), "Normal"));
 				AlertDialog.Builder alert = new AlertDialog.Builder (this);
-				foreach (var item in listOfTypeface) {
-					listOfName.Add (item.Style.ToString ());
-				}
-				ListView listView = new ListView (this);
-				ArrayAdapter<String> adapter = new ArrayAdapter<String> (this, Android.Resource.Layout.SimpleListItem1, listOfName);
-				alert.SetAdapter (adapter, delegate(object sender, DialogClickEventArgs e) {
-					imageView.TypefaceText (listOfTypeface [e.Which]);
+
+				var listAdapter = new TypeFaceListAdapter (this, listOfTypeface);
+
+				alert.SetAdapter (listAdapter, delegate(object sender, DialogClickEventArgs e) {
+					imageView.TypefaceText (listOfTypeface [e.Which].Typeface);
 					imageView.Invalidate ();
 				});
-
 					                               
 				alert.SetTitle ("Select font type");
 				alert.SetNegativeButton ("Cancel", delegate {
 
 				});
 				AlertDialog alertDialog = alert.Show ();
+
 			};
 		}
 

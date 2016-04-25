@@ -8,96 +8,105 @@
     <include
         android:id="@+id/header"
         layout="@layout/header" />
-    <LinearLayout
-        android:layout_centerInParent="true"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:id="@+id/takephoto">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_take_camera" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/take_photo"
-            android:textSize="18sp"
-            android:id="@+id/take_Text"
-            android:textColor="@color/gray_text"
-            android:layout_marginLeft="15dp"
-            android:gravity="center"
-            android:layout_gravity="center_vertical" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/chosefromphoto"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_vertical"
-        android:layout_marginTop="20dp">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_chose_photos" />
-        <TextView
-            android:layout_height="wrap_content"
-            android:text="@string/chose_from"
-            android:textSize="18sp"
-            android:id="@+id/choseText"
-            android:textColor="@color/gray_text"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="15dp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:id="@+id/externalphoto"
-        android:layout_marginTop="20dp">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_external_photo" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/external_photo"
-            android:textSize="18sp"
-            android:id="@+id/externalText"
-            android:textColor="@color/gray_text"
-            android:layout_marginLeft="15dp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:id="@+id/languagelayout"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_language" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/language"
-            android:textSize="18sp"
-            android:id="@+id/languageText"
-            android:textColor="@color/gray_text"
-            android:layout_marginLeft="15dp" />
-    </LinearLayout>
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/takephoto">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_take_camera" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/take_photo"
+                    android:textSize="18sp"
+                    android:id="@+id/take_Text"
+                    android:textColor="@color/gray_text"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/chosefromphoto"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="20dp">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_chose_photos" />
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="@string/chose_from"
+                    android:textSize="18sp"
+                    android:id="@+id/choseText"
+                    android:textColor="@color/gray_text"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="15dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:id="@+id/externalphoto"
+                android:layout_marginTop="20dp">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_external_photo" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/external_photo"
+                    android:textSize="18sp"
+                    android:id="@+id/externalText"
+                    android:textColor="@color/gray_text"
+                    android:layout_marginLeft="15dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:id="@+id/languagelayout"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_language" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/language"
+                    android:textSize="18sp"
+                    android:id="@+id/languageText"
+                    android:textColor="@color/gray_text"
+                    android:layout_marginLeft="15dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

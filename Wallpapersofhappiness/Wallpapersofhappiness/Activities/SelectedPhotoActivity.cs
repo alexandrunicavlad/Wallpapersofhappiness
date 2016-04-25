@@ -29,7 +29,8 @@ using System.Threading;
 
 namespace Wallpapersofhappiness
 {
-	[Activity (MainLauncher = true, Label = "SelectedPhotoActivity", Theme = "@style/AppTheme")]			
+	[Activity (MainLauncher = true, Label = "@string/app_name", Theme = "@style/AppTheme", ConfigurationChanges =
+		(Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize))]			
 	public class SelectedPhotoActivity : BaseActivity
 	{
 		private const int REQUEST_IMAGE_CAPTURE = 1;
@@ -39,33 +40,6 @@ namespace Wallpapersofhappiness
 		private const string ApiSecret = "grc0mV1_k8xuV8xLYZgPGMpbwDw";
 		private LinearLayout mainSlider;
 		private List<ImageModel> images;
-		//		protected override void OnCreate (Bundle bundle)
-		//		{
-		//			base.OnCreate (bundle);
-		//			SetContentView (Resource.Layout.select_photo_layout);
-		//			var takePhoto = FindViewById<LinearLayout> (Resource.Id.takephoto);
-		//			var importPhoto = FindViewById<LinearLayout> (Resource.Id.importphoto);
-		//			takePhoto.Click += delegate {
-		//
-		//				Intent pictureIntent = new Intent (MediaStore.ActionImageCapture);
-		//
-		//				try {
-		//					photo = this.CreateTemporaryFile ("picture", ".jpg");
-		//					photo.Delete ();
-		//				} catch (Exception e) {
-		//					Toast.MakeText (this, "Please check sd card", ToastLength.Short);
-		//				}
-		//
-		//				selectedImage = Uri.FromFile (photo);
-		//				pictureIntent.PutExtra (MediaStore.ExtraOutput, selectedImage);
-		//				StartActivityForResult (pictureIntent, REQUEST_IMAGE_CAPTURE);
-		//			};
-		//			importPhoto.Click += delegate {
-		//				Intent intent = new Intent (Intent.ActionPick, MediaStore.Images.Media.ExternalContentUri);
-		//				StartActivityForResult (intent, REQUEST_IMAGE_ALBUM);
-		//			};
-		//
-		//		}
 		private RecyclerView recyclerView;
 		private List<Bitmap> bitmaps;
 		private ImageAdapter adapter;
