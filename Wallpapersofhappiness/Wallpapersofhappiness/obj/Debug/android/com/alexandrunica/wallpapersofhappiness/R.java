@@ -2752,6 +2752,9 @@ containing a value of this type.
         public static final int navmenu=0x7f0c0000;
     }
     public static final class string {
+        public static final int ChoseColor=0x7f090037;
+        public static final int ChoseText=0x7f090038;
+        public static final int ComingSoon=0x7f090036;
         public static final int Couple=0x7f090028;
         public static final int Defaultbackground=0x7f090024;
         /** language
@@ -2761,6 +2764,7 @@ language
 language
          */
         public static final int English=0x7f09001e;
+        public static final int Failedtoload=0x7f090032;
         public static final int German=0x7f09001f;
         public static final int Happines=0x7f090026;
         /** category
@@ -2771,9 +2775,15 @@ category
          */
         public static final int Love=0x7f090025;
         public static final int Motivation=0x7f090029;
+        /** alert
+         */
+        public static final int Okbutton=0x7f090033;
+        public static final int Pleasechecksd=0x7f090031;
         public static final int Previewbackground=0x7f090023;
         public static final int Romanian=0x7f090020;
         public static final int Russian=0x7f090021;
+        public static final int Selectfontsize=0x7f090039;
+        public static final int Selectfonttype=0x7f09003a;
         /** toolbar title
 toolbar title
 toolbar title
@@ -2817,12 +2827,16 @@ error
         public static final int app_name=0x7f090017;
         public static final int appbar_scrolling_view_behavior=0x7f090014;
         public static final int bottom_sheet_behavior=0x7f090015;
+        public static final int cancelbutton=0x7f090035;
         public static final int character_counter_pattern=0x7f090016;
         public static final int chose_from=0x7f09001b;
         public static final int close_drawer=0x7f090019;
+        public static final int donebutton=0x7f090034;
         public static final int external_photo=0x7f09001c;
         public static final int language=0x7f09001d;
         public static final int open_drawer=0x7f090018;
+        public static final int saveWallpapers=0x7f09003b;
+        public static final int saveWallpapersMess=0x7f09003c;
         public static final int status_bar_notification_info_overflow=0x7f090013;
         public static final int take_photo=0x7f09001a;
     }

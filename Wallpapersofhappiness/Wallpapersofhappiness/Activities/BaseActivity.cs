@@ -68,7 +68,7 @@ namespace Wallpapersofhappiness
 					photo = this.CreateTemporaryFile ("picture", ".jpg");
 					photo.Delete ();
 				} catch (Exception ex) {
-					Toast.MakeText (this, "Please check sd card", ToastLength.Short);
+					Toast.MakeText (this, GetString (Resource.String.Pleasechecksd), ToastLength.Short);
 				}				
 				selectedImage = Uri.FromFile (photo);
 				pictureIntent.PutExtra (MediaStore.ExtraOutput, selectedImage);
@@ -94,7 +94,8 @@ namespace Wallpapersofhappiness
 			};
 
 			languageLayout.Click += delegate {
-				StartActivityForResult (typeof(LanguageActivity), 1);
+				CreateDisclaimerDialog ();
+				//StartActivityForResult (typeof(LanguageActivity), 1);
 				drawerLayout.CloseDrawers ();
 			};
 		}
@@ -188,7 +189,7 @@ namespace Wallpapersofhappiness
 					intent.PutExtra ("image-path", selectedImage.ToString ());
 					StartActivityForResult (intent, REQUEST_IMAGE_CAPTURE);
 				} catch (Exception e) {
-					Toast.MakeText (this, "Failed to load capture", ToastLength.Short).Show ();
+					Toast.MakeText (this, GetString (Resource.String.Failedtoload), ToastLength.Short).Show ();
 				}
 			} else if ((requestCode == REQUEST_IMAGE_ALBUM) && (resultCode == Result.Ok) && (data != null)) {
 				selectedImage = data.Data;
@@ -201,7 +202,7 @@ namespace Wallpapersofhappiness
 
 				} catch (Exception) {
 
-					var toast = Toast.MakeText (this, "Failed to load", ToastLength.Short);
+					var toast = Toast.MakeText (this, GetString (Resource.String.Failedtoload), ToastLength.Short);
 					toast.Show ();
 				}
 			}
@@ -279,6 +280,17 @@ namespace Wallpapersofhappiness
 				var toast = Toast.MakeText (this, message, ToastLength.Short);
 				toast.Show ();
 			});
+		}
+
+		protected void CreateDisclaimerDialog ()
+		{
+			var builder = new Android.App.AlertDialog.Builder (this);
+			builder.SetPositiveButton (GetString (Resource.String.Okbutton), delegate {				
+			});	
+			var dialog = builder.Create ();	
+			dialog.SetTitle (Resources.GetString (Resource.String.language));
+			dialog.SetMessage (GetString (Resource.String.ComingSoon));
+			dialog.Show ();
 		}
 
 

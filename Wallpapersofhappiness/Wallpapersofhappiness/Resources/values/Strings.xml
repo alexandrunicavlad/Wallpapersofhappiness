@@ -29,4 +29,17 @@
 	<string name="ValidationCannotCast">Sorry,there was a problem connecting. Please try again</string>
 	<string name="ValidationIntPtr">Your picture was not loaded correctly</string>
 	<string name="ValidationText">Your text was not loaded correctly</string>
+	<string name="Pleasechecksd">Please check sd card</string>
+	<string name="Failedtoload">Failed to load capture</string>
+	<!--alert-->
+	<string name="Okbutton">OK</string>
+	<string name="donebutton">Done</string>
+	<string name="cancelbutton">Cancel</string>
+	<string name="ComingSoon">Coming Soon!</string>
+	<string name="ChoseColor">Chosse color</string>
+	<string name="ChoseText">Chosse Text</string>
+	<string name="Selectfontsize">Select font size</string>
+	<string name="Selectfonttype">Select font type</string>
+	<string name="saveWallpapers">Your wallpapers was saved to your album</string>
+	<string name="saveWallpapersMess">How to set as wallpaper?</string>
 </resources>

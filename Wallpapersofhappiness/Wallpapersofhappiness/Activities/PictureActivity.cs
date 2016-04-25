@@ -34,20 +34,29 @@ namespace Wallpapersofhappiness
 		private Android.Net.Uri saveUri = null;
 		private int textSize = 20;
 		private TextModel textList;
+		private ListView listView;
+		private RelativeLayout loading;
+		private bool retry = false;
+		private RelativeLayout mainLayout;
+		private RelativeLayout mainLoading;
+		private Bundle extras;
 
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 			SetContentView (Resource.Layout.picture_layout_main);
 			imageView = FindViewById<MoveImageView> (Resource.Id.picturefromcamera);
-
-			Bundle extras = Intent.Extras;
+			mainLayout = FindViewById<RelativeLayout> (Resource.Id.picturelayout);
+			mainLoading = FindViewById<RelativeLayout> (Resource.Id.main_loading);
+			mainLayout.Visibility = ViewStates.Gone;
+			mainLoading.Visibility = ViewStates.Visible;
+			extras = Intent.Extras;
 			var imageNumber = extras.GetString ("image-number");
 			if (extras != null) {
 				if (imageNumber != null) {
 					if (!extras.GetString ("image-number").Equals ("")) {	
 						var url = extras.GetString ("image-number");
-						bitmap = GetImageBitmapFromUrl (url);
+						ThreadPool.QueueUserWorkItem (o => GetImageBitmapFromUrl (url));
 					}
 				} else {
 					imagePath = extras.GetString ("image-path");
@@ -55,9 +64,9 @@ namespace Wallpapersofhappiness
 					if (extras.GetString (MediaStore.ExtraOutput) != null) {
 						saveUri = GetImageUri (extras.GetString (MediaStore.ExtraOutput));
 					}
-					bitmap = GetBitmap (imagePath);
+					ThreadPool.QueueUserWorkItem (o => GetBitmap (imagePath));
 				}
-				imageView.SetImageBitmap (bitmap);
+
 			}
 
 			var cancelIcon = FindViewById<ImageView> (Resource.Id.cancelIcon);
@@ -80,7 +89,7 @@ namespace Wallpapersofhappiness
 				SaveImage (newbitmapnew);
 			};
 			editIcon.Click += delegate {		
-				ThreadPool.QueueUserWorkItem (o => GetData ());
+				SelectText ();
 				//imageView.EnterText (WindowManager.DefaultDisplay.Height);
 				//imageView.Invalidate ();
 			};
@@ -103,13 +112,13 @@ namespace Wallpapersofhappiness
 			palletteIcon.Click += delegate {
 				
 				AlertDialog.Builder alert = new AlertDialog.Builder (this);
-				alert.SetTitle ("Chose color");
+				alert.SetTitle (GetString (Resource.String.ChoseColor));
 
 				var infate = LayoutInflater.Inflate (Resource.Layout.color_text_layout, null);
 				var seekBar = infate.FindViewById<SeekBar> (Resource.Id.edit_seekBar);
 				var indicator = infate.FindViewById<TextView> (Resource.Id.text_seekBar_indicator);
 				alert.SetView (infate);
-				alert.SetNegativeButton ("Cancel", delegate {
+				alert.SetNegativeButton (GetString (Resource.String.cancelbutton), delegate {
 
 				});
 				AlertDialog alertDialog = alert.Show ();
@@ -182,18 +191,18 @@ namespace Wallpapersofhappiness
 			};
 			textIcon.Click += delegate {
 				AlertDialog.Builder alert = new AlertDialog.Builder (this);
-				alert.SetTitle ("Select font size");
+				alert.SetTitle (GetString (Resource.String.Selectfontsize));
 
 				var infate = LayoutInflater.Inflate (Resource.Layout.slider_size_layout, null);
 				var seekBar = infate.FindViewById<SeekBar> (Resource.Id.edit_seekBar);
 				var indicator = infate.FindViewById<TextView> (Resource.Id.text_seekBar_indicator);
 				alert.SetView (infate);
-				alert.SetPositiveButton ("Done", delegate {		
+				alert.SetPositiveButton (GetString (Resource.String.donebutton), delegate {		
 					imageView.SizeText ((float)seekBar.Progress);
 					textSize = seekBar.Progress;
 					imageView.Invalidate ();
 				});
-				alert.SetNegativeButton ("Cancel", delegate {
+				alert.SetNegativeButton (GetString (Resource.String.cancelbutton), delegate {
 					
 				});
 
@@ -239,8 +248,8 @@ namespace Wallpapersofhappiness
 					imageView.Invalidate ();
 				});
 					                               
-				alert.SetTitle ("Select font type");
-				alert.SetNegativeButton ("Cancel", delegate {
+				alert.SetTitle (GetString (Resource.String.Selectfonttype));
+				alert.SetNegativeButton (GetString (Resource.String.cancelbutton), delegate {
 
 				});
 				AlertDialog alertDialog = alert.Show ();
@@ -248,7 +257,7 @@ namespace Wallpapersofhappiness
 			};
 		}
 
-		private void GetData ()
+		private void GetData (Dialog dialog)
 		{
 			var reqUrl = "https://wp-of-happiness.firebaseio.com/availableText.json";
 			var request = (HttpWebRequest)WebRequest.Create (reqUrl);
@@ -262,20 +271,34 @@ namespace Wallpapersofhappiness
 				var streamText = reader.ReadToEnd ();
 				textList = JsonConvert.DeserializeObject <TextModel> (streamText);
 
-			} catch (Exception ex) {
-				//HandleErrors (ex);
-				var a = 0;
+			} catch (Exception ex) {				
+				retry = true;
 			}
 
 
 			RunOnUiThread (() => {
-				if (textList.ToString ().Equals ("")) {
+				if (retry) {
 					Toast.MakeText (this, GetString (Resource.String.ValidationText), ToastLength.Short);
 				} else {
-					SelectText ();
-				}			
+					if (textList.ToString ().Equals ("")) {
+						Toast.MakeText (this, GetString (Resource.String.ValidationText), ToastLength.Short);
+					} else {
+						loading.Visibility = ViewStates.Gone;
+						listView.Visibility = ViewStates.Visible;
+						var values = textList.english;
+						var listAdapter = new TextListAdapter (this, values);
+						listView.Adapter = listAdapter;
+						listView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
+							dialog.Dismiss ();
+							imageView.PutText (values [e.Position]);
+							imageView.EnterText (WindowManager.DefaultDisplay.Height);
+							imageView.Invalidate ();
+						};
+					}
+				}
 			});
 		}
+
 
 
 		private void SeekBarIndicator (SeekBar seekBar, TextView indicator)
@@ -290,33 +313,37 @@ namespace Wallpapersofhappiness
 
 		private void SelectText ()
 		{
+			
 			Dialog dialog = new Dialog (this);
 //			dialog.Window.RequestFeature (WindowFeatures.NoTitle);
 			dialog.SetContentView (Resource.Layout.textItems_listview);
 			dialog.Window.SetGravity (GravityFlags.Center);
 			dialog.Window.SetLayout (WindowManager.DefaultDisplay.Width - 100, WindowManagerLayoutParams.WrapContent);
 			dialog.SetCancelable (true);
-			dialog.SetTitle ("Chose text");
+			dialog.SetTitle (GetString (Resource.String.ChoseText));
 			dialog.SetCanceledOnTouchOutside (true);
-			var listView = dialog.FindViewById<ListView> (Resource.Id.listview);				
-			var values = textList.english;
-			var listAdapter = new TextListAdapter (this, values);
-			listView.Adapter = listAdapter;
-			listView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
-				dialog.Dismiss ();
-				imageView.PutText (values [e.Position]);
-				imageView.EnterText (WindowManager.DefaultDisplay.Height);
-				imageView.Invalidate ();
-			};
+			listView = dialog.FindViewById<ListView> (Resource.Id.listview);	
+			loading = dialog.FindViewById<RelativeLayout> (Resource.Id.main_loading);
 			dialog.Show ();
+			ThreadPool.QueueUserWorkItem (o => GetData (dialog));
+
+//			var values = textList.english;
+//			var listAdapter = new TextListAdapter (this, values);
+//			listView.Adapter = listAdapter;
+//			listView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
+//				dialog.Dismiss ();
+//				imageView.PutText (values [e.Position]);
+//				imageView.EnterText (WindowManager.DefaultDisplay.Height);
+//				imageView.Invalidate ();
+//			};
+
 		}
 
-		private Bitmap GetBitmap (String path)
+		private void GetBitmap (String path)
 		{
 			var uri = GetImageUri (path);
-
 			var Uti = Android.Net.Uri.Parse (path);
-
+			Bitmap b = null;
 			System.IO.Stream ins = null;
 
 			try {
@@ -343,19 +370,28 @@ namespace Wallpapersofhappiness
 				var o2 = new BitmapFactory.Options ();
 				o2.InSampleSize = scale;
 				ins = ContentResolver.OpenInputStream (Uti);
-				Bitmap b = BitmapFactory.DecodeStream (ins, null, o2);
+				b = BitmapFactory.DecodeStream (ins, null, o2);
 				var abc = WindowManager.DefaultDisplay;
 				if (b.Width >= WindowManager.DefaultDisplay.Width) {
 					imageView.SetScaleType (ImageView.ScaleType.FitXy);
 				}
 				ins.Close ();
 
-				return b;
 			} catch (Exception e) {
-				//Log.Error (GetType ().Name, e.Message);
+				retry = true;
+				RunOnUiThread (() => {
+					var toast = Toast.MakeText (this, GetString (Resource.String.ValidationRequestTimeOut), ToastLength.Short);
+					toast.Show ();
+				});
 			}
-
-			return null;
+			RunOnUiThread (() => {
+				if (retry) {
+					return;
+				}
+				imageView.SetImageBitmap (b);
+				mainLayout.Visibility = ViewStates.Visible;
+				mainLoading.Visibility = ViewStates.Gone;
+			});
 		}
 
 		public Bitmap rotateBitmap (String src, Bitmap bitmap, Android.Net.Uri uti)
@@ -448,11 +484,11 @@ namespace Wallpapersofhappiness
 		private void DialogToSetWallpaper (byte[] bitmap)
 		{
 			AlertDialog.Builder alert = new AlertDialog.Builder (this);
-			alert.SetTitle ("Your wallpapers was saved to your album");
-			alert.SetNegativeButton ("Cancel", delegate {
+			alert.SetTitle (GetString (Resource.String.saveWallpapers));
+			alert.SetNegativeButton (GetString (Resource.String.cancelbutton), delegate {
 				OnBackPressed ();
 			});
-			alert.SetPositiveButton ("How to set as wallpaper?", delegate {
+			alert.SetPositiveButton (GetString (Resource.String.saveWallpapersMess), delegate {
 				WallpaperManager myWallpaper = WallpaperManager.GetInstance (this);
 				try {
 					int height = Resources.DisplayMetrics.HeightPixels;
@@ -489,11 +525,11 @@ namespace Wallpapersofhappiness
 			}
 		}
 
-		public Bitmap GetImageBitmapFromUrl (string url)
+		public void GetImageBitmapFromUrl (string url)
 		{
 			Bitmap imageBitmap = null;
 			using (var webClient = new WebClient ()) {
-				try {
+				try {					
 					var imageBytes = webClient.DownloadData (url);
 					if (imageBytes != null && imageBytes.Length > 0) {
 						imageBitmap = BitmapFactory.DecodeByteArray (imageBytes, 0, imageBytes.Length);
@@ -501,12 +537,24 @@ namespace Wallpapersofhappiness
 						//					var width = Convert.ToInt32 (context.Resources.DisplayMetrics.WidthPixels / 3.5);
 						//					newImageBitmap = GetResizedBitmap (imageBitmap, heigh, width);
 					}
-				} catch (Exception ex) {
-					var a = 0;
-				}
-			
+
+				} catch (Exception ex) {					
+					retry = true;
+					RunOnUiThread (() => {
+						var toast = Toast.MakeText (this, GetString (Resource.String.ValidationRequestTimeOut), ToastLength.Short);
+						toast.Show ();
+					});
+				}			
+				RunOnUiThread (() => {
+					if (retry) {
+						return;
+					}
+					imageView.SetImageBitmap (imageBitmap);
+					mainLayout.Visibility = ViewStates.Visible;
+					mainLoading.Visibility = ViewStates.Gone;
+				});
 			}
-			return imageBitmap;
+
 		}
 
 		public Bitmap LoadAndResizeBitmap (string fileName, int width, int height)
@@ -543,8 +591,7 @@ namespace Wallpapersofhappiness
 				retry.Visibility = ViewStates.Visible;
 
 				retry.Click += delegate {					
-					StartActivity (context.GetType ());
-					Finish ();
+					
 				};
 			});
 		}

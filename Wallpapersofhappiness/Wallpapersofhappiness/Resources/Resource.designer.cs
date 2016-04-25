@@ -3014,6 +3014,15 @@ namespace Wallpapersofhappiness
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f090037
+			public const int ChoseColor = 2131296311;
+			
+			// aapt resource value: 0x7f090038
+			public const int ChoseText = 2131296312;
+			
+			// aapt resource value: 0x7f090036
+			public const int ComingSoon = 2131296310;
+			
 			// aapt resource value: 0x7f090028
 			public const int Couple = 2131296296;
 			
@@ -3022,6 +3031,9 @@ namespace Wallpapersofhappiness
 			
 			// aapt resource value: 0x7f09001e
 			public const int English = 2131296286;
+			
+			// aapt resource value: 0x7f090032
+			public const int Failedtoload = 2131296306;
 			
 			// aapt resource value: 0x7f09001f
 			public const int German = 2131296287;
@@ -3035,6 +3047,12 @@ namespace Wallpapersofhappiness
 			// aapt resource value: 0x7f090029
 			public const int Motivation = 2131296297;
 			
+			// aapt resource value: 0x7f090033
+			public const int Okbutton = 2131296307;
+			
+			// aapt resource value: 0x7f090031
+			public const int Pleasechecksd = 2131296305;
+			
 			// aapt resource value: 0x7f090023
 			public const int Previewbackground = 2131296291;
 			
@@ -3043,6 +3061,12 @@ namespace Wallpapersofhappiness
 			
 			// aapt resource value: 0x7f090021
 			public const int Russian = 2131296289;
+			
+			// aapt resource value: 0x7f090039
+			public const int Selectfontsize = 2131296313;
+			
+			// aapt resource value: 0x7f09003a
+			public const int Selectfonttype = 2131296314;
 			
 			// aapt resource value: 0x7f090022
 			public const int Selectlanguage = 2131296290;
@@ -3137,6 +3161,9 @@ namespace Wallpapersofhappiness
 			// aapt resource value: 0x7f090015
 			public const int bottom_sheet_behavior = 2131296277;
 			
+			// aapt resource value: 0x7f090035
+			public const int cancelbutton = 2131296309;
+			
 			// aapt resource value: 0x7f090016
 			public const int character_counter_pattern = 2131296278;
 			
@@ -3146,6 +3173,9 @@ namespace Wallpapersofhappiness
 			// aapt resource value: 0x7f090019
 			public const int close_drawer = 2131296281;
 			
+			// aapt resource value: 0x7f090034
+			public const int donebutton = 2131296308;
+			
 			// aapt resource value: 0x7f09001c
 			public const int external_photo = 2131296284;
 			
@@ -3154,6 +3184,12 @@ namespace Wallpapersofhappiness
 			
 			// aapt resource value: 0x7f090018
 			public const int open_drawer = 2131296280;
+			
+			// aapt resource value: 0x7f09003b
+			public const int saveWallpapers = 2131296315;
+			
+			// aapt resource value: 0x7f09003c
+			public const int saveWallpapersMess = 2131296316;
 			
 			// aapt resource value: 0x7f090013
 			public const int status_bar_notification_info_overflow = 2131296275;
