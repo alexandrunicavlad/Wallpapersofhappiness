@@ -61,8 +61,9 @@ namespace Wallpapersofhappiness
 				} else {
 					imagePath = extras.GetString ("image-path");
 					saveUri = GetImageUri (imagePath);
-					if (extras.GetString (MediaStore.ExtraOutput) != null) {
+					if (extras.GetString (MediaStore.ExtraOutput) != null) {						
 						saveUri = GetImageUri (extras.GetString (MediaStore.ExtraOutput));
+
 					}
 					ThreadPool.QueueUserWorkItem (o => GetBitmap (imagePath));
 				}
@@ -85,7 +86,6 @@ namespace Wallpapersofhappiness
 				saveIcon.Clickable = false;
 				imageView.DrawingCacheEnabled = true;
 				Bitmap newbitmapnew = imageView.DrawingCache;
-
 				SaveImage (newbitmapnew);
 			};
 			editIcon.Click += delegate {		
@@ -299,8 +299,6 @@ namespace Wallpapersofhappiness
 			});
 		}
 
-
-
 		private void SeekBarIndicator (SeekBar seekBar, TextView indicator)
 		{
 			RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WrapContent, RelativeLayout.LayoutParams.WrapContent);
@@ -309,7 +307,6 @@ namespace Wallpapersofhappiness
 			p.SetMargins (abc, 0, 0, 0);
 			indicator.LayoutParameters = p;
 		}
-
 
 		private void SelectText ()
 		{
@@ -388,6 +385,10 @@ namespace Wallpapersofhappiness
 				if (retry) {
 					return;
 				}
+				if (Uti.Path.Contains ("capture")) {
+					var tempoFile = new File (Uti.Path);
+					tempoFile.Delete ();
+				}
 				imageView.SetImageBitmap (b);
 				mainLayout.Visibility = ViewStates.Visible;
 				mainLoading.Visibility = ViewStates.Gone;
@@ -455,16 +456,21 @@ namespace Wallpapersofhappiness
 		}
 
 		private void SaveImage (Bitmap finalBitmap)
-		{		
-			String root = Android.OS.Environment.GetExternalStoragePublicDirectory (Android.OS.Environment.DirectoryPictures).ToString ();
-
-			File myDir = new File (root + "/Wallpapers");    
-			myDir.Mkdirs ();
+		{					
+			File myDir = new File (Android.OS.Environment.GetExternalStoragePublicDirectory (Android.OS.Environment.DirectoryPictures), "Wallpapers");
+			if (!myDir.Exists ()) {
+				myDir.Mkdirs ();
+			}
 			Random generator = new Random ();
 			int n = 10000;
 			n = generator.Next (n);
 			String fname = "Image-" + n + ".jpg";
 			File file = new File (myDir, fname);
+			Intent mediaScanIntent = new Intent (Intent.ActionMediaScannerScanFile);
+			var contentUri = Android.Net.Uri.FromFile (file);
+			mediaScanIntent.SetData (contentUri);
+			SendBroadcast (mediaScanIntent);
+
 			if (file.Exists ())
 				file.Delete (); 
 			try {
