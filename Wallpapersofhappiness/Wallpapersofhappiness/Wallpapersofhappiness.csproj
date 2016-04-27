@@ -90,6 +90,7 @@
     <Compile Include="Models\TextModel.cs" />
     <Compile Include="Helpers\TypeFaceListAdapter.cs" />
     <Compile Include="Models\TypefaceModel.cs" />
+    <Compile Include="Activities\DownloadActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -296,6 +297,22 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_type_filled.png" />
     <AndroidResource Include="Resources\drawable\round_green_main.xml" />
     <AndroidResource Include="Resources\layout\textTypeface_row.xml" />
+    <AndroidResource Include="Resources\layout\download_layout.axml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_back.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_folder.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_save.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_back.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_folder.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_save.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_back.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_folder.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_save.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_back.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_folder.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_save.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_back.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_folder.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_save.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

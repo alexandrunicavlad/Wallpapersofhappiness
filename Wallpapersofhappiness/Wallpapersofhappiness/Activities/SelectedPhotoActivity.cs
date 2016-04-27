@@ -309,7 +309,7 @@ namespace Wallpapersofhappiness
 
 		void OnItemClick (object sender, int position)
 		{			
-			var intent = new Intent (this, typeof(PictureActivity));
+			var intent = new Intent (this, typeof(DownloadActivity));
 			intent.PutExtra ("image-number", images [position].url);
 			StartActivity (intent);
 		}

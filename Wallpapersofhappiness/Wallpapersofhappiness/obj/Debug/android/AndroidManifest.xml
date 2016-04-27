@@ -19,6 +19,7 @@
     </activity>
     <activity android:label="SelectedPhotoActivity" android:theme="@style/AppTheme" android:name="md5d4a16fa48a49fd45dafa93b777be6d40.LanguageActivity" />
     <activity android:label="SelectedPhotoActivity" android:name="md5d4a16fa48a49fd45dafa93b777be6d40.BaseActivity" />
+    <activity android:configChanges="orientation|screenSize" android:label="DownloadActivity" android:theme="@style/AppTheme" android:name="md5d4a16fa48a49fd45dafa93b777be6d40.DownloadActivity" />
     <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="com.alexandrunica.wallpapersofhappiness.mono.MonoRuntimeProvider.__mono_init__" />
     <!--suppress ExportedReceiver-->
     <receiver android:name="mono.android.Seppuku">
