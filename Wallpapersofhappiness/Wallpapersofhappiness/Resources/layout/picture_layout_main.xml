@@ -4,10 +4,6 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent">
-    <include
-        android:id="@+id/main_loading"
-        android:visibility="gone"
-        layout="@layout/loading_layout" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/picturelayout"
@@ -68,13 +64,13 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@color/black_transparent"
+            android:background="@color/blackBottomBar"
             android:id="@+id/bottomMenu">
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/cancelIcon"
-                android:src="@drawable/ic_close"
+                android:src="@drawable/ic_cancel"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="15dp"
                 android:layout_centerVertical="true"
@@ -98,4 +94,8 @@
             android:src="@drawable/ic_pencil_tip"
             android:background="@drawable/round_green_main" />
     </RelativeLayout>
+    <include
+        android:id="@+id/main_loading"
+        android:visibility="gone"
+        layout="@layout/loading_layout" />
 </RelativeLayout>

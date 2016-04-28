@@ -44,6 +44,7 @@ namespace Wallpapersofhappiness
 			loading.Visibility = ViewStates.Visible;
 			extras = Intent.Extras;
 			var imageNumber = extras.GetString ("image-number");
+			var imageName = extras.GetString ("image-name");
 			if (extras != null) {
 				if (imageNumber != null) {
 					if (!extras.GetString ("image-number").Equals ("")) {	
@@ -88,9 +89,11 @@ namespace Wallpapersofhappiness
 				myDir.Mkdirs ();
 			}
 			Random generator = new Random ();
-			int n = 10000;
+			int n = 100;
+			var position = extras.GetString ("image-name").IndexOf ("/");
+			var afterUrl = extras.GetString ("image-name").Substring (position);
 			n = generator.Next (n);
-			String fname = "Image-" + n + ".jpg";
+			String fname = afterUrl + ".jpg";
 			File file = new File (myDir, fname);
 			Intent mediaScanIntent = new Intent (Intent.ActionMediaScannerScanFile);
 			var contentUri = Android.Net.Uri.FromFile (file);

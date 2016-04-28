@@ -40,6 +40,7 @@ namespace Wallpapersofhappiness
 		private RelativeLayout mainLayout;
 		private RelativeLayout mainLoading;
 		private Bundle extras;
+		private byte[] byteArray;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -86,7 +87,8 @@ namespace Wallpapersofhappiness
 				saveIcon.Clickable = false;
 				imageView.DrawingCacheEnabled = true;
 				Bitmap newbitmapnew = imageView.DrawingCache;
-				SaveImage (newbitmapnew);
+				mainLoading.Visibility = ViewStates.Visible;
+				ThreadPool.QueueUserWorkItem (o => SaveImage (newbitmapnew));	
 			};
 			editIcon.Click += delegate {		
 				SelectText ();
@@ -478,34 +480,48 @@ namespace Wallpapersofhappiness
 				System.IO.MemoryStream stream = new System.IO.MemoryStream ();
 				finalBitmap.Compress (Bitmap.CompressFormat.Png, 100, stream);
 				finalBitmap.Recycle ();
-				byte[] byteArray = stream.ToArray ();
+				byteArray = stream.ToArray ();
 				fo.Write (byteArray);
-				fo.Close ();
-				DialogToSetWallpaper (byteArray);
-			} catch (Exception e) {
-				var mess = e.Message;
-			}
+				fo.Close ();	
+			} catch (Exception ex) {					
+				retry = true;
+				RunOnUiThread (() => {
+					var toast = Toast.MakeText (this, GetString (Resource.String.ValidationRequestTimeOut), ToastLength.Short);
+					toast.Show ();
+				});
+			}			
+			RunOnUiThread (() => {
+				if (retry) {
+					return;
+				}
+				mainLoading.Visibility = ViewStates.Gone;
+				var alert = new Android.App.AlertDialog.Builder (this);
+				alert.SetTitle (GetString (Resource.String.saveWallpapers));
+				alert.SetNegativeButton (GetString (Resource.String.cancelbutton), delegate {
+					OnBackPressed ();
+				});
+				alert.SetPositiveButton (GetString (Resource.String.saveWallpapersMess), delegate {
+					DialogToSetWallpaper (byteArray);
+				});
+				var alertDialog = alert.Create ();
+				alertDialog.SetTitle (Resources.GetString (Resource.String.saveWallpapers));
+				alertDialog.Show ();
+			});
 		}
 
 		private void DialogToSetWallpaper (byte[] bitmap)
-		{
-			AlertDialog.Builder alert = new AlertDialog.Builder (this);
-			alert.SetTitle (GetString (Resource.String.saveWallpapers));
-			alert.SetNegativeButton (GetString (Resource.String.cancelbutton), delegate {
-				OnBackPressed ();
-			});
-			alert.SetPositiveButton (GetString (Resource.String.saveWallpapersMess), delegate {
-				WallpaperManager myWallpaper = WallpaperManager.GetInstance (this);
-				try {
-					int height = Resources.DisplayMetrics.HeightPixels;
-					int width = Resources.DisplayMetrics.WidthPixels;
-					myWallpaper.SetBitmap (GetResizedBitmap (Decode (bitmap), width, height));
-				} catch (IOException e) {
-					e.PrintStackTrace ();
-				}
-				OnBackPressed ();
-			});
-			AlertDialog alertDialog = alert.Show ();
+		{	
+
+			WallpaperManager myWallpaper = WallpaperManager.GetInstance (this);
+			try {
+				int height = Resources.DisplayMetrics.HeightPixels;
+				int width = Resources.DisplayMetrics.WidthPixels;
+				myWallpaper.SetBitmap (GetResizedBitmap (Decode (bitmap), width, height));
+			} catch (IOException e) {
+				e.PrintStackTrace ();
+			}
+			OnBackPressed ();
+
 		}
 
 		public Bitmap GetResizedBitmap (Bitmap bm, int newWidth, int newHeight)

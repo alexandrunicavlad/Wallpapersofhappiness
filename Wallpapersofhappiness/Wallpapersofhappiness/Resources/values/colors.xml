@@ -22,6 +22,7 @@
 	<color name="black_transparent">#66000000</color>
 	<color name="gray_text">#DBDBDB</color>
 	<color name="green_dark">#499647</color>
+	<color name="blackBottomBar">#202020</color>
 	<!--text color -->
 	<color name="purple_text">#5856D6</color>
 	<color name="blue_text">#037AFF</color>

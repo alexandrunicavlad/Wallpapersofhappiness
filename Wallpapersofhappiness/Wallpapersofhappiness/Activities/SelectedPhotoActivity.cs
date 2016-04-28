@@ -25,12 +25,12 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Threading;
 
-
-
 namespace Wallpapersofhappiness
 {
 	[Activity (MainLauncher = true, Label = "@string/app_name", Theme = "@style/AppTheme", ConfigurationChanges =
-		(Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize))]			
+		(Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize))]		
+
+
 	public class SelectedPhotoActivity : BaseActivity
 	{
 		private const int REQUEST_IMAGE_CAPTURE = 1;
@@ -67,6 +67,7 @@ namespace Wallpapersofhappiness
 		private RelativeLayout loading;
 		private RelativeLayout homePage;
 		private RelativeLayout loadingRec;
+		private MemoryLimitedLruCache _memoryCache;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -82,7 +83,6 @@ namespace Wallpapersofhappiness
 			homePage.Visibility = ViewStates.Visible;
 
 			ThreadPool.QueueUserWorkItem (o => GetData ("best"));
-
 			recyclerView = FindViewById<RecyclerView> (Resource.Id.image_recycler);
 			GridLayoutManager glm = new GridLayoutManager (this, 3);
 			recyclerView.SetLayoutManager (glm);
@@ -98,7 +98,10 @@ namespace Wallpapersofhappiness
 			sportlayout = mainSlider.FindViewById<LinearLayout> (Resource.Id.Sportlayout);
 			couplelayout = mainSlider.FindViewById<LinearLayout> (Resource.Id.Couplelayout);
 			motivationlayout = mainSlider.FindViewById<LinearLayout> (Resource.Id.Motivationlayout);
-
+			var maxMemory = (int)(Java.Lang.Runtime.GetRuntime ().MaxMemory () / 1024);
+			var cacheSize = maxMemory / 8;
+			_memoryCache = new MemoryLimitedLruCache (cacheSize);
+				
 			bestBool = true;
 			best.Click += delegate {
 				if (bestBool) {
@@ -297,7 +300,13 @@ namespace Wallpapersofhappiness
 
 				bitmaps = new List<Bitmap> ();
 				foreach (var img in images) {				
-					bitmaps.Add (GetImageBitmapFromUrl (img.url));
+					if (_memoryCache.Get (img.url) == null) {
+						_memoryCache.Put (img.url, GetImageBitmapFromUrl (img.url));
+						bitmaps.Add (GetImageBitmapFromUrl (img.url));
+					} else {
+						var bitm = (Bitmap)_memoryCache.Get (img.url);
+						bitmaps.Add (bitm);
+					}
 				}
 				FindViewById<LinearLayout> (Resource.Id.selectedpagelayout).Visibility = ViewStates.Visible;
 				adapter = new ImageAdapter (this, bitmaps);
@@ -307,10 +316,21 @@ namespace Wallpapersofhappiness
 			});
 		}
 
+		private void AddBitmpaToMemory (String key, Bitmap bitmap)
+		{
+			
+		}
+
+		private Bitmap GetBitmapFromMem (String key)
+		{
+			return null;
+		}
+
 		void OnItemClick (object sender, int position)
 		{			
 			var intent = new Intent (this, typeof(DownloadActivity));
 			intent.PutExtra ("image-number", images [position].url);
+			intent.PutExtra ("image-name", images [position].public_id);
 			StartActivity (intent);
 		}
 	}

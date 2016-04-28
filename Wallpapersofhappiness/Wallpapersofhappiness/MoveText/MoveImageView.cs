@@ -86,7 +86,7 @@ namespace MoveText
 			Paint paint = new Paint ();
 			paint.Color = Resources.GetColor (Resource.Color.black_transparent);
 			c.DrawRect (0, 0, canvas.Width, mTextLayout.Height, paint);
-			canvas.DrawBitmap (b, 0, y, paint);
+			//canvas.DrawBitmap (b, 0, y, paint);
 
 			canvas.Save ();
 			canvas.Translate (canvas.Width / 2, y);

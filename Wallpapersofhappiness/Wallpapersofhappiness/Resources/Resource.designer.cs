@@ -1021,29 +1021,29 @@ namespace Wallpapersofhappiness
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f070069
-			public const int abc_background_cache_hint_selector_material_dark = 2131165289;
-			
 			// aapt resource value: 0x7f07006a
-			public const int abc_background_cache_hint_selector_material_light = 2131165290;
+			public const int abc_background_cache_hint_selector_material_dark = 2131165290;
+			
+			// aapt resource value: 0x7f07006b
+			public const int abc_background_cache_hint_selector_material_light = 2131165291;
 			
 			// aapt resource value: 0x7f070004
 			public const int abc_input_method_navigation_guard = 2131165188;
 			
-			// aapt resource value: 0x7f07006b
-			public const int abc_primary_text_disable_only_material_dark = 2131165291;
-			
 			// aapt resource value: 0x7f07006c
-			public const int abc_primary_text_disable_only_material_light = 2131165292;
+			public const int abc_primary_text_disable_only_material_dark = 2131165292;
 			
 			// aapt resource value: 0x7f07006d
-			public const int abc_primary_text_material_dark = 2131165293;
+			public const int abc_primary_text_disable_only_material_light = 2131165293;
 			
 			// aapt resource value: 0x7f07006e
-			public const int abc_primary_text_material_light = 2131165294;
+			public const int abc_primary_text_material_dark = 2131165294;
 			
 			// aapt resource value: 0x7f07006f
-			public const int abc_search_url_text = 2131165295;
+			public const int abc_primary_text_material_light = 2131165295;
+			
+			// aapt resource value: 0x7f070070
+			public const int abc_search_url_text = 2131165296;
 			
 			// aapt resource value: 0x7f070005
 			public const int abc_search_url_text_normal = 2131165189;
@@ -1054,11 +1054,11 @@ namespace Wallpapersofhappiness
 			// aapt resource value: 0x7f070007
 			public const int abc_search_url_text_selected = 2131165191;
 			
-			// aapt resource value: 0x7f070070
-			public const int abc_secondary_text_material_dark = 2131165296;
-			
 			// aapt resource value: 0x7f070071
-			public const int abc_secondary_text_material_light = 2131165297;
+			public const int abc_secondary_text_material_dark = 2131165297;
+			
+			// aapt resource value: 0x7f070072
+			public const int abc_secondary_text_material_light = 2131165298;
 			
 			// aapt resource value: 0x7f070008
 			public const int accent_material_dark = 2131165192;
@@ -1087,8 +1087,11 @@ namespace Wallpapersofhappiness
 			// aapt resource value: 0x7f070059
 			public const int black = 2131165273;
 			
-			// aapt resource value: 0x7f070067
-			public const int black_text = 2131165287;
+			// aapt resource value: 0x7f07005f
+			public const int blackBottomBar = 2131165279;
+			
+			// aapt resource value: 0x7f070068
+			public const int black_text = 2131165288;
 			
 			// aapt resource value: 0x7f07005c
 			public const int black_transparent = 2131165276;
@@ -1096,11 +1099,11 @@ namespace Wallpapersofhappiness
 			// aapt resource value: 0x7f070057
 			public const int blue = 2131165271;
 			
-			// aapt resource value: 0x7f070061
-			public const int blue_light_text = 2131165281;
+			// aapt resource value: 0x7f070062
+			public const int blue_light_text = 2131165282;
 			
-			// aapt resource value: 0x7f070060
-			public const int blue_text = 2131165280;
+			// aapt resource value: 0x7f070061
+			public const int blue_text = 2131165281;
 			
 			// aapt resource value: 0x7f07000e
 			public const int bright_foreground_disabled_material_dark = 2131165198;
@@ -1207,8 +1210,8 @@ namespace Wallpapersofhappiness
 			// aapt resource value: 0x7f07005b
 			public const int green_main = 2131165275;
 			
-			// aapt resource value: 0x7f070062
-			public const int green_text = 2131165282;
+			// aapt resource value: 0x7f070063
+			public const int green_text = 2131165283;
 			
 			// aapt resource value: 0x7f07001c
 			public const int highlighted_text_material_dark = 2131165212;
@@ -1270,11 +1273,11 @@ namespace Wallpapersofhappiness
 			// aapt resource value: 0x7f07004f
 			public const int olive = 2131165263;
 			
-			// aapt resource value: 0x7f070065
-			public const int orange_text = 2131165285;
+			// aapt resource value: 0x7f070066
+			public const int orange_text = 2131165286;
 			
-			// aapt resource value: 0x7f070063
-			public const int pink_text = 2131165283;
+			// aapt resource value: 0x7f070064
+			public const int pink_text = 2131165284;
 			
 			// aapt resource value: 0x7f07002c
 			public const int primary_dark_material_dark = 2131165228;
@@ -1303,14 +1306,14 @@ namespace Wallpapersofhappiness
 			// aapt resource value: 0x7f070050
 			public const int purple = 2131165264;
 			
-			// aapt resource value: 0x7f07005f
-			public const int purple_text = 2131165279;
+			// aapt resource value: 0x7f070060
+			public const int purple_text = 2131165280;
 			
 			// aapt resource value: 0x7f07004c
 			public const int red = 2131165260;
 			
-			// aapt resource value: 0x7f070064
-			public const int red_text = 2131165284;
+			// aapt resource value: 0x7f070065
+			public const int red_text = 2131165285;
 			
 			// aapt resource value: 0x7f070034
 			public const int ripple_material_dark = 2131165236;
@@ -1339,11 +1342,11 @@ namespace Wallpapersofhappiness
 			// aapt resource value: 0x7f07003b
 			public const int switch_thumb_disabled_material_light = 2131165243;
 			
-			// aapt resource value: 0x7f070072
-			public const int switch_thumb_material_dark = 2131165298;
-			
 			// aapt resource value: 0x7f070073
-			public const int switch_thumb_material_light = 2131165299;
+			public const int switch_thumb_material_dark = 2131165299;
+			
+			// aapt resource value: 0x7f070074
+			public const int switch_thumb_material_light = 2131165300;
 			
 			// aapt resource value: 0x7f07003c
 			public const int switch_thumb_normal_material_dark = 2131165244;
@@ -1360,14 +1363,14 @@ namespace Wallpapersofhappiness
 			// aapt resource value: 0x7f070048
 			public const int white = 2131165256;
 			
-			// aapt resource value: 0x7f070068
-			public const int white_text = 2131165288;
+			// aapt resource value: 0x7f070069
+			public const int white_text = 2131165289;
 			
 			// aapt resource value: 0x7f07004a
 			public const int yellow = 2131165258;
 			
-			// aapt resource value: 0x7f070066
-			public const int yellow_text = 2131165286;
+			// aapt resource value: 0x7f070067
+			public const int yellow_text = 2131165287;
 			
 			static Color()
 			{
