@@ -511,7 +511,6 @@ namespace Wallpapersofhappiness
 
 		private void DialogToSetWallpaper (byte[] bitmap)
 		{	
-
 			WallpaperManager myWallpaper = WallpaperManager.GetInstance (this);
 			try {
 				int height = Resources.DisplayMetrics.HeightPixels;
@@ -521,7 +520,6 @@ namespace Wallpapersofhappiness
 				e.PrintStackTrace ();
 			}
 			OnBackPressed ();
-
 		}
 
 		public Bitmap GetResizedBitmap (Bitmap bm, int newWidth, int newHeight)

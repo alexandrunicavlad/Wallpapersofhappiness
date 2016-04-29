@@ -24,6 +24,7 @@ using Java.Net;
 using System.Net;
 using Newtonsoft.Json;
 using System.Threading;
+using System.Reflection;
 
 namespace Wallpapersofhappiness
 {
@@ -38,8 +39,12 @@ namespace Wallpapersofhappiness
 		private string requestURL = "https://api.cloudinary.com/v1_1/wp-of-happiness/resources/image/upload/?prefix=";
 		private const string ApiKey = "966956932715847";
 		private const string ApiSecret = "grc0mV1_k8xuV8xLYZgPGMpbwDw";
+		private static readonly string DatabaseDirectory =
+			System.IO.Path.Combine (System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal), "../photo");
+
 		private LinearLayout mainSlider;
 		private List<ImageModel> images;
+		private List<ImageModel> images1;
 		private RecyclerView recyclerView;
 		private List<Bitmap> bitmaps;
 		private ImageAdapter adapter;
@@ -82,6 +87,8 @@ namespace Wallpapersofhappiness
 			homePage = FindViewById<RelativeLayout> (Resource.Id.homepage);
 			homePage.Visibility = ViewStates.Visible;
 
+
+
 			ThreadPool.QueueUserWorkItem (o => GetData ("best"));
 			recyclerView = FindViewById<RecyclerView> (Resource.Id.image_recycler);
 			GridLayoutManager glm = new GridLayoutManager (this, 3);
@@ -101,7 +108,6 @@ namespace Wallpapersofhappiness
 			var maxMemory = (int)(Java.Lang.Runtime.GetRuntime ().MaxMemory () / 1024);
 			var cacheSize = maxMemory / 8;
 			_memoryCache = new MemoryLimitedLruCache (cacheSize);
-				
 			bestBool = true;
 			best.Click += delegate {
 				if (bestBool) {
@@ -151,8 +157,6 @@ namespace Wallpapersofhappiness
 					});
 				}
 			};
-		
-		
 			lovelayout.Click += delegate {
 				lovelayout.Clickable = false;
 				recyclerView.Visibility = ViewStates.Gone;
@@ -218,6 +222,58 @@ namespace Wallpapersofhappiness
 
 		}
 
+		private Dictionary<string, List<ImageModel>>  ConstructImageFromApp ()
+		{	
+			var listOfImages = new Dictionary<string, List<ImageModel>> ();
+			var bestList = new List<ImageModel> ();
+			var loveList = new List<ImageModel> ();
+			var happinessList = new List<ImageModel> ();
+			var sportList = new List<ImageModel> ();
+			var coupleList = new List<ImageModel> ();
+			var motivationList = new List<ImageModel> ();
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.Green_Haze, type = "local"	
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.Supernova_Blue, type = "local"	
+			});
+			loveList.Add (new ImageModel () {
+				version = Resource.Drawable.Green_Haze, type = "local"	
+			});
+			loveList.Add (new ImageModel () {
+				version = Resource.Drawable.Green_Haze, type = "local"	
+			});
+			happinessList.Add (new ImageModel () {
+				version = Resource.Drawable.Green_Haze, type = "local"	
+			});
+			happinessList.Add (new ImageModel () {
+				version = Resource.Drawable.Green_Haze, type = "local"	
+			});
+			sportList.Add (new ImageModel () {
+				version = Resource.Drawable.Raspberry_Fruit, type = "local"	
+			});
+			sportList.Add (new ImageModel () {
+				version = Resource.Drawable.Green_Haze, type = "local"	
+			});
+			coupleList.Add (new ImageModel () {
+				version = Resource.Drawable.Blue_Diamond, type = "local"	
+			});
+			coupleList.Add (new ImageModel () {
+				version = Resource.Drawable.Supernova_Blue, type = "local"	
+			});
+			motivationList.Add (new ImageModel () {
+				version = Resource.Drawable.Blue_Diamond, type = "local"	
+			});
+			listOfImages.Add ("best", bestList);
+			listOfImages.Add ("categories/love", loveList);
+			listOfImages.Add ("categories/happiness", happinessList);			
+			listOfImages.Add ("categories/sport", sportList);
+			listOfImages.Add ("categories/couple", coupleList);
+			listOfImages.Add ("categories/motivation", motivationList);
+
+			return listOfImages;
+		}
+
 		private void ClickCategoryValidator ()
 		{
 			if (loveBool) {
@@ -269,6 +325,41 @@ namespace Wallpapersofhappiness
 
 		private void GetData (string type)
 		{
+			
+			images = new List<ImageModel> ();
+
+			switch (type) {
+			case "best":
+				{	
+					images = ConstructImageFromApp () [type];
+					break;
+				}
+			case "categories/love":
+				{
+					images = ConstructImageFromApp () [type];
+					break;
+				}
+			case "categories/happiness":
+				{
+					images = ConstructImageFromApp () [type];
+					break;
+				}
+			case "categories/sport":
+				{
+					images = ConstructImageFromApp () [type];
+					break;
+				}
+			case "categories/couple":
+				{
+					images = ConstructImageFromApp () [type];
+					break;
+				}
+			case "categories/motivation":
+				{
+					images = ConstructImageFromApp () [type];
+					break;
+				}
+			}
 
 			var reqUrl = string.Format ("{0}{1}/&max_results=500", requestURL, type);
 			var request = (HttpWebRequest)WebRequest.Create (reqUrl);
@@ -284,8 +375,8 @@ namespace Wallpapersofhappiness
 				var reader = new StreamReader (response.GetResponseStream ());
 				var streamText = reader.ReadToEnd ();
 				var deserializedStreamText = JsonConvert.DeserializeObject<Images> (streamText);
-				images = deserializedStreamText.resources;
-				
+				images.AddRange (deserializedStreamText.resources);
+
 			} catch (Exception ex) {
 				HandleErrors (ex);
 				retrying = true;
@@ -293,21 +384,36 @@ namespace Wallpapersofhappiness
 			RunOnUiThread (() => {
 				homePage.Visibility = ViewStates.Gone;
 				if (retrying) {
-					ShowRetry (loading, this);
-					loading.Visibility = ViewStates.Visible;
-					return;
+//					ShowRetry (loading, this);
+//					loading.Visibility = ViewStates.Visible;
+//					return;
 				}
 
 				bitmaps = new List<Bitmap> ();
-				foreach (var img in images) {				
-					if (_memoryCache.Get (img.url) == null) {
-						_memoryCache.Put (img.url, GetImageBitmapFromUrl (img.url));
-						bitmaps.Add (GetImageBitmapFromUrl (img.url));
+				foreach (var img in images) {		
+					if (!img.type.Equals ("local")) {
+					
+						if (_memoryCache.Get (img.url) == null) {
+							_memoryCache.Put (img.url, GetImageBitmapFromUrl (img.url));
+							bitmaps.Add (GetImageBitmapFromUrl (img.url));
+						} else {
+							var bitm = (Bitmap)_memoryCache.Get (img.url);
+							bitmaps.Add (bitm);
+						}
 					} else {
-						var bitm = (Bitmap)_memoryCache.Get (img.url);
-						bitmaps.Add (bitm);
+						var bitm = DecodeSampledBitmapFromResource (Resources, img.version, Resources.DisplayMetrics.WidthPixels / 3, Resources.DisplayMetrics.HeightPixels / 3);
+
+						if (_memoryCache.Get (img.version) == null) {
+							_memoryCache.Put (img.version, bitm);
+							bitmaps.Add (bitm);		
+						} else {
+							var bitma = (Bitmap)_memoryCache.Get (img.version);
+							bitmaps.Add (bitma);
+						}
+
 					}
 				}
+
 				FindViewById<LinearLayout> (Resource.Id.selectedpagelayout).Visibility = ViewStates.Visible;
 				adapter = new ImageAdapter (this, bitmaps);
 				adapter.ItemClick += OnItemClick;
@@ -316,21 +422,54 @@ namespace Wallpapersofhappiness
 			});
 		}
 
-		private void AddBitmpaToMemory (String key, Bitmap bitmap)
+		public Bitmap DecodeSampledBitmapFromResource (Resources res, int resId,	int reqWidth, int reqHeight)
 		{
-			
+
+			BitmapFactory.Options options = new BitmapFactory.Options ();
+			options.InJustDecodeBounds = true;
+			BitmapFactory.DecodeResource (res, resId, options);
+
+			// Calculate inSampleSize
+			options.InSampleSize = CalculateInSampleSize (options, reqWidth, reqHeight);
+
+			// Decode bitmap with inSampleSize set
+			options.InJustDecodeBounds = false;
+			return BitmapFactory.DecodeResource (res, resId, options);
 		}
 
-		private Bitmap GetBitmapFromMem (String key)
+		public int CalculateInSampleSize (BitmapFactory.Options options, int reqWidth, int reqHeight)
 		{
-			return null;
+			// Raw height and width of image
+			int height = options.OutHeight;
+			int width = options.OutWidth;
+			int inSampleSize = 1;
+
+			if (height > reqHeight || width > reqWidth) {
+
+				int halfHeight = height / 2;
+				int halfWidth = width / 2;
+
+				// Calculate the largest inSampleSize value that is a power of 2 and keeps both
+				// height and width larger than the requested height and width.
+				while ((halfHeight / inSampleSize) > reqHeight
+				       && (halfWidth / inSampleSize) > reqWidth) {
+					inSampleSize *= 2;
+				}
+			}
+
+			return inSampleSize;
 		}
 
 		void OnItemClick (object sender, int position)
 		{			
 			var intent = new Intent (this, typeof(DownloadActivity));
-			intent.PutExtra ("image-number", images [position].url);
-			intent.PutExtra ("image-name", images [position].public_id);
+			if (images [position].type.Equals ("local")) {
+				var urlul = images [position].version;
+				intent.PutExtra ("image-path", urlul);
+			} else {
+				intent.PutExtra ("image-number", images [position].url);
+				intent.PutExtra ("image-name", images [position].public_id);
+			}
 			StartActivity (intent);
 		}
 	}

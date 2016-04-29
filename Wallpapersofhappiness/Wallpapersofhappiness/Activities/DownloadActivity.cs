@@ -17,6 +17,7 @@ using System.Threading;
 using System.Net;
 using Android.Support.V4.Widget;
 using Java.IO;
+using Android.Content.Res;
 
 namespace Wallpapersofhappiness
 {
@@ -32,12 +33,16 @@ namespace Wallpapersofhappiness
 		private RelativeLayout loading;
 		private ImageView saveButton;
 		private byte[] byteArray;
+		private MemoryLimitedLruCache _memoryCache;
 
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 			SetContentView (Resource.Layout.download_layout);
 			ConstructActionBar ();
+			var maxMemory = (int)(Java.Lang.Runtime.GetRuntime ().MaxMemory () / 1024);
+			var cacheSize = maxMemory / 8;
+			_memoryCache = new MemoryLimitedLruCache (cacheSize);
 			imageView = FindViewById<ImageView> (Resource.Id.picturemain);
 			loading = FindViewById<RelativeLayout> (Resource.Id.main_loading);
 			imageView.Visibility = ViewStates.Gone;
@@ -45,12 +50,21 @@ namespace Wallpapersofhappiness
 			extras = Intent.Extras;
 			var imageNumber = extras.GetString ("image-number");
 			var imageName = extras.GetString ("image-name");
+			var imagePath = extras.GetInt ("image-path");
 			if (extras != null) {
-				if (imageNumber != null) {
-					if (!extras.GetString ("image-number").Equals ("")) {	
-						var url = extras.GetString ("image-number");
-						ThreadPool.QueueUserWorkItem (o => GetImageBitmapFromUrl (url));
+				if (imagePath == 0) {
+					if (imageNumber != null) {
+						if (!extras.GetString ("image-number").Equals ("")) {	
+							var url = extras.GetString ("image-number");
+							ThreadPool.QueueUserWorkItem (o => GetImageBitmapFromUrl (url));
+						}
 					}
+				} else {
+					var bitnew = BitmapFactory.DecodeResource (Resources, imagePath);
+					var newBitmap = GetResizedBitmap (bitnew, Resources.DisplayMetrics.WidthPixels, Resources.DisplayMetrics.HeightPixels);
+					imageView.SetImageBitmap (newBitmap);
+					imageView.Visibility = ViewStates.Visible;
+					loading.Visibility = ViewStates.Gone;				
 				}
 			}
 			saveButton.Click += delegate {
@@ -59,7 +73,6 @@ namespace Wallpapersofhappiness
 				Bitmap newbitmapnew = imageView.DrawingCache;
 				loading.Visibility = ViewStates.Visible;
 				ThreadPool.QueueUserWorkItem (o => SaveImage (newbitmapnew));	
-
 			};
 
 		}
@@ -73,6 +86,7 @@ namespace Wallpapersofhappiness
 			SupportActionBar.SetDisplayShowHomeEnabled (true);
 			toolbar.NavigationClick += delegate {
 				OnBackPressed ();
+				Finish ();
 			};
 
 			toolbar.NavigationIcon = Resources.GetDrawable (Resource.Drawable.ic_back);
@@ -82,6 +96,9 @@ namespace Wallpapersofhappiness
 
 		}
 
+
+
+
 		private void SaveImage (Bitmap finalBitmap)
 		{					
 			File myDir = new File (Android.OS.Environment.GetExternalStoragePublicDirectory (Android.OS.Environment.DirectoryPictures), "Wallpapers");
@@ -89,11 +106,9 @@ namespace Wallpapersofhappiness
 				myDir.Mkdirs ();
 			}
 			Random generator = new Random ();
-			int n = 100;
-			var position = extras.GetString ("image-name").IndexOf ("/");
-			var afterUrl = extras.GetString ("image-name").Substring (position);
+			int n = 10000;
 			n = generator.Next (n);
-			String fname = afterUrl + ".jpg";
+			String fname = "Image-" + n + ".jpg";
 			File file = new File (myDir, fname);
 			Intent mediaScanIntent = new Intent (Intent.ActionMediaScannerScanFile);
 			var contentUri = Android.Net.Uri.FromFile (file);
@@ -138,8 +153,7 @@ namespace Wallpapersofhappiness
 		}
 
 		private void DialogToSetWallpaper (byte[] bitmap)
-		{	
-			
+		{				
 			WallpaperManager myWallpaper = WallpaperManager.GetInstance (this);
 			try {
 				int height = Resources.DisplayMetrics.HeightPixels;
