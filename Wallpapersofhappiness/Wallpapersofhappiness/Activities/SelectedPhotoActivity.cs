@@ -232,37 +232,37 @@ namespace Wallpapersofhappiness
 			var coupleList = new List<ImageModel> ();
 			var motivationList = new List<ImageModel> ();
 			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.Green_Haze, type = "local"	
+				version = Resource.Drawable.anime_devushki_okaloidy, type = "local"
 			});
 			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.Supernova_Blue, type = "local"	
+				version = Resource.Drawable.cvety_rasteniya, type = "local"
 			});
 			loveList.Add (new ImageModel () {
-				version = Resource.Drawable.Green_Haze, type = "local"	
+				version = Resource.Drawable.cvety_rasteniya, type = "local"
 			});
 			loveList.Add (new ImageModel () {
-				version = Resource.Drawable.Green_Haze, type = "local"	
+				version = Resource.Drawable.hty_more_pejzazh, type = "local"
 			});
 			happinessList.Add (new ImageModel () {
-				version = Resource.Drawable.Green_Haze, type = "local"	
+				version = Resource.Drawable.anime_devushki_okaloidy, type = "local"
 			});
 			happinessList.Add (new ImageModel () {
-				version = Resource.Drawable.Green_Haze, type = "local"	
+				version = Resource.Drawable.hty_more_pejzazh, type = "local"
 			});
 			sportList.Add (new ImageModel () {
-				version = Resource.Drawable.Raspberry_Fruit, type = "local"	
+				version = Resource.Drawable.devushki_lyudi_novy, type = "local"
 			});
 			sportList.Add (new ImageModel () {
-				version = Resource.Drawable.Green_Haze, type = "local"	
+				version = Resource.Drawable.hty_more_pejzazh, type = "local"
 			});
 			coupleList.Add (new ImageModel () {
-				version = Resource.Drawable.Blue_Diamond, type = "local"	
+				version = Resource.Drawable.delfiny_zhivotnye, type = "local"
 			});
 			coupleList.Add (new ImageModel () {
-				version = Resource.Drawable.Supernova_Blue, type = "local"	
+				version = Resource.Drawable.devushki_lyudi_novy, type = "local"
 			});
 			motivationList.Add (new ImageModel () {
-				version = Resource.Drawable.Blue_Diamond, type = "local"	
+				version = Resource.Drawable.delfiny_zhivotnye, type = "local"
 			});
 			listOfImages.Add ("best", bestList);
 			listOfImages.Add ("categories/love", loveList);
@@ -394,23 +394,19 @@ namespace Wallpapersofhappiness
 					if (!img.type.Equals ("local")) {
 					
 						if (_memoryCache.Get (img.url) == null) {
-							_memoryCache.Put (img.url, GetImageBitmapFromUrl (img.url));
-							bitmaps.Add (GetImageBitmapFromUrl (img.url));
+							var bitm = GetImageBitmapFromUrl (img.url);
+							_memoryCache.Put (img.url, bitm);
+							bitmaps.Add (bitm);
 						} else {
 							var bitm = (Bitmap)_memoryCache.Get (img.url);
 							bitmaps.Add (bitm);
 						}
-					} else {
-						var bitm = DecodeSampledBitmapFromResource (Resources, img.version, Resources.DisplayMetrics.WidthPixels / 3, Resources.DisplayMetrics.HeightPixels / 3);
-
-						if (_memoryCache.Get (img.version) == null) {
-							_memoryCache.Put (img.version, bitm);
-							bitmaps.Add (bitm);		
-						} else {
-							var bitma = (Bitmap)_memoryCache.Get (img.version);
-							bitmaps.Add (bitma);
-						}
-
+					} else {	
+							
+						var bitm = BitmapFactory.DecodeResource (Resources, img.version);						
+						bitmaps.Add (GetResizedBitmap (bitm, Resources.DisplayMetrics.WidthPixels / 3, Resources.DisplayMetrics.HeightPixels / 3));
+						bitm.Recycle ();
+						bitm = null;
 					}
 				}
 
@@ -420,6 +416,18 @@ namespace Wallpapersofhappiness
 				recyclerView.SetAdapter (adapter);
 				recyclerView.Visibility = ViewStates.Visible;
 			});
+		}
+
+		public Bitmap GetResizedBitmap (Bitmap bm, int newWidth, int newHeight)
+		{
+			int width = bm.Width;
+			int height = bm.Height;
+			float scaleWidth = ((float)newWidth) / width;
+			float scaleHeight = ((float)newHeight) / height;
+			Matrix matrix = new Matrix ();
+			matrix.PostScale (scaleWidth, scaleHeight);
+			Bitmap resizedBitmap = Bitmap.CreateBitmap (bm, 0, 0, width, height, matrix, false);
+			return resizedBitmap;
 		}
 
 		public Bitmap DecodeSampledBitmapFromResource (Resources res, int resId,	int reqWidth, int reqHeight)

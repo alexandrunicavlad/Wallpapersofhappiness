@@ -313,10 +313,12 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_back.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_folder.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_save.png" />
-    <AndroidResource Include="Resources\drawable\Green_Haze.jpg" />
-    <AndroidResource Include="Resources\drawable\Raspberry_Fruit.jpg" />
-    <AndroidResource Include="Resources\drawable\Supernova_Blue.jpg" />
-    <AndroidResource Include="Resources\drawable\Blue_Diamond.jpg" />
+    <AndroidResource Include="Resources\drawable\anime_devushki_okaloidy.jpg" />
+    <AndroidResource Include="Resources\drawable\cvety_rasteniya.jpg" />
+    <AndroidResource Include="Resources\drawable\delfiny_zhivotnye.jpg" />
+    <AndroidResource Include="Resources\drawable\devushki_lyudi_novy.jpg" />
+    <AndroidResource Include="Resources\drawable\hty_more_pejzazh.jpg" />
+    <AndroidResource Include="Resources\drawable\sobaki_zhivotnye.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

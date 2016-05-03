@@ -69,7 +69,6 @@ C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersof
 C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\uploadflags.txt
 C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\Wallpapersofhappiness.dll.mdb
 C:\Users\Nica\Documents\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Wallpapersofhappiness.dll.mdb
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\Wallpapersofhappiness.csprojResolveAssemblyReference.cache
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Wallpapersofhappiness.dll
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Wallpapersofhappiness.pdb
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\com.alexandrunica.wallpapersofhappiness.apk
@@ -191,8 +190,6 @@ C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofha
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\values-ru\strings.xml
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\values-en\strings.xml
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\layout\left_menu.xml
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\R.cs.flag
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\uploadflags.txt
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-hdpi\ic_chose_photos.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-hdpi\ic_external_photo.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-hdpi\ic_language.png
@@ -302,9 +299,13 @@ C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofha
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-xxxhdpi\ic_back.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-xxxhdpi\ic_folder.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-xxxhdpi\ic_save.png
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\green_haze.jpg
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\raspberry_fruit.jpg
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\supernova_blue.jpg
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\blue_diamond.jpg
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\R.cs.flag
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\uploadflags.txt
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\anime_devushki_okaloidy.jpg
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\cvety_rasteniya.jpg
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\delfiny_zhivotnye.jpg
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\devushki_lyudi_novy.jpg
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\hty_more_pejzazh.jpg
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\sobaki_zhivotnye.jpg
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\Wallpapersofhappiness.dll.mdb
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Wallpapersofhappiness.dll.mdb

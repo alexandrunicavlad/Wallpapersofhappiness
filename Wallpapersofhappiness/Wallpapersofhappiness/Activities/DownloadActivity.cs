@@ -18,6 +18,7 @@ using System.Net;
 using Android.Support.V4.Widget;
 using Java.IO;
 using Android.Content.Res;
+using Android.Graphics.Drawables;
 
 namespace Wallpapersofhappiness
 {
@@ -60,9 +61,7 @@ namespace Wallpapersofhappiness
 						}
 					}
 				} else {
-					var bitnew = BitmapFactory.DecodeResource (Resources, imagePath);
-					var newBitmap = GetResizedBitmap (bitnew, Resources.DisplayMetrics.WidthPixels, Resources.DisplayMetrics.HeightPixels);
-					imageView.SetImageBitmap (newBitmap);
+					imageView.SetImageResource (imagePath);
 					imageView.Visibility = ViewStates.Visible;
 					loading.Visibility = ViewStates.Gone;				
 				}
@@ -175,7 +174,7 @@ namespace Wallpapersofhappiness
 			Matrix matrix = new Matrix ();
 			matrix.PostScale (scaleWidth, scaleHeight);
 			Bitmap resizedBitmap = Bitmap.CreateBitmap (bm, 0, 0, width, height, matrix, false);
-			bm.Recycle ();	
+
 			return resizedBitmap;
 		}
 
@@ -219,6 +218,15 @@ namespace Wallpapersofhappiness
 				});
 			}
 
+		}
+
+		protected override void OnStop ()
+		{
+			base.OnStop ();
+			imageView.DrawingCacheEnabled = true;
+			Bitmap bitmap = imageView.DrawingCache;
+			if (bitmap != null)
+				bitmap.Recycle ();
 		}
 	}
 }
