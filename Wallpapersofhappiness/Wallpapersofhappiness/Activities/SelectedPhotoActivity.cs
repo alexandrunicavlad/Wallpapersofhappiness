@@ -41,7 +41,7 @@ namespace Wallpapersofhappiness
 		private const string ApiSecret = "grc0mV1_k8xuV8xLYZgPGMpbwDw";
 		private static readonly string DatabaseDirectory =
 			System.IO.Path.Combine (System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal), "../photo");
-
+	
 		private LinearLayout mainSlider;
 		private List<ImageModel> images;
 		private List<ImageModel> images1;
@@ -58,6 +58,8 @@ namespace Wallpapersofhappiness
 		private bool coupleBool = false;
 		private bool motivationBool = false;
 		private bool retrying = false;
+		private bool loadingData = false;
+
 		private TextView best;
 		private TextView category;
 		private TextView random;
@@ -106,10 +108,14 @@ namespace Wallpapersofhappiness
 			couplelayout = mainSlider.FindViewById<LinearLayout> (Resource.Id.Couplelayout);
 			motivationlayout = mainSlider.FindViewById<LinearLayout> (Resource.Id.Motivationlayout);
 			var maxMemory = (int)(Java.Lang.Runtime.GetRuntime ().MaxMemory () / 1024);
-			var cacheSize = maxMemory / 8;
+			var cacheSize = maxMemory / 2;
 			_memoryCache = new MemoryLimitedLruCache (cacheSize);
 			bestBool = true;
 			best.Click += delegate {
+				if (loadingData) {
+					return;
+				}
+				loadingData = true;
 				if (bestBool) {
 					return;
 				} else {				
@@ -124,6 +130,10 @@ namespace Wallpapersofhappiness
 				}
 			};
 			category.Click += delegate {
+				if (loadingData) {
+					return;
+				}
+				loadingData = true;
 				if (categoryBool) {
 					return;
 				} else {			
@@ -144,6 +154,10 @@ namespace Wallpapersofhappiness
 
 			};
 			random.Click += delegate {
+				if (loadingData) {
+					return;
+				}
+				loadingData = true;
 				if (randomBool) {
 					return;
 				} else {	
@@ -158,6 +172,10 @@ namespace Wallpapersofhappiness
 				}
 			};
 			lovelayout.Click += delegate {
+				if (loadingData) {
+					return;
+				}
+				loadingData = true;
 				lovelayout.Clickable = false;
 				recyclerView.Visibility = ViewStates.Gone;
 				loadingRec.Visibility = ViewStates.Visible;
@@ -170,6 +188,10 @@ namespace Wallpapersofhappiness
 				});
 			};
 			happineslayout.Click += delegate {
+				if (loadingData) {
+					return;
+				}
+				loadingData = true;
 				happineslayout.Clickable = false;
 				recyclerView.Visibility = ViewStates.Gone;
 				loadingRec.Visibility = ViewStates.Visible;
@@ -183,6 +205,10 @@ namespace Wallpapersofhappiness
 
 			};
 			sportlayout.Click += delegate {
+				if (loadingData) {
+					return;
+				}
+				loadingData = true;
 				sportlayout.Clickable = false;
 				recyclerView.Visibility = ViewStates.Gone;
 				loadingRec.Visibility = ViewStates.Visible;
@@ -195,6 +221,10 @@ namespace Wallpapersofhappiness
 				});
 			};
 			couplelayout.Click += delegate {
+				if (loadingData) {
+					return;
+				}
+				loadingData = true;
 				couplelayout.Clickable = false;
 				recyclerView.Visibility = ViewStates.Gone;
 				loadingRec.Visibility = ViewStates.Visible;
@@ -208,6 +238,10 @@ namespace Wallpapersofhappiness
 				});
 			};
 			motivationlayout.Click += delegate {
+				if (loadingData) {
+					return;
+				}
+				loadingData = true;
 				motivationlayout.Clickable = false;
 				recyclerView.Visibility = ViewStates.Gone;
 				loadingRec.Visibility = ViewStates.Visible;
@@ -232,37 +266,40 @@ namespace Wallpapersofhappiness
 			var coupleList = new List<ImageModel> ();
 			var motivationList = new List<ImageModel> ();
 			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.anime_devushki_okaloidy, type = "local"
+				version = Resource.Drawable.sport_213, type = "local"
 			});
 			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.cvety_rasteniya, type = "local"
+				version = Resource.Drawable.happiness_212, type = "local"
 			});
 			loveList.Add (new ImageModel () {
-				version = Resource.Drawable.cvety_rasteniya, type = "local"
+				version = Resource.Drawable.love_212, type = "local"
 			});
 			loveList.Add (new ImageModel () {
-				version = Resource.Drawable.hty_more_pejzazh, type = "local"
+				version = Resource.Drawable.love_213, type = "local"
 			});
 			happinessList.Add (new ImageModel () {
-				version = Resource.Drawable.anime_devushki_okaloidy, type = "local"
+				version = Resource.Drawable.happiness_212, type = "local"
 			});
 			happinessList.Add (new ImageModel () {
-				version = Resource.Drawable.hty_more_pejzazh, type = "local"
+				version = Resource.Drawable.happiness_213, type = "local"
 			});
 			sportList.Add (new ImageModel () {
-				version = Resource.Drawable.devushki_lyudi_novy, type = "local"
+				version = Resource.Drawable.sport_212, type = "local"
 			});
 			sportList.Add (new ImageModel () {
-				version = Resource.Drawable.hty_more_pejzazh, type = "local"
+				version = Resource.Drawable.sport_213, type = "local"
 			});
 			coupleList.Add (new ImageModel () {
-				version = Resource.Drawable.delfiny_zhivotnye, type = "local"
+				version = Resource.Drawable.couple_212, type = "local"
 			});
 			coupleList.Add (new ImageModel () {
-				version = Resource.Drawable.devushki_lyudi_novy, type = "local"
+				version = Resource.Drawable.couple_213, type = "local"
 			});
 			motivationList.Add (new ImageModel () {
-				version = Resource.Drawable.delfiny_zhivotnye, type = "local"
+				version = Resource.Drawable.motivation_212, type = "local"
+			});
+			motivationList.Add (new ImageModel () {
+				version = Resource.Drawable.motivation_213, type = "local"
 			});
 			listOfImages.Add ("best", bestList);
 			listOfImages.Add ("categories/love", loveList);
@@ -323,9 +360,21 @@ namespace Wallpapersofhappiness
 			return item;
 		}
 
-		private void GetData (string type)
+		public override void OnWindowFocusChanged (bool hasFocus)
 		{
-			
+			var displayMetrics = new DisplayMetrics ();
+			WindowManager.DefaultDisplay.GetMetrics (displayMetrics);
+			var x = displayMetrics.WidthPixels / displayMetrics.Xdpi;
+
+			int cardsNumber = (int)(x / 1.22);
+			cardsNumber = cardsNumber > 1 ? cardsNumber : 1;
+
+
+			base.OnWindowFocusChanged (hasFocus);
+		}
+
+		private void GetData (string type)
+		{			
 			images = new List<ImageModel> ();
 
 			switch (type) {
@@ -382,40 +431,57 @@ namespace Wallpapersofhappiness
 				retrying = true;
 			}
 			RunOnUiThread (() => {
-				homePage.Visibility = ViewStates.Gone;
+				
 				if (retrying) {
+					
 //					ShowRetry (loading, this);
 //					loading.Visibility = ViewStates.Visible;
 //					return;
 				}
+				ThreadPool.QueueUserWorkItem (o => DownloadImage ());
+			});
+		}
 
-				bitmaps = new List<Bitmap> ();
-				foreach (var img in images) {		
-					if (!img.type.Equals ("local")) {
-					
-						if (_memoryCache.Get (img.url) == null) {
-							var bitm = GetImageBitmapFromUrl (img.url);
-							_memoryCache.Put (img.url, bitm);
-							bitmaps.Add (bitm);
-						} else {
-							var bitm = (Bitmap)_memoryCache.Get (img.url);
-							bitmaps.Add (bitm);
-						}
-					} else {	
-							
-						var bitm = BitmapFactory.DecodeResource (Resources, img.version);						
-						bitmaps.Add (GetResizedBitmap (bitm, Resources.DisplayMetrics.WidthPixels / 3, Resources.DisplayMetrics.HeightPixels / 3));
-						bitm.Recycle ();
-						bitm = null;
+		private void DownloadImage ()
+		{
+			bitmaps = new List<Bitmap> ();
+			foreach (var img in images) {		
+				if (!img.type.Equals ("local")) {
+
+					if (_memoryCache.Get (img.url) == null) {
+						var bitm = GetImageBitmapFromUrl (img.url);
+						_memoryCache.Put (img.url, bitm);
+						bitmaps.Add (bitm);
+					} else {
+						var bitm = (Bitmap)_memoryCache.Get (img.url);
+						bitmaps.Add (bitm);
 					}
+				} else {								
+					var bitm = BitmapFactory.DecodeResource (Resources, img.version);	
+					bitmaps.Add (GetResizedBitmap (bitm, Resources.DisplayMetrics.WidthPixels / 3, Resources.DisplayMetrics.HeightPixels / 3));
+					bitm.Recycle ();
+					bitm = null;
 				}
-
+			}
+			RunOnUiThread (() => {
+				homePage.Visibility = ViewStates.Gone;
 				FindViewById<LinearLayout> (Resource.Id.selectedpagelayout).Visibility = ViewStates.Visible;
 				adapter = new ImageAdapter (this, bitmaps);
 				adapter.ItemClick += OnItemClick;
 				recyclerView.SetAdapter (adapter);
 				recyclerView.Visibility = ViewStates.Visible;
+				loadingData = false;
 			});
+		}
+
+		public Bitmap GetUrl (string url)
+		{
+			URL urlul = new URL (url);
+			var Uti = Uri.Parse (urlul.ToURI ().ToString ());
+			//var ins = ContentResolver.OpenInputStream (Uti);
+			var ins = urlul.OpenConnection ().InputStream;
+			var bmp = BitmapFactory.DecodeStream (ins);
+			return bmp;
 		}
 
 		public Bitmap GetResizedBitmap (Bitmap bm, int newWidth, int newHeight)

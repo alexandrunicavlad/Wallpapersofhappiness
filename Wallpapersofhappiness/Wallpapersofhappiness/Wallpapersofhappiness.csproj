@@ -313,12 +313,16 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_back.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_folder.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_save.png" />
-    <AndroidResource Include="Resources\drawable\anime_devushki_okaloidy.jpg" />
-    <AndroidResource Include="Resources\drawable\cvety_rasteniya.jpg" />
-    <AndroidResource Include="Resources\drawable\delfiny_zhivotnye.jpg" />
-    <AndroidResource Include="Resources\drawable\devushki_lyudi_novy.jpg" />
-    <AndroidResource Include="Resources\drawable\hty_more_pejzazh.jpg" />
-    <AndroidResource Include="Resources\drawable\sobaki_zhivotnye.jpg" />
+    <AndroidResource Include="Resources\drawable\couple_212.jpg" />
+    <AndroidResource Include="Resources\drawable\happiness_212.jpg" />
+    <AndroidResource Include="Resources\drawable\couple_213.jpg" />
+    <AndroidResource Include="Resources\drawable\happiness_213.jpg" />
+    <AndroidResource Include="Resources\drawable\love_212.jpg" />
+    <AndroidResource Include="Resources\drawable\love_213.jpg" />
+    <AndroidResource Include="Resources\drawable\motivation_212.jpg" />
+    <AndroidResource Include="Resources\drawable\motivation_213.jpg" />
+    <AndroidResource Include="Resources\drawable\sport_212.jpg" />
+    <AndroidResource Include="Resources\drawable\sport_213.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

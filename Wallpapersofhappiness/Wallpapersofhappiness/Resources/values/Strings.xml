@@ -25,7 +25,7 @@
 	<string name="ValidationErrorConverting">Unable to retreive any data!</string>
 	<string name="TryAgainLater">Error completing current action. Please try again later</string>
 	<string name="TryAgain">Please try again</string>
-	<string name="ValidationRequestTimeOut">Problem connecting to the server. Please try again</string>
+	<string name="ValidationRequestTimeOut">Problem connecting to the internet. Please try again</string>
 	<string name="ValidationCannotCast">Sorry,there was a problem connecting. Please try again</string>
 	<string name="ValidationIntPtr">Your picture was not loaded correctly</string>
 	<string name="ValidationText">Your text was not loaded correctly</string>

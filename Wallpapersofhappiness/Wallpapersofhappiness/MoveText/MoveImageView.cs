@@ -78,16 +78,15 @@ namespace MoveText
 			mTextPaint.TextAlign = Paint.Align.Center;
 			mTextPaint.Color = Resources.GetColor (textColor);
 			mTextPaint.SetTypeface (typefaces);
-
 			StaticLayout mTextLayout = new StaticLayout (str, mTextPaint, canvas.Width - 20, Android.Text.Layout.Alignment.AlignNormal, 1.0f, 0.0f, false);
-
-			Bitmap b = Bitmap.CreateBitmap (canvas.Width, mTextLayout.Height, Bitmap.Config.Alpha8);
-			Canvas c = new Canvas (b);
-			Paint paint = new Paint ();
-			paint.Color = Resources.GetColor (Resource.Color.black_transparent);
-			c.DrawRect (0, 0, canvas.Width, mTextLayout.Height, paint);
-			//canvas.DrawBitmap (b, 0, y, paint);
-
+//			Bitmap b = Bitmap.CreateBitmap (canvas.Width, mTextLayout.Height, Bitmap.Config.Alpha8);
+//			Canvas c = new Canvas (b);
+//			Paint paint = new Paint ();
+//			paint.Color = Resources.GetColor (Resource.Color.black_transparent);
+//			c.DrawRect (0, 0, canvas.Width, mTextLayout.Height, paint);
+//			//canvas.DrawBitmap (b, 0, y, paint);
+//			b.Recycle ();
+//			b = null;
 			canvas.Save ();
 			canvas.Translate (canvas.Width / 2, y);
 			mTextLayout.Draw (canvas);

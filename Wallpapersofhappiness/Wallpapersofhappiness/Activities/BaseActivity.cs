@@ -34,6 +34,7 @@ namespace Wallpapersofhappiness
 		private ActionBarDrawerToggle mDrawerToggle;
 		private Toolbar toolbar;
 		private LinearLayout leftMenu;
+		private long count = 0;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -154,22 +155,22 @@ namespace Wallpapersofhappiness
 		public Bitmap GetImageBitmapFromUrl (string url)
 		{
 			Bitmap imageBitmap = null;
-			Bitmap newImageBitmap = null;
 			using (var webClient = new WebClient ()) {
 				try {					
 					var position = url.IndexOf ("upload");
 					var subUrl = url.Substring (0, position + 7);
 					var afterUrl = url.Substring (position + 7);
-					var newUrl = string.Format ("{0}w_{1},h_{2},c_fill/{3}", subUrl, Resources.DisplayMetrics.WidthPixels / 3, Resources.DisplayMetrics.HeightPixels / 3, afterUrl);
+					var heught = 170 * Resources.DisplayMetrics.Density;
+					var newUrl = string.Format ("{0}w_{1},h_{2},c_fill/{3}", subUrl, Resources.DisplayMetrics.WidthPixels / 3, heught, afterUrl);
 					var imageBytes = webClient.DownloadData (newUrl);
+					count = count + imageBytes.Count ();
 					if (imageBytes != null && imageBytes.Length > 0) {
 						imageBitmap = BitmapFactory.DecodeByteArray (imageBytes, 0, imageBytes.Length);
 						//					var heigh = (int)context.Resources.DisplayMetrics.HeightPixels / 4;
 						//					var width = Convert.ToInt32 (context.Resources.DisplayMetrics.WidthPixels / 3.5);
 						//					newImageBitmap = GetResizedBitmap (imageBitmap, heigh, width);
 					}
-				} catch (Exception ex) {
-					var a = 0;
+				} catch (Exception ex) {					
 				}
 
 			}
@@ -261,7 +262,7 @@ namespace Wallpapersofhappiness
 						ShowToast (Resource.String.TryAgain);
 						break;
 					} else if (e.Message.Contains ("Error: ConnectFailure (Network is unreachable)")) {
-						ShowToast (Resource.String.TryAgain);
+						ShowToast (Resource.String.ValidationRequestTimeOut);
 						break;
 					} else {
 						Xamarin.Insights.Report (e, Xamarin.Insights.Severity.Warning);

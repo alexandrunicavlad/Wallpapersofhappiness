@@ -281,6 +281,7 @@ namespace Wallpapersofhappiness
 			RunOnUiThread (() => {
 				if (retry) {
 					Toast.MakeText (this, GetString (Resource.String.ValidationText), ToastLength.Short);
+					retry = false;
 				} else {
 					if (textList.ToString ().Equals ("")) {
 						Toast.MakeText (this, GetString (Resource.String.ValidationText), ToastLength.Short);
@@ -369,12 +370,17 @@ namespace Wallpapersofhappiness
 				var o2 = new BitmapFactory.Options ();
 				o2.InSampleSize = scale;
 				ins = ContentResolver.OpenInputStream (Uti);
+
 				b = BitmapFactory.DecodeStream (ins, null, o2);
-				var abc = WindowManager.DefaultDisplay;
-				if (b.Width >= WindowManager.DefaultDisplay.Width) {
+				b = rotateBitmap (b, Uti);
+				if (extras.GetString ("image-path") != null) {
 					imageView.SetScaleType (ImageView.ScaleType.FitXy);
 				}
+				if (b.Width >= WindowManager.DefaultDisplay.Width) {
+					
+				}
 				ins.Close ();
+
 
 			} catch (Exception e) {
 				retry = true;
@@ -397,48 +403,24 @@ namespace Wallpapersofhappiness
 			});
 		}
 
-		public Bitmap rotateBitmap (String src, Bitmap bitmap, Android.Net.Uri uti)
+		public Bitmap rotateBitmap (Bitmap bitmap, Android.Net.Uri uti)
 		{
 			try {				
-				var orientation = 1;
-
-				if (orientation == 1) {
-					return bitmap;
-				}
-
+				File f = new File (uti.Path);
+				ExifInterface exif = new ExifInterface (f.Path);
+				var orientation = exif.GetAttribute (ExifInterface.TagOrientation);
 				Matrix matrix = new Matrix ();
+
 				switch (orientation) {
-				case 2:
-					matrix.SetScale (-1, 1);
-					break;
-				case 3:
-					matrix.SetRotate (180);
-					break;
-				case 4:
-					matrix.SetRotate (180);
-					matrix.PostScale (-1, 1);
-					break;
-				case 5:
+				case "6":
 					matrix.SetRotate (90);
-					matrix.PostScale (-1, 1);
-					break;
-				case 6:
-					matrix.SetRotate (90);
-					break;
-				case 7:
-					matrix.SetRotate (-90);
-					matrix.PostScale (-1, 1);
-					break;
-				case 8:
-					matrix.SetRotate (-90);
-					break;
+					break;				
 				default:
 					return bitmap;
 				}
 
 				try {
-					Bitmap oriented = Bitmap.CreateBitmap (bitmap, 0, 0,
-						                  bitmap.Width, bitmap.Height, matrix, true);
+					Bitmap oriented = Bitmap.CreateBitmap (bitmap, 0, 0, bitmap.Width, bitmap.Height, matrix, true);
 					bitmap.Recycle ();
 					return oriented;
 				} catch (Java.Lang.OutOfMemoryError e) {
