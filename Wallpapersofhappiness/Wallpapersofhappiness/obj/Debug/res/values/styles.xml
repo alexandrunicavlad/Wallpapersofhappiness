@@ -3,4 +3,4 @@
       @color/blue
     </item><item name="android:showDividers">none</item><item name="background">
       @color/blue
-    </item></style><style name="NoActionBar" parent="@android:style/Theme.Holo.Light"><item name="android:windowActionBar">false</item><item name="android:windowNoTitle">true</item></style><style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"><item name="android:windowTranslucentStatus">true</item></style><style name="NavigationDrawerStyle"><item name="android:textSize">18sp</item><item name="android:listPreferredItemHeightSmall">40dp</item></style></resources>
+    </item></style><style name="NoActionBar" parent="@style/Theme.AppCompat.Light.DarkActionBar"><item name="android:windowActionBar">false</item><item name="android:windowNoTitle">true</item></style><style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"><item name="android:windowTranslucentStatus">true</item></style><style name="NavigationDrawerStyle"><item name="android:textSize">18sp</item><item name="android:listPreferredItemHeightSmall">40dp</item></style></resources>

@@ -2845,7 +2845,8 @@ error
         public static final int bottom_sheet_behavior=0x7f090015;
         public static final int cancelbutton=0x7f090035;
         public static final int character_counter_pattern=0x7f090016;
-        public static final int chose_from=0x7f09001b;
+        public static final int choose_from=0x7f09001b;
+        public static final int chose_from=0x7f09003d;
         public static final int close_drawer=0x7f090019;
         public static final int donebutton=0x7f090034;
         public static final int external_photo=0x7f09001c;

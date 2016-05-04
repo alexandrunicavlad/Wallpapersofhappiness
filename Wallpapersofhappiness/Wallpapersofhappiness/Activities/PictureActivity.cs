@@ -82,7 +82,6 @@ namespace Wallpapersofhappiness
 			cancelIcon.Click += delegate {
 				OnBackPressed ();
 			};
-
 			saveIcon.Click += delegate {
 				saveIcon.Clickable = false;
 				imageView.DrawingCacheEnabled = true;
@@ -110,9 +109,8 @@ namespace Wallpapersofhappiness
 				}
 
 			};
-
 			palletteIcon.Click += delegate {
-				
+
 				AlertDialog.Builder alert = new AlertDialog.Builder (this);
 				alert.SetTitle (GetString (Resource.String.ChoseColor));
 
@@ -235,31 +233,40 @@ namespace Wallpapersofhappiness
 			};
 			fontIcon.Click += delegate {
 				var listOfTypeface = new List<TypefaceModel> ();
-
-
 				listOfTypeface.Add (new TypefaceModel (Typeface.CreateFromAsset (Assets, "AlexBrush-Regular.ttf"), "Brush"));
 				listOfTypeface.Add (new TypefaceModel (Typeface.CreateFromAsset (Assets, "Aller_Rg.ttf"), "Aller"));
 				listOfTypeface.Add (new TypefaceModel (Typeface.CreateFromAsset (Assets, "ostrich-regular.ttf"), "Ostrich"));
 				listOfTypeface.Add (new TypefaceModel (Typeface.Create (Typeface.Default, TypefaceStyle.Normal), "Normal"));
 				AlertDialog.Builder alert = new AlertDialog.Builder (this);
-
-				var listAdapter = new TypeFaceListAdapter (this, listOfTypeface);
-
-				alert.SetAdapter (listAdapter, delegate(object sender, DialogClickEventArgs e) {
-					imageView.TypefaceText (listOfTypeface [e.Which].Typeface);
-					imageView.Invalidate ();
-				});
-					                               
 				alert.SetTitle (GetString (Resource.String.Selectfonttype));
 				alert.SetNegativeButton (GetString (Resource.String.cancelbutton), delegate {
 
 				});
+				var listAdapter = new TypeFaceListAdapter (this, listOfTypeface);
+				var infate = LayoutInflater.Inflate (Resource.Layout.textItems_listview, null);
+				var listViewType = infate.FindViewById<ListView> (Resource.Id.listview);						
+				var loadingType = infate.FindViewById<RelativeLayout> (Resource.Id.main_loading);
+				loadingType.Visibility = ViewStates.Gone;
+				listViewType.Visibility = ViewStates.Visible;
+				alert.SetView (infate);
+				listViewType.Adapter = listAdapter;
 				AlertDialog alertDialog = alert.Show ();
+				listViewType.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
+					alertDialog.Dismiss ();
+					imageView.TypefaceText (listOfTypeface [e.Position].Typeface);
+					imageView.Invalidate ();
+				};
+//				alert.SetAdapter (listAdapter, delegate(object sender, DialogClickEventArgs e) {
+//					imageView.TypefaceText (listOfTypeface [e.Which].Typeface);
+//					imageView.Invalidate ();
+//				});					                               
+
+
 
 			};
 		}
 
-		private void GetData (Dialog dialog)
+		private void GetData (AlertDialog dialog)
 		{
 			var reqUrl = "https://wp-of-happiness.firebaseio.com/availableText.json";
 			var request = (HttpWebRequest)WebRequest.Create (reqUrl);
@@ -314,18 +321,26 @@ namespace Wallpapersofhappiness
 		private void SelectText ()
 		{
 			
-			Dialog dialog = new Dialog (this);
+			var alert = new Android.App.AlertDialog.Builder (this);
+			alert.SetTitle (GetString (Resource.String.ChoseText));
+			var infate = LayoutInflater.Inflate (Resource.Layout.textItems_listview, null);
+			alert.SetView (infate);
+			AlertDialog alertDialog = alert.Show ();
+			listView = infate.FindViewById<ListView> (Resource.Id.listview);						
+			loading = infate.FindViewById<RelativeLayout> (Resource.Id.main_loading);
+//			var dialog = new Dialog (this);
+//			dialog.SetTitle (GetString (Resource.String.ChoseText));
 //			dialog.Window.RequestFeature (WindowFeatures.NoTitle);
-			dialog.SetContentView (Resource.Layout.textItems_listview);
-			dialog.Window.SetGravity (GravityFlags.Center);
-			dialog.Window.SetLayout (WindowManager.DefaultDisplay.Width - 100, WindowManagerLayoutParams.WrapContent);
-			dialog.SetCancelable (true);
-			dialog.SetTitle (GetString (Resource.String.ChoseText));
-			dialog.SetCanceledOnTouchOutside (true);
-			listView = dialog.FindViewById<ListView> (Resource.Id.listview);	
-			loading = dialog.FindViewById<RelativeLayout> (Resource.Id.main_loading);
-			dialog.Show ();
-			ThreadPool.QueueUserWorkItem (o => GetData (dialog));
+//			dialog.SetContentView (Resource.Layout.textItems_listview);
+//			dialog.Window.SetGravity (GravityFlags.Center);
+//			dialog.Window.SetLayout (WindowManager.DefaultDisplay.Width - 100, WindowManagerLayoutParams.WrapContent);
+//			dialog.SetCancelable (true);
+//			dialog.SetTitle (GetString (Resource.String.ChoseText));
+//			dialog.SetCanceledOnTouchOutside (true);
+//			listView = dialog.FindViewById<ListView> (Resource.Id.listview);	
+//			loading = dialog.FindViewById<RelativeLayout> (Resource.Id.main_loading);
+//			dialog.Show ();
+			ThreadPool.QueueUserWorkItem (o => GetData (alertDialog));
 
 //			var values = textList.english;
 //			var listAdapter = new TextListAdapter (this, values);

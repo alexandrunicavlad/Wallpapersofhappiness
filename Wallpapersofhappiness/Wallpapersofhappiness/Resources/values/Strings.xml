@@ -3,7 +3,7 @@
 	<string name="open_drawer">Open drawer</string>
 	<string name="close_drawer">Close drawer</string>
 	<string name="take_photo">TAKE PHOTO</string>
-	<string name="chose_from">CHOSE FROM PHOTOS</string>
+	<string name="choose_from">CHOOSE FROM PHOTOS</string>
 	<string name="external_photo">EXTERNAL PHOTOS</string>
 	<string name="language">LANGUAGE</string>
 	<!--language-->
@@ -36,8 +36,8 @@
 	<string name="donebutton">Done</string>
 	<string name="cancelbutton">Cancel</string>
 	<string name="ComingSoon">Coming Soon!</string>
-	<string name="ChoseColor">Chosse color</string>
-	<string name="ChoseText">Chosse Text</string>
+	<string name="ChoseColor">Choose color</string>
+	<string name="ChoseText">Choose Text</string>
 	<string name="Selectfontsize">Select font size</string>
 	<string name="Selectfonttype">Select font type</string>
 	<string name="saveWallpapers">Your wallpapers was saved to your album</string>

@@ -3216,7 +3216,10 @@ namespace Wallpapersofhappiness
 			public const int character_counter_pattern = 2131296278;
 			
 			// aapt resource value: 0x7f09001b
-			public const int chose_from = 2131296283;
+			public const int choose_from = 2131296283;
+			
+			// aapt resource value: 0x7f09003d
+			public const int chose_from = 2131296317;
 			
 			// aapt resource value: 0x7f090019
 			public const int close_drawer = 2131296281;
