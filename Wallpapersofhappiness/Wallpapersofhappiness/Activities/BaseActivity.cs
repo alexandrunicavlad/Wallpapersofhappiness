@@ -19,6 +19,7 @@ using Android.Graphics;
 using Uri = Android.Net.Uri;
 using System.Net;
 using Java.Net;
+using Wallpapersofhappiness.Services;
 
 namespace Wallpapersofhappiness
 {
@@ -35,6 +36,7 @@ namespace Wallpapersofhappiness
 		private Toolbar toolbar;
 		private LinearLayout leftMenu;
 		private long count = 0;
+		protected static IDatabaseServices DatabaseServices;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -57,6 +59,7 @@ namespace Wallpapersofhappiness
 			var choseFromPhoto = leftMenu.FindViewById<LinearLayout> (Resource.Id.chosefromphoto);
 			var externalPhoto = leftMenu.FindViewById<LinearLayout> (Resource.Id.externalphoto);
 			var languageLayout = leftMenu.FindViewById<LinearLayout> (Resource.Id.languagelayout);
+			DatabaseServices = new DataBaseServices (this);
 
 			var drawerToggle = new ActionBarDrawerToggle (this, drawerLayout, toolbar, Resource.String.open_drawer, Resource.String.close_drawer);
 			drawerLayout.SetDrawerListener (drawerToggle);
@@ -165,6 +168,7 @@ namespace Wallpapersofhappiness
 					var imageBytes = webClient.DownloadData (newUrl);
 					count = count + imageBytes.Count ();
 					if (imageBytes != null && imageBytes.Length > 0) {
+						DatabaseServices.InsertImage (url, imageBytes);
 						imageBitmap = BitmapFactory.DecodeByteArray (imageBytes, 0, imageBytes.Length);
 						//					var heigh = (int)context.Resources.DisplayMetrics.HeightPixels / 4;
 						//					var width = Convert.ToInt32 (context.Resources.DisplayMetrics.WidthPixels / 3.5);

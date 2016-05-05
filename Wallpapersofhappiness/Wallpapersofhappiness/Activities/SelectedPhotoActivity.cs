@@ -25,6 +25,8 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Threading;
 using System.Reflection;
+using Wallpapersofhappiness.Services;
+using System.Threading.Tasks;
 
 namespace Wallpapersofhappiness
 {
@@ -39,8 +41,6 @@ namespace Wallpapersofhappiness
 		private string requestURL = "https://api.cloudinary.com/v1_1/wp-of-happiness/resources/image/upload/?prefix=";
 		private const string ApiKey = "966956932715847";
 		private const string ApiSecret = "grc0mV1_k8xuV8xLYZgPGMpbwDw";
-		private static readonly string DatabaseDirectory =
-			System.IO.Path.Combine (System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal), "../photo");
 	
 		private LinearLayout mainSlider;
 		private List<ImageModel> images;
@@ -76,6 +76,11 @@ namespace Wallpapersofhappiness
 		private RelativeLayout loadingRec;
 		private MemoryLimitedLruCache _memoryCache;
 
+		protected static IDatabaseServices DatabaseServices;
+		private static readonly string DatabaseDirectory =	System.IO.Path.Combine (System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal), "../databases");
+		public const string DatabaseFileName = "WOHdb";
+		public long free;
+
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
@@ -83,14 +88,13 @@ namespace Wallpapersofhappiness
 			ConstructActionBar ();
 			UpdateTexts ();
 			SetTitle (GetString (Resource.String.Defaultbackground));
-
+			DatabaseServices = new DataBaseServices (this);
+			CreateSqLiteDatabase ();
 			loading = FindViewById<RelativeLayout> (Resource.Id.main_loading);
 			loadingRec = FindViewById<RelativeLayout> (Resource.Id.main_loading_recycler);
 			homePage = FindViewById<RelativeLayout> (Resource.Id.homepage);
 			homePage.Visibility = ViewStates.Visible;
-
-
-
+			bitmaps = new List<Bitmap> ();
 			ThreadPool.QueueUserWorkItem (o => GetData ("best"));
 			recyclerView = FindViewById<RecyclerView> (Resource.Id.image_recycler);
 			GridLayoutManager glm = new GridLayoutManager (this, 3);
@@ -442,31 +446,51 @@ namespace Wallpapersofhappiness
 			});
 		}
 
-		private void DownloadImage ()
+		private async void DownloadImage ()
 		{
+			if (bitmaps.Count > 0) {	
+				bitmaps.Clear ();
+			}
 			bitmaps = new List<Bitmap> ();
+			free = Java.Lang.Runtime.GetRuntime ().FreeMemory ();
 			foreach (var img in images) {		
-				if (!img.type.Equals ("local")) {
-
-					if (_memoryCache.Get (img.url) == null) {
-						var bitm = GetImageBitmapFromUrl (img.url);
-						_memoryCache.Put (img.url, bitm);
+				if (!img.type.Equals ("local")) {	
+					if (DatabaseServices.CheckExist (img.url)) {
+						var bitm = DatabaseServices.GetImage (img.url);
 						bitmaps.Add (bitm);
 					} else {
-						var bitm = (Bitmap)_memoryCache.Get (img.url);
+						var bitm = GetImageBitmapFromUrl (img.url);
 						bitmaps.Add (bitm);
 					}
-				} else {								
-					var bitm = BitmapFactory.DecodeResource (Resources, img.version);	
-					bitmaps.Add (GetResizedBitmap (bitm, Resources.DisplayMetrics.WidthPixels / 3, Resources.DisplayMetrics.HeightPixels / 3));
-					bitm.Recycle ();
-					bitm = null;
+//					if (_memoryCache.Get (img.url) == null) {
+//						var bitm = GetImageBitmapFromUrl (img.url);
+//						_memoryCache.Put (img.url, bitm);
+//						DatabaseServices.GetImage (img.url);
+//						bitmaps.Add (bitm);
+//					} else {
+//						var bitm = (Bitmap)_memoryCache.Get (img.url);
+//						bitmaps.Add (bitm);
+//					}
+				} else {	
+//					var heigh = 170 * Resources.DisplayMetrics.Density;
+////					var bitm1 = ((BitmapDrawable)Resources.GetDrawable (img.version)).Bitmap;
+////					var bitscale = Bitmap.CreateScaledBitmap (bitm1, Resources.DisplayMetrics.WidthPixels / 3, (int)heigh, false);
+//					var total = Java.Lang.Runtime.GetRuntime ().TotalMemory ();
+//					free = Java.Lang.Runtime.GetRuntime ().FreeMemory ();
+//					var bitscale = DecodeSampledBitmapFromResource (Resources, img.version, 100, 100);
+
+					BitmapFactory.Options options = await GetBitmapOptionsOfImage (img.version);
+					Bitmap bitmaptodispaly = await LoadScaledDownBitmapForDisplayAsync (Resources, options, 100, 100, img.version);
+					bitmaps.Add (bitmaptodispaly);
 				}
+
 			}
 			RunOnUiThread (() => {
 				homePage.Visibility = ViewStates.Gone;
 				FindViewById<LinearLayout> (Resource.Id.selectedpagelayout).Visibility = ViewStates.Visible;
+				free = Java.Lang.Runtime.GetRuntime ().FreeMemory ();
 				adapter = new ImageAdapter (this, bitmaps);
+				free = Java.Lang.Runtime.GetRuntime ().FreeMemory ();
 				adapter.ItemClick += OnItemClick;
 				recyclerView.SetAdapter (adapter);
 				recyclerView.Visibility = ViewStates.Visible;
@@ -511,28 +535,6 @@ namespace Wallpapersofhappiness
 			return BitmapFactory.DecodeResource (res, resId, options);
 		}
 
-		public int CalculateInSampleSize (BitmapFactory.Options options, int reqWidth, int reqHeight)
-		{
-			// Raw height and width of image
-			int height = options.OutHeight;
-			int width = options.OutWidth;
-			int inSampleSize = 1;
-
-			if (height > reqHeight || width > reqWidth) {
-
-				int halfHeight = height / 2;
-				int halfWidth = width / 2;
-
-				// Calculate the largest inSampleSize value that is a power of 2 and keeps both
-				// height and width larger than the requested height and width.
-				while ((halfHeight / inSampleSize) > reqHeight
-				       && (halfWidth / inSampleSize) > reqWidth) {
-					inSampleSize *= 2;
-				}
-			}
-
-			return inSampleSize;
-		}
 
 		void OnItemClick (object sender, int position)
 		{			
@@ -546,6 +548,125 @@ namespace Wallpapersofhappiness
 			}
 			StartActivity (intent);
 		}
+
+		private bool CreateSqLiteDatabase ()
+		{
+			var strSqLitePathOnDevice = GetSQLitePathOnDevice ();
+			var isSqLiteInitialized = false;
+			try {
+				if (System.IO.File.Exists (strSqLitePathOnDevice)) {
+					isSqLiteInitialized = true;
+				} else {
+					var streamSqLite = Assets.Open (DatabaseFileName);
+					Directory.CreateDirectory (DatabaseDirectory);
+					var streamWrite = new FileStream (strSqLitePathOnDevice, FileMode.OpenOrCreate,
+						                  FileAccess.Write);
+					if (streamSqLite != null) {
+						if (CopySQLiteOnDevice (streamSqLite, streamWrite)) {
+							isSqLiteInitialized = true;
+						}
+					}
+				}
+			} catch (Exception) {
+				var currentMethod = MethodBase.GetCurrentMethod ();
+				/*if (currentMethod.DeclaringType != null)
+                Console.WriteLine(String.Format("CLASS : {0}; METHOD : {1}; EXCEPTION : {2}"
+                    , currentMethod.DeclaringType.FullName
+                    , currentMethod.Name
+                    , exception.Message));*/
+			}
+			return isSqLiteInitialized;
+		}
+
+		private string GetSQLitePathOnDevice ()
+		{
+			var strSqLitePathOnDevice = string.Empty;
+			try {
+				strSqLitePathOnDevice = System.IO.Path.Combine (DatabaseDirectory, DatabaseFileName);
+			} catch (Exception) {
+				var currentMethod = MethodBase.GetCurrentMethod ();
+				/* Console.WriteLine(String.Format("CLASS : {0}; METHOD : {1}; EXCEPTION : {2}"
+                 , currentMethod.DeclaringType.FullName
+                 , currentMethod.Name
+                 , exception.Message));*/
+			}
+			return strSqLitePathOnDevice;
+		}
+
+		private bool CopySQLiteOnDevice (Stream streamSqLite, Stream streamWrite)
+		{
+			bool isSuccess = false;
+			const int length = 256;
+			var buffer = new Byte[length];
+			try {
+				int bytesRead = streamSqLite.Read (buffer, 0, length);
+				while (bytesRead > 0) {
+					streamWrite.Write (buffer, 0, bytesRead);
+					bytesRead = streamSqLite.Read (buffer, 0, length);
+				}
+				isSuccess = true;
+			} catch (Exception) {
+				var currentMethod = MethodBase.GetCurrentMethod ();
+				/* Console.WriteLine(String.Format("CLASS : {0}; METHOD : {1}; EXCEPTION : {2}"
+                    , currentMethod.DeclaringType.FullName
+                    , currentMethod.Name
+                    , exception.Message));*/
+			} finally {
+				streamSqLite.Close ();
+				streamWrite.Close ();
+			}
+			return isSuccess;
+
+		}
+
+		public static int CalculateInSampleSize (BitmapFactory.Options options, int reqWidth, int reqHeight)
+		{
+			// Raw height and width of image
+			float height = options.OutHeight;
+			float width = options.OutWidth;
+			double inSampleSize = 1D;
+
+			if (height > reqHeight || width > reqWidth) {
+				int halfHeight = (int)(height / 2);
+				int halfWidth = (int)(width / 2);
+
+				// Calculate a inSampleSize that is a power of 2 - the decoder will use a value that is a power of two anyway.
+				while ((halfHeight / inSampleSize) > reqHeight && (halfWidth / inSampleSize) > reqWidth) {
+					inSampleSize *= 2;
+				}
+
+			}
+
+			return (int)inSampleSize;
+		}
+
+		public async Task<Bitmap> LoadScaledDownBitmapForDisplayAsync (Resources res, BitmapFactory.Options options, int reqWidth, int reqHeight, int resou)
+		{
+			// Calculate inSampleSize
+			options.InSampleSize = CalculateInSampleSize (options, reqWidth, reqHeight);
+
+			// Decode bitmap with inSampleSize set
+			options.InJustDecodeBounds = false;
+
+			return await BitmapFactory.DecodeResourceAsync (res, resou, options);
+		}
+
+		async Task<BitmapFactory.Options> GetBitmapOptionsOfImage (int resou)
+		{
+			BitmapFactory.Options options = new BitmapFactory.Options {
+				InJustDecodeBounds = true
+			};
+
+			// The result will be null because InJustDecodeBounds == true.
+			Bitmap result = await BitmapFactory.DecodeResourceAsync (Resources, resou, options);
+
+
+			int imageHeight = options.OutHeight;
+			int imageWidth = options.OutWidth;
+
+			return options;
+		}
+	
 	}
 }
 

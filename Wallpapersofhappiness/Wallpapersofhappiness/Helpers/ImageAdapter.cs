@@ -41,6 +41,7 @@ namespace Wallpapersofhappiness
 			PhotoViewHolder vh = holder as PhotoViewHolder;
 			var item = images [position];
 			vh.Image.SetImageBitmap (item);
+			item = null;
 		}
 
 		public override RecyclerView.ViewHolder OnCreateViewHolder (Android.Views.ViewGroup parent, int viewType)

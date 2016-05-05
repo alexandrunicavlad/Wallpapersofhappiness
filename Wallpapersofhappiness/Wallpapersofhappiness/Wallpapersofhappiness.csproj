@@ -91,6 +91,8 @@
     <Compile Include="Models\TypefaceModel.cs" />
     <Compile Include="Activities\DownloadActivity.cs" />
     <Compile Include="Helpers\LruCache.cs" />
+    <Compile Include="Services\DataBaseServices.cs" />
+    <Compile Include="Services\IDataBaseServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -334,6 +336,7 @@
     <Folder Include="Resources\values-ru\" />
     <Folder Include="Resources\values-en\" />
     <Folder Include="Assets\Pictures\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Insights.1.12.3\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\packages\Xamarin.Insights.1.12.3\build\MonoAndroid10\Xamarin.Insights.targets')" />
@@ -342,5 +345,6 @@
     <AndroidAsset Include="Assets\AlexBrush-Regular.ttf" />
     <AndroidAsset Include="Assets\Aller_Rg.ttf" />
     <AndroidAsset Include="Assets\ostrich-regular.ttf" />
+    <AndroidAsset Include="Assets\WOHdb" />
   </ItemGroup>
 </Project>

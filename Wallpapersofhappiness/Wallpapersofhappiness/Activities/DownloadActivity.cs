@@ -35,6 +35,7 @@ namespace Wallpapersofhappiness
 		private ImageView saveButton;
 		private byte[] byteArray;
 		private MemoryLimitedLruCache _memoryCache;
+		private Bitmap imageBitmap;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -85,6 +86,7 @@ namespace Wallpapersofhappiness
 			SupportActionBar.SetDisplayShowHomeEnabled (true);
 			toolbar.NavigationClick += delegate {
 				OnBackPressed ();
+
 				Finish ();
 			};
 
@@ -190,7 +192,7 @@ namespace Wallpapersofhappiness
 
 		public void GetImageBitmapFromUrl (string url)
 		{
-			Bitmap imageBitmap = null;
+			imageBitmap = null;
 			using (var webClient = new WebClient ()) {
 				try {					
 					var imageBytes = webClient.DownloadData (url);
@@ -223,10 +225,19 @@ namespace Wallpapersofhappiness
 		protected override void OnStop ()
 		{
 			base.OnStop ();
-			imageView.DrawingCacheEnabled = true;
-			Bitmap bitmap = imageView.DrawingCache;
-			if (bitmap != null)
-				bitmap.Recycle ();
+			if (imageBitmap != null) {
+				imageBitmap.Recycle ();
+				imageBitmap = null;
+			}
+		}
+
+		protected override void OnDestroy ()
+		{
+			base.OnDestroy ();
+			if (imageBitmap != null) {
+				imageBitmap.Recycle ();
+				imageBitmap = null;
+			}
 		}
 	}
 }
