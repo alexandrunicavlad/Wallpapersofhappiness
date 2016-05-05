@@ -97,11 +97,12 @@ namespace Wallpapersofhappiness
 				//imageView.Invalidate ();
 			};
 			settingIcon.Click += delegate {
+				var density = Resources.DisplayMetrics.Density / 2;
 				if (palletteIcon.Visibility == ViewStates.Visible) {					
-					ObjectAnimator moverPallette = ObjectAnimator.OfFloat (palletteIcon, "translationX", -130, 0);
-					ObjectAnimator moverTextIcon = ObjectAnimator.OfFloat (textIcon, "translationX", -120, 0);
-					ObjectAnimator moverTextIconY = ObjectAnimator.OfFloat (textIcon, "translationY", 110, 0);
-					ObjectAnimator moverFontIcon = ObjectAnimator.OfFloat (fontIcon, "translationY", 130, 0);
+					ObjectAnimator moverPallette = ObjectAnimator.OfFloat (palletteIcon, "translationX", -130 * density, 0);
+					ObjectAnimator moverTextIcon = ObjectAnimator.OfFloat (textIcon, "translationX", -120 * density, 0);
+					ObjectAnimator moverTextIconY = ObjectAnimator.OfFloat (textIcon, "translationY", 110 * density, 0);
+					ObjectAnimator moverFontIcon = ObjectAnimator.OfFloat (fontIcon, "translationY", 130 * density, 0);
 					moverPallette.Start ();
 					moverTextIcon.Start ();
 					moverTextIconY.Start ();
@@ -118,10 +119,10 @@ namespace Wallpapersofhappiness
 					textIcon.Visibility = ViewStates.Visible;
 					fontIcon.Visibility = ViewStates.Visible;
 					settingIcon.Background = Resources.GetDrawable (Resource.Drawable.round_green_main);
-					ObjectAnimator moverPallette = ObjectAnimator.OfFloat (palletteIcon, "translationX", 0, -130);
-					ObjectAnimator moverTextIcon = ObjectAnimator.OfFloat (textIcon, "translationX", 0, -120);
-					ObjectAnimator moverTextIconY = ObjectAnimator.OfFloat (textIcon, "translationY", 0, 110);
-					ObjectAnimator moverFontIcon = ObjectAnimator.OfFloat (fontIcon, "translationY", 0, 130);
+					ObjectAnimator moverPallette = ObjectAnimator.OfFloat (palletteIcon, "translationX", 0, -130 * density);
+					ObjectAnimator moverTextIcon = ObjectAnimator.OfFloat (textIcon, "translationX", 0, -120 * density);
+					ObjectAnimator moverTextIconY = ObjectAnimator.OfFloat (textIcon, "translationY", 0, 110 * density);
+					ObjectAnimator moverFontIcon = ObjectAnimator.OfFloat (fontIcon, "translationY", 0, 130 * density);
 					moverPallette.Start ();
 					moverTextIcon.Start ();
 					moverTextIconY.Start ();
