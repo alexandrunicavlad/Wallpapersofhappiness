@@ -2,6 +2,9 @@ C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofha
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\Mono.Android.dll
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\mscorlib.dll
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\Newtonsoft.Json.dll
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\Square.OkHttp.dll
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\Square.OkIO.dll
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\Square.Picasso.dll
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\System.Core.dll
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\System.dll
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\assemblies\System.Xml.dll

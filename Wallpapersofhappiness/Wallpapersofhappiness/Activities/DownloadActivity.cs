@@ -19,6 +19,8 @@ using Android.Support.V4.Widget;
 using Java.IO;
 using Android.Content.Res;
 using Android.Graphics.Drawables;
+using Square.Picasso;
+
 
 namespace Wallpapersofhappiness
 {
@@ -58,21 +60,32 @@ namespace Wallpapersofhappiness
 					if (imageNumber != null) {
 						if (!extras.GetString ("image-number").Equals ("")) {	
 							var url = extras.GetString ("image-number");
-							ThreadPool.QueueUserWorkItem (o => GetImageBitmapFromUrl (url));
+							Picasso.With (this).Load (url)
+								.MemoryPolicy (MemoryPolicy.NoCache)
+								.NetworkPolicy (NetworkPolicy.NoStore)
+								.Into (imageView);
+							imageView.Visibility = ViewStates.Visible;
+							loading.Visibility = ViewStates.Gone;
 						}
 					}
 				} else {
-					imageView.SetImageResource (imagePath);
+					imageView.SetScaleType (ImageView.ScaleType.FitXy);
+					Picasso.With (this)
+						.Load (imagePath)
+						.MemoryPolicy (MemoryPolicy.NoCache)
+						.NetworkPolicy (NetworkPolicy.NoStore)
+						.Into (imageView);
 					imageView.Visibility = ViewStates.Visible;
 					loading.Visibility = ViewStates.Gone;				
 				}
 			}
 			saveButton.Click += delegate {
 				saveButton.Clickable = false;
-				imageView.DrawingCacheEnabled = true;
-				Bitmap newbitmapnew = imageView.DrawingCache;
+				var bitm = ((BitmapDrawable)imageView.Drawable).Bitmap;
+				//imageView.DrawingCacheEnabled = true;
+				//Bitmap newbitmapnew = imageView.DrawingCache;
 				loading.Visibility = ViewStates.Visible;
-				ThreadPool.QueueUserWorkItem (o => SaveImage (newbitmapnew));	
+				ThreadPool.QueueUserWorkItem (o => SaveImage (bitm));	
 			};
 
 		}
@@ -86,7 +99,6 @@ namespace Wallpapersofhappiness
 			SupportActionBar.SetDisplayShowHomeEnabled (true);
 			toolbar.NavigationClick += delegate {
 				OnBackPressed ();
-
 				Finish ();
 			};
 
@@ -122,7 +134,6 @@ namespace Wallpapersofhappiness
 				FileOutputStream fo = new FileOutputStream (file);
 				System.IO.MemoryStream stream = new System.IO.MemoryStream ();
 				finalBitmap.Compress (Bitmap.CompressFormat.Png, 100, stream);
-				finalBitmap.Recycle ();
 				byteArray = stream.ToArray ();
 				fo.Write (byteArray);
 				fo.Close ();						
@@ -191,53 +202,13 @@ namespace Wallpapersofhappiness
 		}
 
 		public void GetImageBitmapFromUrl (string url)
-		{
-			imageBitmap = null;
-			using (var webClient = new WebClient ()) {
-				try {					
-					var imageBytes = webClient.DownloadData (url);
-					if (imageBytes != null && imageBytes.Length > 0) {
-						imageBitmap = BitmapFactory.DecodeByteArray (imageBytes, 0, imageBytes.Length);
-						//					var heigh = (int)context.Resources.DisplayMetrics.HeightPixels / 4;
-						//					var width = Convert.ToInt32 (context.Resources.DisplayMetrics.WidthPixels / 3.5);
-						//					newImageBitmap = GetResizedBitmap (imageBitmap, heigh, width);
-					}
+		{						
 
-				} catch (Exception ex) {					
-					retry = true;
-					RunOnUiThread (() => {
-						var toast = Toast.MakeText (this, GetString (Resource.String.ValidationRequestTimeOut), ToastLength.Short);
-						toast.Show ();
-					});
-				}			
-				RunOnUiThread (() => {
-					if (retry) {
-						return;
-					}
-					imageView.SetImageBitmap (imageBitmap);
-					imageView.Visibility = ViewStates.Visible;
-					loading.Visibility = ViewStates.Gone;
-				});
-			}
 
-		}
-
-		protected override void OnStop ()
-		{
-			base.OnStop ();
-			if (imageBitmap != null) {
-				imageBitmap.Recycle ();
-				imageBitmap = null;
-			}
-		}
-
-		protected override void OnDestroy ()
-		{
-			base.OnDestroy ();
-			if (imageBitmap != null) {
-				imageBitmap.Recycle ();
-				imageBitmap = null;
-			}
+			RunOnUiThread (() => {				
+				imageView.Visibility = ViewStates.Visible;
+				loading.Visibility = ViewStates.Gone;
+			});		
 		}
 	}
 }

@@ -9,17 +9,19 @@ using Java.IO;
 using Android.Graphics;
 using System.Net;
 using Android.Support.V7.Widget;
+using Square.Picasso;
+using Android.Content.Res;
 
 namespace Wallpapersofhappiness
 {
 	public class ImageAdapter : RecyclerView.Adapter
 	{
 		Context context;
-		List<Bitmap> images;
+		List<ImageModel> images;
 
 		public event EventHandler<int> ItemClick;
 
-		public ImageAdapter (Context c, List<Bitmap> imgs)
+		public ImageAdapter (Context c, List<ImageModel> imgs)
 		{
 			context = c;
 			images = imgs;
@@ -40,8 +42,19 @@ namespace Wallpapersofhappiness
 		{
 			PhotoViewHolder vh = holder as PhotoViewHolder;
 			var item = images [position];
-			vh.Image.SetImageBitmap (item);
-			item = null;
+			var height = 170 * context.Resources.DisplayMetrics.Density;
+
+			if (item.type.Equals ("local")) {				
+				Picasso.With (context).Load (item.version).Resize (context.Resources.DisplayMetrics.WidthPixels / 3, (int)height).CenterCrop ().Into (vh.Image);
+			} else {	
+				var positionChar = item.url.IndexOf ("upload");
+				var subUrl = item.url.Substring (0, positionChar + 7);
+				var afterUrl = item.url.Substring (positionChar + 7);
+				var heught = 170 * context.Resources.DisplayMetrics.Density;
+				var newUrl = string.Format ("{0}w_{1},h_{2},c_fill/{3}", subUrl, context.Resources.DisplayMetrics.WidthPixels / 3, heught, afterUrl);
+				Picasso.With (context).Load (newUrl).Into (vh.Image);
+			}	
+
 		}
 
 		public override RecyclerView.ViewHolder OnCreateViewHolder (Android.Views.ViewGroup parent, int viewType)
@@ -57,6 +70,25 @@ namespace Wallpapersofhappiness
 				ItemClick (this, position);
 		}
 
+	}
+
+	public class CropSquareTransformation : Java.Lang.Object, ITransformation
+	{
+		public Bitmap Transform (Bitmap source)
+		{
+			int size = Math.Min (source.Width, source.Height);
+			int x = (source.Width - size) / 2;
+			int y = (source.Height - size) / 2;
+			Bitmap result = Bitmap.CreateBitmap (source, x, y, size, size);
+			if (result != source) {
+				source.Recycle ();
+			}
+			return result;
+		}
+
+		public string Key {
+			get { return "square()"; } 
+		}
 	}
 
 	public class PhotoViewHolder : RecyclerView.ViewHolder

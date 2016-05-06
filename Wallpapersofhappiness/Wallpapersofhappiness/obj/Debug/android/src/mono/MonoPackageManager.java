@@ -81,6 +81,9 @@ class MonoPackageManager_Resources {
 	public static final String[] Assemblies = new String[]{
 		"Wallpapersofhappiness.dll",
 		"Newtonsoft.Json.dll",
+		"Square.OkHttp.dll",
+		"Square.OkIO.dll",
+		"Square.Picasso.dll",
 		"Xamarin.Android.Support.Animated.Vector.Drawable.dll",
 		"Xamarin.Android.Support.Design.dll",
 		"Xamarin.Android.Support.v4.dll",

@@ -88,8 +88,8 @@ namespace Wallpapersofhappiness
 			ConstructActionBar ();
 			UpdateTexts ();
 			SetTitle (GetString (Resource.String.Defaultbackground));
-			DatabaseServices = new DataBaseServices (this);
-			CreateSqLiteDatabase ();
+			//DatabaseServices = new DataBaseServices (this);
+			//CreateSqLiteDatabase ();
 			loading = FindViewById<RelativeLayout> (Resource.Id.main_loading);
 			loadingRec = FindViewById<RelativeLayout> (Resource.Id.main_loading_recycler);
 			homePage = FindViewById<RelativeLayout> (Resource.Id.homepage);
@@ -446,50 +446,50 @@ namespace Wallpapersofhappiness
 			});
 		}
 
-		private async void DownloadImage ()
+		private void DownloadImage ()
 		{
-			if (bitmaps.Count > 0) {	
-				bitmaps.Clear ();
-			}
-			bitmaps = new List<Bitmap> ();
-			free = Java.Lang.Runtime.GetRuntime ().FreeMemory ();
-			foreach (var img in images) {		
-				if (!img.type.Equals ("local")) {	
-					if (DatabaseServices.CheckExist (img.url)) {
-						var bitm = DatabaseServices.GetImage (img.url);
-						bitmaps.Add (bitm);
-					} else {
-						var bitm = GetImageBitmapFromUrl (img.url);
-						bitmaps.Add (bitm);
-					}
-//					if (_memoryCache.Get (img.url) == null) {
-//						var bitm = GetImageBitmapFromUrl (img.url);
-//						_memoryCache.Put (img.url, bitm);
-//						DatabaseServices.GetImage (img.url);
+//			if (bitmaps.Count > 0) {	
+//				bitmaps.Clear ();
+//			}
+//			bitmaps = new List<Bitmap> ();
+//			free = Java.Lang.Runtime.GetRuntime ().FreeMemory ();
+//			foreach (var img in images) {		
+//				if (!img.type.Equals ("local")) {	
+//					if (DatabaseServices.CheckExist (img.url)) {
+//						var bitm = DatabaseServices.GetImage (img.url);
 //						bitmaps.Add (bitm);
 //					} else {
-//						var bitm = (Bitmap)_memoryCache.Get (img.url);
+//						var bitm = GetImageBitmapFromUrl (img.url);
 //						bitmaps.Add (bitm);
 //					}
-				} else {	
-//					var heigh = 170 * Resources.DisplayMetrics.Density;
-////					var bitm1 = ((BitmapDrawable)Resources.GetDrawable (img.version)).Bitmap;
-////					var bitscale = Bitmap.CreateScaledBitmap (bitm1, Resources.DisplayMetrics.WidthPixels / 3, (int)heigh, false);
-//					var total = Java.Lang.Runtime.GetRuntime ().TotalMemory ();
-//					free = Java.Lang.Runtime.GetRuntime ().FreeMemory ();
-//					var bitscale = DecodeSampledBitmapFromResource (Resources, img.version, 100, 100);
-
-					BitmapFactory.Options options = await GetBitmapOptionsOfImage (img.version);
-					Bitmap bitmaptodispaly = await LoadScaledDownBitmapForDisplayAsync (Resources, options, 100, 100, img.version);
-					bitmaps.Add (bitmaptodispaly);
-				}
-
-			}
+////					if (_memoryCache.Get (img.url) == null) {
+////						var bitm = GetImageBitmapFromUrl (img.url);
+////						_memoryCache.Put (img.url, bitm);
+////						DatabaseServices.GetImage (img.url);
+////						bitmaps.Add (bitm);
+////					} else {
+////						var bitm = (Bitmap)_memoryCache.Get (img.url);
+////						bitmaps.Add (bitm);
+////					}
+//				} else {	
+////					var heigh = 170 * Resources.DisplayMetrics.Density;
+//////					var bitm1 = ((BitmapDrawable)Resources.GetDrawable (img.version)).Bitmap;
+//////					var bitscale = Bitmap.CreateScaledBitmap (bitm1, Resources.DisplayMetrics.WidthPixels / 3, (int)heigh, false);
+////					var total = Java.Lang.Runtime.GetRuntime ().TotalMemory ();
+////					free = Java.Lang.Runtime.GetRuntime ().FreeMemory ();
+////					var bitscale = DecodeSampledBitmapFromResource (Resources, img.version, 100, 100);
+//
+//					BitmapFactory.Options options = await GetBitmapOptionsOfImage (img.version);
+//					Bitmap bitmaptodispaly = await LoadScaledDownBitmapForDisplayAsync (Resources, options, 100, 100, img.version);
+//					bitmaps.Add (bitmaptodispaly);
+//				}
+//
+//			}
 			RunOnUiThread (() => {
 				homePage.Visibility = ViewStates.Gone;
 				FindViewById<LinearLayout> (Resource.Id.selectedpagelayout).Visibility = ViewStates.Visible;
 				free = Java.Lang.Runtime.GetRuntime ().FreeMemory ();
-				adapter = new ImageAdapter (this, bitmaps);
+				adapter = new ImageAdapter (this, images);
 				free = Java.Lang.Runtime.GetRuntime ().FreeMemory ();
 				adapter.ItemClick += OnItemClick;
 				recyclerView.SetAdapter (adapter);
