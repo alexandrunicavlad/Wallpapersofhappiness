@@ -74,6 +74,9 @@ C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofha
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\com.alexandrunica.wallpapersofhappiness.apk
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\com.alexandrunica.wallpapersofhappiness-Signed.apk
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Square.OkHttp.dll
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Square.OkIO.dll
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Square.Picasso.dll
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Xamarin.Android.Support.Animated.Vector.Drawable.dll
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Xamarin.Android.Support.Design.dll
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Xamarin.Android.Support.v4.dll
@@ -299,8 +302,6 @@ C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofha
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-xxxhdpi\ic_back.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-xxxhdpi\ic_folder.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-xxxhdpi\ic_save.png
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\R.cs.flag
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\uploadflags.txt
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\couple_212.jpg
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\happiness_212.jpg
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\couple_213.jpg
@@ -311,9 +312,7 @@ C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofha
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\motivation_213.jpg
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\sport_212.jpg
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\sport_213.jpg
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\Wallpapersofhappiness.csprojResolveAssemblyReference.cache
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Square.OkHttp.dll
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Square.OkIO.dll
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Square.Picasso.dll
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\R.cs.flag
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\uploadflags.txt
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\Wallpapersofhappiness.dll.mdb
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Wallpapersofhappiness.dll.mdb
