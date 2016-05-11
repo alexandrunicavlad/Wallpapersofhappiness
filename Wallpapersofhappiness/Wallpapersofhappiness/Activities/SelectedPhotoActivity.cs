@@ -81,6 +81,7 @@ namespace Wallpapersofhappiness
 		public const string DatabaseFileName = "WOHdb";
 		public long free;
 
+
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
@@ -270,11 +271,51 @@ namespace Wallpapersofhappiness
 			var coupleList = new List<ImageModel> ();
 			var motivationList = new List<ImageModel> ();
 			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.sport_213, type = "local"
+				version = Resource.Drawable.best_1, type = "local"
 			});
 			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.happiness_212, type = "local"
+				version = Resource.Drawable.best_2, type = "local"
 			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_3, type = "local"
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_4, type = "local"
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_5, type = "local"
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_6, type = "local"
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_7, type = "local"
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_8, type = "local"
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_9, type = "local"
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_10, type = "local"
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_11, type = "local"
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_12, type = "local"
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_13, type = "local"
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_14, type = "local"
+			});
+			bestList.Add (new ImageModel () {
+				version = Resource.Drawable.best_15, type = "local"
+			});
+
 			loveList.Add (new ImageModel () {
 				version = Resource.Drawable.love_212, type = "local"
 			});
@@ -666,7 +707,8 @@ namespace Wallpapersofhappiness
 
 			return options;
 		}
-	
+
 	}
+
 }
 

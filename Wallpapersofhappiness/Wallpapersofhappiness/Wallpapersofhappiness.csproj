@@ -325,8 +325,8 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_folder.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_save.png" />
     <AndroidResource Include="Resources\drawable\couple_212.jpg" />
-    <AndroidResource Include="Resources\drawable\happiness_212.jpg" />
     <AndroidResource Include="Resources\drawable\couple_213.jpg" />
+    <AndroidResource Include="Resources\drawable\happiness_212.jpg" />
     <AndroidResource Include="Resources\drawable\happiness_213.jpg" />
     <AndroidResource Include="Resources\drawable\love_212.jpg" />
     <AndroidResource Include="Resources\drawable\love_213.jpg" />
@@ -334,6 +334,21 @@
     <AndroidResource Include="Resources\drawable\motivation_213.jpg" />
     <AndroidResource Include="Resources\drawable\sport_212.jpg" />
     <AndroidResource Include="Resources\drawable\sport_213.jpg" />
+    <AndroidResource Include="Resources\drawable\best_10.png" />
+    <AndroidResource Include="Resources\drawable\best_11.png" />
+    <AndroidResource Include="Resources\drawable\best_12.png" />
+    <AndroidResource Include="Resources\drawable\best_13.png" />
+    <AndroidResource Include="Resources\drawable\best_14.png" />
+    <AndroidResource Include="Resources\drawable\best_15.png" />
+    <AndroidResource Include="Resources\drawable\best_2.png" />
+    <AndroidResource Include="Resources\drawable\best_3.png" />
+    <AndroidResource Include="Resources\drawable\best_4.png" />
+    <AndroidResource Include="Resources\drawable\best_5.png" />
+    <AndroidResource Include="Resources\drawable\best_6.png" />
+    <AndroidResource Include="Resources\drawable\best_7.png" />
+    <AndroidResource Include="Resources\drawable\best_8.png" />
+    <AndroidResource Include="Resources\drawable\best_9.png" />
+    <AndroidResource Include="Resources\drawable\best_1.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

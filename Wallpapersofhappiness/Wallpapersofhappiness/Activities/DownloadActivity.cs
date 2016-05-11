@@ -20,6 +20,7 @@ using Java.IO;
 using Android.Content.Res;
 using Android.Graphics.Drawables;
 using Square.Picasso;
+using Java.Lang.Annotation;
 
 
 namespace Wallpapersofhappiness
@@ -39,6 +40,7 @@ namespace Wallpapersofhappiness
 		private MemoryLimitedLruCache _memoryCache;
 		private Bitmap imageBitmap;
 
+
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
@@ -55,26 +57,35 @@ namespace Wallpapersofhappiness
 			var imageNumber = extras.GetString ("image-number");
 			var imageName = extras.GetString ("image-name");
 			var imagePath = extras.GetInt ("image-path");
+			int size = (int)Math.Ceiling (Math.Sqrt (Resources.DisplayMetrics.WidthPixels * Resources.DisplayMetrics.HeightPixels));
 			if (extras != null) {
 				if (imagePath == 0) {
 					if (imageNumber != null) {
 						if (!extras.GetString ("image-number").Equals ("")) {	
 							var url = extras.GetString ("image-number");
-							Picasso.With (this).Load (url)
-								.MemoryPolicy (MemoryPolicy.NoCache)
-								.NetworkPolicy (NetworkPolicy.NoStore)
-								.Into (imageView);
+							Picasso.With (this).Load (url).Fit ().CenterInside ().MemoryPolicy (MemoryPolicy.NoCache).NetworkPolicy (NetworkPolicy.NoStore).Error (Resource.Drawable.ic_edit_pencil).Into (imageView, delegate {							
+								var b =	System.GC.GetTotalMemory (true);
+							}, delegate {
+								var a =	System.GC.GetTotalMemory (true);
+							});				
+							Picasso.With (this).IndicatorsEnabled = true;
 							imageView.Visibility = ViewStates.Visible;
 							loading.Visibility = ViewStates.Gone;
+							var picastat = Picasso.With (this).Snapshot;
 						}
 					}
-				} else {
-					imageView.SetScaleType (ImageView.ScaleType.FitXy);
-					Picasso.With (this)
-						.Load (imagePath)
-						.MemoryPolicy (MemoryPolicy.NoCache)
-						.NetworkPolicy (NetworkPolicy.NoStore)
-						.Into (imageView);
+				} else {	
+					Picasso.With (this).Load (imagePath)
+						.Fit ()
+						.CenterInside ()
+					    .SkipMemoryCache ()					
+						.Error (Resource.Drawable.ic_edit_pencil)
+						.Into (imageView, delegate {							
+						var b =	System.GC.GetTotalMemory (true);
+					}, delegate {
+						var a =	System.GC.GetTotalMemory (true);
+					});				
+					
 					imageView.Visibility = ViewStates.Visible;
 					loading.Visibility = ViewStates.Gone;				
 				}
@@ -90,6 +101,20 @@ namespace Wallpapersofhappiness
 
 		}
 
+		public override void OnWindowFocusChanged (bool hasFocus)
+		{
+			int width = imageView.Width;
+			int height = imageView.Height;
+			base.OnWindowFocusChanged (hasFocus);
+		}
+
+
+		protected override void OnDestroy ()
+		{			
+			Picasso.With (this).CancelRequest (imageView);
+			base.OnDestroy ();
+		}
+
 		private void ConstructActionBar ()
 		{
 			toolbar = FindViewById<Toolbar> (Resource.Id.tool_bar);
@@ -97,8 +122,7 @@ namespace Wallpapersofhappiness
 			SupportActionBar.SetDisplayShowTitleEnabled (false);
 			SupportActionBar.SetDisplayHomeAsUpEnabled (true);
 			SupportActionBar.SetDisplayShowHomeEnabled (true);
-			toolbar.NavigationClick += delegate {
-				OnBackPressed ();
+			toolbar.NavigationClick += delegate {				
 				Finish ();
 			};
 
@@ -109,7 +133,46 @@ namespace Wallpapersofhappiness
 
 		}
 
+		public static int CalculateInSampleSize (
+			BitmapFactory.Options options, int reqWidth, int reqHeight)
+		{
+			// Raw height and width of image
+			int height = options.OutHeight;
+			int width = options.OutWidth;
+			int inSampleSize = 1;
 
+			if (height > reqHeight || width > reqWidth) {
+
+				int halfHeight = height / 2;
+				int halfWidth = width / 2;
+
+				// Calculate the largest inSampleSize value that is a power of 2 and keeps both
+				// height and width larger than the requested height and width.
+				while ((halfHeight / inSampleSize) > reqHeight
+				       && (halfWidth / inSampleSize) > reqWidth) {
+					inSampleSize *= 2;
+				}
+			}
+
+			return inSampleSize;
+		}
+
+		public static Bitmap DecodeSampledBitmapFromResource (Resources res, int resId,
+		                                                      int reqWidth, int reqHeight)
+		{
+
+			// First decode with inJustDecodeBounds=true to check dimensions
+			BitmapFactory.Options options = new BitmapFactory.Options ();
+			options.InJustDecodeBounds = true;
+			BitmapFactory.DecodeResource (res, resId, options);
+
+			// Calculate inSampleSize
+			options.InSampleSize = CalculateInSampleSize (options, reqWidth, reqHeight);
+
+			// Decode bitmap with inSampleSize set
+			options.InJustDecodeBounds = false;
+			return BitmapFactory.DecodeResource (res, resId, options);
+		}
 
 
 		private void SaveImage (Bitmap finalBitmap)
@@ -153,7 +216,7 @@ namespace Wallpapersofhappiness
 				var alert = new Android.App.AlertDialog.Builder (this);
 				alert.SetTitle (GetString (Resource.String.saveWallpapers));
 				alert.SetNegativeButton (GetString (Resource.String.cancelbutton), delegate {
-					OnBackPressed ();
+					Finish ();
 				});
 				alert.SetPositiveButton (GetString (Resource.String.saveWallpapersMess), delegate {
 					DialogToSetWallpaper (byteArray);
@@ -191,7 +254,7 @@ namespace Wallpapersofhappiness
 			return resizedBitmap;
 		}
 
-		public  Bitmap Decode (byte[] encodeByte)
+		public Bitmap Decode (byte[] encodeByte)
 		{
 			try {				
 				Bitmap bitmap = BitmapFactory.DecodeByteArray (encodeByte, 0, encodeByte.Length);
@@ -210,6 +273,65 @@ namespace Wallpapersofhappiness
 				loading.Visibility = ViewStates.Gone;
 			});		
 		}
+
+
 	}
+
+
+	public class BitmapTransform : Java.Lang.Object, ITransformation
+	{
+
+		int maxWidth;
+		int maxHeight;
+
+		public BitmapTransform (int maxWidth, int maxHeight)
+		{
+			this.maxWidth = maxWidth;
+			this.maxHeight = maxHeight;
+		}
+
+		public Bitmap Transform (Bitmap source)
+		{
+			int size = Math.Min (source.Width, source.Height);
+			Bitmap result = Bitmap.CreateBitmap (source, 0, size, maxWidth, maxHeight);
+			//Bitmap result = Bitmap.CreateScaledBitmap (source, 600, 800, false);
+
+			if (result != source) {
+				source.Recycle ();
+			}
+			return result;
+		}
+
+		//		public  Bitmap Transform (Bitmap source)
+		//		{
+		//			int targetWidth, targetHeight;
+		//			double aspectRatio;
+		//
+		//			if (source.Width > source.Height) {
+		//				targetWidth = maxWidth;
+		//				aspectRatio = (double)source.Height / (double)source.Width;
+		//				targetHeight = (int)(targetWidth * aspectRatio);
+		//			} else {
+		//				targetHeight = maxHeight;
+		//				aspectRatio = (double)source.Width / (double)source.Height;
+		//				targetWidth = (int)(targetHeight * aspectRatio);
+		//			}
+		//
+		//			Bitmap result = Bitmap.CreateScaledBitmap (source, targetWidth, targetHeight, false);
+		//			if (result != source) {
+		//				source.Recycle ();
+		//			}
+		//			return result;
+		//		}
+
+
+
+		public string Key {
+			get { return "square()"; } 
+		}
+
+	};
+
+
 }
 
