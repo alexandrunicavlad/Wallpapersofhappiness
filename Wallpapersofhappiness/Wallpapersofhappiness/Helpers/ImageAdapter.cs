@@ -52,9 +52,14 @@ namespace Wallpapersofhappiness
 				var afterUrl = item.url.Substring (positionChar + 7);
 				var heught = 170 * context.Resources.DisplayMetrics.Density;
 				var newUrl = string.Format ("{0}w_{1},h_{2},c_fill/{3}", subUrl, context.Resources.DisplayMetrics.WidthPixels / 3, heught, afterUrl);
-				Picasso.With (context).Load (newUrl).Into (vh.Image);
+				Picasso.With (context).Load (newUrl)		
+					.Error (Resource.Drawable.ic_edit_pencil)
+					.Into (vh.Image, delegate {							
+					var b =	System.GC.GetTotalMemory (true);
+				}, delegate {
+					var a =	System.GC.GetTotalMemory (true);
+				});				
 			}	
-
 		}
 
 		public override RecyclerView.ViewHolder OnCreateViewHolder (Android.Views.ViewGroup parent, int viewType)
