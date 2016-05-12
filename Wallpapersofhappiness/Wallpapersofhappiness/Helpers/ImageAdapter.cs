@@ -45,7 +45,12 @@ namespace Wallpapersofhappiness
 			var height = 170 * context.Resources.DisplayMetrics.Density;
 
 			if (item.type.Equals ("local")) {				
-				Picasso.With (context).Load (item.version).Resize (context.Resources.DisplayMetrics.WidthPixels / 3, (int)height).CenterCrop ().Into (vh.Image);
+				Picasso.With (context).Load (item.version).Resize (context.Resources.DisplayMetrics.WidthPixels / 3, (int)height).CenterCrop ().Into (vh.Image, delegate {							
+					var b =	System.GC.GetTotalMemory (true);
+				}, delegate {
+					var a =	System.GC.GetTotalMemory (true);
+					Picasso.With (context).Load (item.version).Resize (context.Resources.DisplayMetrics.WidthPixels / 3, (int)height).CenterCrop ().Into (vh.Image);
+				});		
 			} else {	
 				var positionChar = item.url.IndexOf ("upload");
 				var subUrl = item.url.Substring (0, positionChar + 7);

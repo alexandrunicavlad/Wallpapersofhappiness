@@ -58,17 +58,42 @@ namespace Wallpapersofhappiness
 			var imageName = extras.GetString ("image-name");
 			var imagePath = extras.GetInt ("image-path");
 			int size = (int)Math.Ceiling (Math.Sqrt (Resources.DisplayMetrics.WidthPixels * Resources.DisplayMetrics.HeightPixels));
+			ShowImage ();
+
+			saveButton.Click += delegate {						
+				saveButton.Clickable = false;
+				var bitm = ((BitmapDrawable)imageView.Drawable).Bitmap;
+				//imageView.DrawingCacheEnabled = true;
+				//Bitmap newbitmapnew = imageView.DrawingCache;
+				loading.Visibility = ViewStates.Visible;
+				ThreadPool.QueueUserWorkItem (o => SaveImage (bitm));	
+			};
+
+		}
+
+		public void ShowImage ()
+		{
+			var imageNumber = extras.GetString ("image-number");
+			var imageName = extras.GetString ("image-name");
+			var imagePath = extras.GetInt ("image-path");
 			if (extras != null) {
 				if (imagePath == 0) {
 					if (imageNumber != null) {
 						if (!extras.GetString ("image-number").Equals ("")) {	
 							var url = extras.GetString ("image-number");
-							Picasso.With (this).Load (url).Fit ().CenterInside ().MemoryPolicy (MemoryPolicy.NoCache).NetworkPolicy (NetworkPolicy.NoStore).Error (Resource.Drawable.ic_edit_pencil).Into (imageView, delegate {							
+							Picasso.With (this).Load (url)
+								.Fit ()
+								.CenterInside ()
+								.MemoryPolicy (MemoryPolicy.NoCache)
+								.NetworkPolicy (NetworkPolicy.NoStore)
+								.Placeholder (Resource.Drawable.seekbar_progress)
+								.Error (Resource.Drawable.ic_edit_pencil)
+								.Into (imageView, delegate {							
 								var b =	System.GC.GetTotalMemory (true);
 							}, delegate {
-								var a =	System.GC.GetTotalMemory (true);
+								ShowRetry ();
 							});				
-							Picasso.With (this).IndicatorsEnabled = true;
+							//Picasso.With (this).IndicatorsEnabled = true;
 							imageView.Visibility = ViewStates.Visible;
 							loading.Visibility = ViewStates.Gone;
 							var picastat = Picasso.With (this).Snapshot;
@@ -78,25 +103,30 @@ namespace Wallpapersofhappiness
 					Picasso.With (this).Load (imagePath)
 						.Fit ()
 						.CenterInside ()
-					    .SkipMemoryCache ()					
+						.Placeholder (Resource.Drawable.seekbar_progress)
+						.SkipMemoryCache ()					
 						.Error (Resource.Drawable.ic_edit_pencil)
 						.Into (imageView, delegate {							
 						var b =	System.GC.GetTotalMemory (true);
 					}, delegate {
 						var a =	System.GC.GetTotalMemory (true);
 					});				
-					
 					imageView.Visibility = ViewStates.Visible;
-					loading.Visibility = ViewStates.Gone;				
+					loading.Visibility = ViewStates.Gone;		
+							
 				}
 			}
-			saveButton.Click += delegate {
-				saveButton.Clickable = false;
-				var bitm = ((BitmapDrawable)imageView.Drawable).Bitmap;
-				//imageView.DrawingCacheEnabled = true;
-				//Bitmap newbitmapnew = imageView.DrawingCache;
-				loading.Visibility = ViewStates.Visible;
-				ThreadPool.QueueUserWorkItem (o => SaveImage (bitm));	
+
+		}
+
+		public void ShowRetry ()
+		{
+			imageView.Visibility = ViewStates.Gone;
+			loading.Visibility = ViewStates.Visible;
+			loading.FindViewById<Button> (Resource.Id.loading_retry).Visibility = ViewStates.Visible;
+			loading.FindViewById<ProgressBar> (Resource.Id.splash_progressBar).Visibility = ViewStates.Gone;
+			loading.FindViewById<Button> (Resource.Id.loading_retry).Click += delegate {
+				ShowImage ();
 			};
 
 		}
@@ -122,8 +152,13 @@ namespace Wallpapersofhappiness
 			SupportActionBar.SetDisplayShowTitleEnabled (false);
 			SupportActionBar.SetDisplayHomeAsUpEnabled (true);
 			SupportActionBar.SetDisplayShowHomeEnabled (true);
-			toolbar.NavigationClick += delegate {				
-				Finish ();
+			toolbar.NavigationClick += delegate {
+				if (saveButton.Clickable == false) {
+					return;
+				} else {			
+				
+					Finish ();
+				}
 			};
 
 			toolbar.NavigationIcon = Resources.GetDrawable (Resource.Drawable.ic_back);

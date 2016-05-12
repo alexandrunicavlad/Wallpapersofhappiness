@@ -303,8 +303,8 @@ C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofha
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-xxxhdpi\ic_folder.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable-xxxhdpi\ic_save.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\couple_212.jpg
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\happiness_212.jpg
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\couple_213.jpg
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\happiness_212.jpg
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\happiness_213.jpg
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\love_212.jpg
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\love_213.jpg
@@ -312,10 +312,6 @@ C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofha
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\motivation_213.jpg
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\sport_212.jpg
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\sport_213.jpg
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\R.cs.flag
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\uploadflags.txt
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\Wallpapersofhappiness.csprojResolveAssemblyReference.cache
-C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\best_1.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\best_10.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\best_11.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\best_12.png
@@ -330,5 +326,8 @@ C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofha
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\best_7.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\best_8.png
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\best_9.png
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\res\drawable\best_1.png
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\R.cs.flag
+C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\uploadflags.txt
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\obj\Debug\Wallpapersofhappiness.dll.mdb
 C:\Users\Nica\Desktop\Wallpapersofhappiness\Wallpapersofhappiness\Wallpapersofhappiness\bin\Debug\Wallpapersofhappiness.dll.mdb
