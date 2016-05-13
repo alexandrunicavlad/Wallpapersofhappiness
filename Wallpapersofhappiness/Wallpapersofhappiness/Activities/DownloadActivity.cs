@@ -60,7 +60,9 @@ namespace Wallpapersofhappiness
 			int size = (int)Math.Ceiling (Math.Sqrt (Resources.DisplayMetrics.WidthPixels * Resources.DisplayMetrics.HeightPixels));
 			ShowImage ();
 
-			saveButton.Click += delegate {						
+			saveButton.Click += delegate {	
+				if (retry)
+					return;
 				saveButton.Clickable = false;
 				var bitm = ((BitmapDrawable)imageView.Drawable).Bitmap;
 				//imageView.DrawingCacheEnabled = true;
@@ -90,6 +92,7 @@ namespace Wallpapersofhappiness
 								.Error (Resource.Drawable.ic_edit_pencil)
 								.Into (imageView, delegate {							
 								var b =	System.GC.GetTotalMemory (true);
+								HideRetry ();
 							}, delegate {
 								ShowRetry ();
 							});				
@@ -112,15 +115,24 @@ namespace Wallpapersofhappiness
 						var a =	System.GC.GetTotalMemory (true);
 					});				
 					imageView.Visibility = ViewStates.Visible;
-					loading.Visibility = ViewStates.Gone;		
-							
+					loading.Visibility = ViewStates.Gone;	
 				}
 			}
 
 		}
 
+		public void HideRetry ()
+		{
+			retry = false;
+			imageView.Visibility = ViewStates.Visible;
+			loading.Visibility = ViewStates.Gone;
+			loading.FindViewById<Button> (Resource.Id.loading_retry).Visibility = ViewStates.Gone;
+			loading.FindViewById<ProgressBar> (Resource.Id.splash_progressBar).Visibility = ViewStates.Visible;
+		}
+
 		public void ShowRetry ()
 		{
+			retry = true;
 			imageView.Visibility = ViewStates.Gone;
 			loading.Visibility = ViewStates.Visible;
 			loading.FindViewById<Button> (Resource.Id.loading_retry).Visibility = ViewStates.Visible;
