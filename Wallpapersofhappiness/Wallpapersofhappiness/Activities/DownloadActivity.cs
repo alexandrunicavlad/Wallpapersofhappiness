@@ -84,22 +84,16 @@ namespace Wallpapersofhappiness
 						if (!extras.GetString ("image-number").Equals ("")) {	
 							var url = extras.GetString ("image-number");
 							Picasso.With (this).Load (url)
-								.Fit ()
-								.CenterInside ()
 								.MemoryPolicy (MemoryPolicy.NoCache)
 								.NetworkPolicy (NetworkPolicy.NoStore)
-								.Placeholder (Resource.Drawable.seekbar_progress)
-								.Error (Resource.Drawable.ic_edit_pencil)
 								.Into (imageView, delegate {							
-								var b =	System.GC.GetTotalMemory (true);
+								var b =	System.GC.GetTotalMemory (true);								
 								HideRetry ();
+								imageView.Visibility = ViewStates.Visible;
+								loading.Visibility = ViewStates.Gone;			
 							}, delegate {
 								ShowRetry ();
-							});				
-							//Picasso.With (this).IndicatorsEnabled = true;
-							imageView.Visibility = ViewStates.Visible;
-							loading.Visibility = ViewStates.Gone;
-							var picastat = Picasso.With (this).Snapshot;
+							});	
 						}
 					}
 				} else {	
@@ -138,6 +132,8 @@ namespace Wallpapersofhappiness
 			loading.FindViewById<Button> (Resource.Id.loading_retry).Visibility = ViewStates.Visible;
 			loading.FindViewById<ProgressBar> (Resource.Id.splash_progressBar).Visibility = ViewStates.Gone;
 			loading.FindViewById<Button> (Resource.Id.loading_retry).Click += delegate {
+				loading.FindViewById<Button> (Resource.Id.loading_retry).Visibility = ViewStates.Gone;
+				loading.FindViewById<ProgressBar> (Resource.Id.splash_progressBar).Visibility = ViewStates.Visible;
 				ShowImage ();
 			};
 
