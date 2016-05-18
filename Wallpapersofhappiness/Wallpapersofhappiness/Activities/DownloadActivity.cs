@@ -30,7 +30,6 @@ namespace Wallpapersofhappiness
 	public class DownloadActivity : ActionBarActivity
 	{
 		private Toolbar toolbar;
-		private Bitmap bitmap;
 		private ImageView imageView;
 		private Bundle extras;
 		private bool retry = false;
@@ -38,8 +37,6 @@ namespace Wallpapersofhappiness
 		private ImageView saveButton;
 		private byte[] byteArray;
 		private MemoryLimitedLruCache _memoryCache;
-		private Bitmap imageBitmap;
-
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -64,6 +61,10 @@ namespace Wallpapersofhappiness
 				if (retry)
 					return;
 				saveButton.Clickable = false;
+				if (imageView.Drawable == null) {
+					saveButton.Clickable = true;
+					return;
+				}
 				var bitm = ((BitmapDrawable)imageView.Drawable).Bitmap;
 				//imageView.DrawingCacheEnabled = true;
 				//Bitmap newbitmapnew = imageView.DrawingCache;
@@ -261,10 +262,14 @@ namespace Wallpapersofhappiness
 				alert.SetNegativeButton (GetString (Resource.String.cancelbutton), delegate {
 					Finish ();
 				});
+
 				alert.SetPositiveButton (GetString (Resource.String.saveWallpapersMess), delegate {
 					DialogToSetWallpaper (byteArray);
 				});
 				var alertDialog = alert.Create ();
+				alertDialog.CancelEvent += (object sender, EventArgs e) => {
+					alertDialog.Show ();
+				};
 				alertDialog.SetTitle (Resources.GetString (Resource.String.saveWallpapers));
 				alertDialog.Show ();
 			});
