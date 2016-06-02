@@ -27,6 +27,8 @@ using System.Threading;
 using System.Reflection;
 using Wallpapersofhappiness.Services;
 using System.Threading.Tasks;
+using Xamarin.InAppBilling;
+using Xamarin.InAppBilling.Utilities;
 
 namespace Wallpapersofhappiness
 {
@@ -38,9 +40,9 @@ namespace Wallpapersofhappiness
 	{
 		private const int REQUEST_IMAGE_CAPTURE = 1;
 		private const int REQUEST_IMAGE_ALBUM = 2;
-		private string requestURL = "https://api.cloudinary.com/v1_1/wp-of-happiness/resources/image/upload/?prefix=";
-		private const string ApiKey = "966956932715847";
-		private const string ApiSecret = "grc0mV1_k8xuV8xLYZgPGMpbwDw";
+		private string requestURL = "https://api.cloudinary.com/v1_1/wallpapersofhappiness/resources/image/upload/?prefix=";
+		private const string ApiKey = "411581651488537";
+		private const string ApiSecret = "h-Yo01HEmqDRkM1aNXp_0JI6znE";
 	
 		private LinearLayout mainSlider;
 		private List<ImageModel> images;
@@ -80,15 +82,15 @@ namespace Wallpapersofhappiness
 		private static readonly string DatabaseDirectory =	System.IO.Path.Combine (System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal), "../databases");
 		public const string DatabaseFileName = "WOHdb";
 		public long free;
-
+		private InAppBillingServiceConnection _serviceConnection;
 
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 			SetContentView (Resource.Layout.select_photo_drawer);
 			ConstructActionBar ();
-			UpdateTexts ();
-			SetTitle (GetString (Resource.String.Defaultbackground));
+			//UpdateTexts ();
+			SetTitle (GetString (Resource.String.Wallpapers));
 			//DatabaseServices = new DataBaseServices (this);
 			//CreateSqLiteDatabase ();
 			loading = FindViewById<RelativeLayout> (Resource.Id.main_loading);
@@ -122,6 +124,7 @@ namespace Wallpapersofhappiness
 				}
 				loadingData = true;
 				if (bestBool) {
+					loadingData = false;
 					return;
 				} else {				
 					recyclerView.Visibility = ViewStates.Gone;
@@ -140,6 +143,7 @@ namespace Wallpapersofhappiness
 				}
 				loadingData = true;
 				if (categoryBool) {
+					loadingData = false;
 					return;
 				} else {			
 					recyclerView.Visibility = ViewStates.Gone;
@@ -164,6 +168,7 @@ namespace Wallpapersofhappiness
 				}
 				loadingData = true;
 				if (randomBool) {
+					loadingData = false;
 					return;
 				} else {	
 					recyclerView.Visibility = ViewStates.Gone;
@@ -285,37 +290,6 @@ namespace Wallpapersofhappiness
 			bestList.Add (new ImageModel () {
 				version = Resource.Drawable.best_5, type = "local"
 			});
-			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.best_6, type = "local"
-			});
-			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.best_7, type = "local"
-			});
-			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.best_8, type = "local"
-			});
-			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.best_9, type = "local"
-			});
-			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.best_10, type = "local"
-			});
-			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.best_11, type = "local"
-			});
-			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.best_12, type = "local"
-			});
-			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.best_13, type = "local"
-			});
-			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.best_14, type = "local"
-			});
-			bestList.Add (new ImageModel () {
-				version = Resource.Drawable.best_15, type = "local"
-			});
-
 			loveList.Add (new ImageModel () {
 				version = Resource.Drawable.love_212, type = "local"
 			});
@@ -422,6 +396,42 @@ namespace Wallpapersofhappiness
 		{			
 			images = new List<ImageModel> ();
 
+
+
+			var reqUrl = string.Format ("{0}{1}/&max_results=500", requestURL, type);
+			var request = (HttpWebRequest)WebRequest.Create (reqUrl);
+			request.Timeout = 10000;
+			request.Method = "GET";
+			request.ContentType = "application/json";
+			request.Credentials = CredentialCache.DefaultCredentials;
+			var encoded = System.Convert.ToBase64String (System.Text.Encoding.GetEncoding ("ISO-8859-1").GetBytes (ApiKey + ":" + ApiSecret));
+
+			request.Headers.Add ("Authorization", "Basic " + encoded);
+			try {
+				var response = (HttpWebResponse)request.GetResponse ();
+				var reader = new StreamReader (response.GetResponseStream ());
+				var streamText = reader.ReadToEnd ();
+				var deserializedStreamText = JsonConvert.DeserializeObject<Images> (streamText);
+				images = (deserializedStreamText.resources);
+
+			} catch (Exception ex) {
+				HandleErrors (ex);
+				retrying = true;
+				images = LocalImage (type);
+			}
+			RunOnUiThread (() => {
+				
+				if (retrying) {					
+//					ShowRetry (loading, this);
+//					loading.Visibility = ViewStates.Visible;
+//					return;
+				}
+				ThreadPool.QueueUserWorkItem (o => DownloadImage ());
+			});
+		}
+
+		private List<ImageModel> LocalImage (string type)
+		{
 			switch (type) {
 			case "best":
 				{	
@@ -454,37 +464,7 @@ namespace Wallpapersofhappiness
 					break;
 				}
 			}
-
-			var reqUrl = string.Format ("{0}{1}/&max_results=500", requestURL, type);
-			var request = (HttpWebRequest)WebRequest.Create (reqUrl);
-			request.Timeout = 10000;
-			request.Method = "GET";
-			request.ContentType = "application/json";
-			request.Credentials = CredentialCache.DefaultCredentials;
-			var encoded = System.Convert.ToBase64String (System.Text.Encoding.GetEncoding ("ISO-8859-1").GetBytes (ApiKey + ":" + ApiSecret));
-
-			request.Headers.Add ("Authorization", "Basic " + encoded);
-			try {
-				var response = (HttpWebResponse)request.GetResponse ();
-				var reader = new StreamReader (response.GetResponseStream ());
-				var streamText = reader.ReadToEnd ();
-				var deserializedStreamText = JsonConvert.DeserializeObject<Images> (streamText);
-				images.AddRange (deserializedStreamText.resources);
-
-			} catch (Exception ex) {
-				HandleErrors (ex);
-				retrying = true;
-			}
-			RunOnUiThread (() => {
-				
-				if (retrying) {
-					
-//					ShowRetry (loading, this);
-//					loading.Visibility = ViewStates.Visible;
-//					return;
-				}
-				ThreadPool.QueueUserWorkItem (o => DownloadImage ());
-			});
+			return images;
 		}
 
 		private void DownloadImage ()
@@ -578,7 +558,8 @@ namespace Wallpapersofhappiness
 
 
 		void OnItemClick (object sender, int position)
-		{			
+		{				
+
 			var intent = new Intent (this, typeof(DownloadActivity));
 			if (images [position].type.Equals ("local")) {
 				var urlul = images [position].version;

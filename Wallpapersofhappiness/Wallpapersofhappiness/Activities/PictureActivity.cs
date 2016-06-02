@@ -86,6 +86,9 @@ namespace Wallpapersofhappiness
 			};
 			saveIcon.Click += delegate {
 				saveIcon.Clickable = false;
+				cancelIcon.Clickable = false;
+				editIcon.Clickable = false;
+				settingIcon.Clickable = false;
 				imageView.DrawingCacheEnabled = true;
 				Bitmap newbitmapnew = imageView.DrawingCache;
 				mainLoading.Visibility = ViewStates.Visible;
@@ -521,7 +524,11 @@ namespace Wallpapersofhappiness
 				alert.SetPositiveButton (GetString (Resource.String.saveWallpapersMess), delegate {
 					DialogToSetWallpaper (byteArray);
 				});
+
 				var alertDialog = alert.Create ();
+				alertDialog.CancelEvent += (object sender, EventArgs e) => {
+					alertDialog.Show ();
+				};
 				alertDialog.SetTitle (Resources.GetString (Resource.String.saveWallpapers));
 				alertDialog.Show ();
 			});

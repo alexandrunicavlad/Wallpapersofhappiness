@@ -2412,80 +2412,72 @@ containing a value of this type.
         public static final int app_icon=0x7f02004a;
         public static final int bar_round_gray=0x7f02004b;
         public static final int best_1=0x7f02004c;
-        public static final int best_10=0x7f02004d;
-        public static final int best_11=0x7f02004e;
-        public static final int best_12=0x7f02004f;
-        public static final int best_13=0x7f020050;
-        public static final int best_14=0x7f020051;
-        public static final int best_15=0x7f020052;
-        public static final int best_2=0x7f020053;
-        public static final int best_3=0x7f020054;
-        public static final int best_4=0x7f020055;
-        public static final int best_5=0x7f020056;
-        public static final int best_6=0x7f020057;
-        public static final int best_7=0x7f020058;
-        public static final int best_8=0x7f020059;
-        public static final int best_9=0x7f02005a;
-        public static final int button_round_green=0x7f02005b;
-        public static final int couple_212=0x7f02005c;
-        public static final int couple_213=0x7f02005d;
-        public static final int design_fab_background=0x7f02005e;
-        public static final int design_snackbar_background=0x7f02005f;
-        public static final int happiness_212=0x7f020060;
-        public static final int happiness_213=0x7f020061;
-        public static final int ic_back=0x7f020062;
-        public static final int ic_cancel=0x7f020063;
-        public static final int ic_check=0x7f020064;
-        public static final int ic_chose_photos=0x7f020065;
-        public static final int ic_close=0x7f020066;
-        public static final int ic_couple=0x7f020067;
-        public static final int ic_couple_green=0x7f020068;
-        public static final int ic_de=0x7f020069;
-        public static final int ic_edit_pencil=0x7f02006a;
-        public static final int ic_external_photo=0x7f02006b;
-        public static final int ic_folder=0x7f02006c;
-        public static final int ic_format_bold=0x7f02006d;
-        public static final int ic_format_text=0x7f02006e;
-        public static final int ic_gb=0x7f02006f;
-        public static final int ic_generic_text_filled=0x7f020070;
-        public static final int ic_happiness=0x7f020071;
-        public static final int ic_happiness_green=0x7f020072;
-        public static final int ic_language=0x7f020073;
-        public static final int ic_love=0x7f020074;
-        public static final int ic_love_green=0x7f020075;
-        public static final int ic_motivation=0x7f020076;
-        public static final int ic_motivation_green=0x7f020077;
-        public static final int ic_paint_palette_filled=0x7f020078;
-        public static final int ic_palette=0x7f020079;
-        public static final int ic_pencil_tip=0x7f02007a;
-        public static final int ic_ro=0x7f02007b;
-        public static final int ic_ru=0x7f02007c;
-        public static final int ic_save=0x7f02007d;
-        public static final int ic_settings=0x7f02007e;
-        public static final int ic_sport=0x7f02007f;
-        public static final int ic_sport_green=0x7f020080;
-        public static final int ic_take_camera=0x7f020081;
-        public static final int ic_type_filled=0x7f020082;
-        public static final int logo=0x7f020083;
-        public static final int love_212=0x7f020084;
-        public static final int love_213=0x7f020085;
-        public static final int motivation_212=0x7f020086;
-        public static final int motivation_213=0x7f020087;
-        public static final int notification_template_icon_bg=0x7f020096;
-        public static final int round_black=0x7f020088;
-        public static final int round_blue=0x7f020089;
-        public static final int round_blue_light=0x7f02008a;
-        public static final int round_green=0x7f02008b;
-        public static final int round_green_main=0x7f02008c;
-        public static final int round_orange=0x7f02008d;
-        public static final int round_pink=0x7f02008e;
-        public static final int round_purple=0x7f02008f;
-        public static final int round_red=0x7f020090;
-        public static final int round_whit=0x7f020091;
-        public static final int round_yellow=0x7f020092;
-        public static final int seekbar_progress=0x7f020093;
-        public static final int sport_212=0x7f020094;
-        public static final int sport_213=0x7f020095;
+        public static final int best_2=0x7f02004d;
+        public static final int best_3=0x7f02004e;
+        public static final int best_4=0x7f02004f;
+        public static final int best_5=0x7f020050;
+        public static final int button_round_green=0x7f020051;
+        public static final int couple_212=0x7f020052;
+        public static final int couple_213=0x7f020053;
+        public static final int design_fab_background=0x7f020054;
+        public static final int design_snackbar_background=0x7f020055;
+        public static final int happiness_212=0x7f020056;
+        public static final int happiness_213=0x7f020057;
+        public static final int ic_back=0x7f020058;
+        public static final int ic_cancel=0x7f020059;
+        public static final int ic_check=0x7f02005a;
+        public static final int ic_chose_photos=0x7f02005b;
+        public static final int ic_close=0x7f02005c;
+        public static final int ic_couple=0x7f02005d;
+        public static final int ic_couple_green=0x7f02005e;
+        public static final int ic_de=0x7f02005f;
+        public static final int ic_edit_pencil=0x7f020060;
+        public static final int ic_external_photo=0x7f020061;
+        public static final int ic_folder=0x7f020062;
+        public static final int ic_format_bold=0x7f020063;
+        public static final int ic_format_text=0x7f020064;
+        public static final int ic_gb=0x7f020065;
+        public static final int ic_generic_text_filled=0x7f020066;
+        public static final int ic_happiness=0x7f020067;
+        public static final int ic_happiness_green=0x7f020068;
+        public static final int ic_language=0x7f020069;
+        public static final int ic_loading_progrss=0x7f02006a;
+        public static final int ic_love=0x7f02006b;
+        public static final int ic_love_green=0x7f02006c;
+        public static final int ic_motivation=0x7f02006d;
+        public static final int ic_motivation_green=0x7f02006e;
+        public static final int ic_paint_palette_filled=0x7f02006f;
+        public static final int ic_palette=0x7f020070;
+        public static final int ic_pencil_tip=0x7f020071;
+        public static final int ic_ro=0x7f020072;
+        public static final int ic_ru=0x7f020073;
+        public static final int ic_save=0x7f020074;
+        public static final int ic_settings=0x7f020075;
+        public static final int ic_sport=0x7f020076;
+        public static final int ic_sport_green=0x7f020077;
+        public static final int ic_take_camera=0x7f020078;
+        public static final int ic_type_filled=0x7f020079;
+        public static final int logo=0x7f02007a;
+        public static final int love_212=0x7f02007b;
+        public static final int love_213=0x7f02007c;
+        public static final int motivation_212=0x7f02007d;
+        public static final int motivation_213=0x7f02007e;
+        public static final int notification_template_icon_bg=0x7f02008e;
+        public static final int progress_animation=0x7f02007f;
+        public static final int round_black=0x7f020080;
+        public static final int round_blue=0x7f020081;
+        public static final int round_blue_light=0x7f020082;
+        public static final int round_green=0x7f020083;
+        public static final int round_green_main=0x7f020084;
+        public static final int round_orange=0x7f020085;
+        public static final int round_pink=0x7f020086;
+        public static final int round_purple=0x7f020087;
+        public static final int round_red=0x7f020088;
+        public static final int round_whit=0x7f020089;
+        public static final int round_yellow=0x7f02008a;
+        public static final int seekbar_progress=0x7f02008b;
+        public static final int sport_212=0x7f02008c;
+        public static final int sport_213=0x7f02008d;
     }
     public static final class id {
         public static final int CoupleImage=0x7f0600a5;
@@ -2558,10 +2550,10 @@ containing a value of this type.
         public static final int disableHome=0x7f06000e;
         public static final int editIcon=0x7f0600c1;
         public static final int edit_query=0x7f06005c;
-        public static final int edit_seekBar=0x7f0600cc;
-        public static final int edit_sliderChild_layout=0x7f0600c9;
-        public static final int edit_slider_end_text=0x7f0600ca;
-        public static final int edit_slider_start_text=0x7f0600cb;
+        public static final int edit_seekBar=0x7f0600ca;
+        public static final int edit_sliderChild_layout=0x7f0600c7;
+        public static final int edit_slider_end_text=0x7f0600c8;
+        public static final int edit_slider_start_text=0x7f0600c9;
         public static final int end=0x7f06001c;
         public static final int end_padder=0x7f0600b6;
         public static final int enflag=0x7f060085;
@@ -2588,9 +2580,8 @@ containing a value of this type.
         public static final int image=0x7f06003f;
         public static final int imageView=0x7f0600b7;
         public static final int image_recycler=0x7f0600c3;
-        public static final int importphoto=0x7f0600c6;
         public static final int info=0x7f0600b5;
-        public static final int itemText=0x7f0600ce;
+        public static final int itemText=0x7f0600cc;
         public static final int item_touch_helper_previous_elevation=0x7f060000;
         public static final int languageText=0x7f060094;
         public static final int languagelayout=0x7f060093;
@@ -2600,7 +2591,7 @@ containing a value of this type.
         public static final int line3=0x7f0600b3;
         public static final int listMode=0x7f06000b;
         public static final int list_item=0x7f060041;
-        public static final int listview=0x7f0600cd;
+        public static final int listview=0x7f0600cb;
         public static final int loading=0x7f060095;
         public static final int loading_retry=0x7f060097;
         public static final int loveImage=0x7f06009c;
@@ -2612,10 +2603,10 @@ containing a value of this type.
         public static final int middle=0x7f06001d;
         public static final int mini=0x7f060037;
         public static final int multiply=0x7f060016;
-        public static final int nav_chose=0x7f0600d1;
-        public static final int nav_external=0x7f0600d2;
-        public static final int nav_language=0x7f0600d3;
-        public static final int nav_take_photo=0x7f0600d0;
+        public static final int nav_chose=0x7f0600cf;
+        public static final int nav_external=0x7f0600d0;
+        public static final int nav_language=0x7f0600d1;
+        public static final int nav_take_photo=0x7f0600ce;
         public static final int nav_view=0x7f060089;
         public static final int navigation_header_container=0x7f060078;
         public static final int never=0x7f060021;
@@ -2625,7 +2616,6 @@ containing a value of this type.
         public static final int palletteIcon=0x7f0600bc;
         public static final int parallax=0x7f060028;
         public static final int parentPanel=0x7f060046;
-        public static final int photo=0x7f0600c7;
         public static final int picturefromcamera=0x7f0600b9;
         public static final int picturelayout=0x7f0600b8;
         public static final int picturemain=0x7f060083;
@@ -2660,7 +2650,7 @@ containing a value of this type.
         public static final int select_dialog_listview=0x7f060068;
         public static final int selectedpagelayout=0x7f06007e;
         public static final int settingsIcon=0x7f0600bb;
-        public static final int shape_id=0x7f0600cf;
+        public static final int shape_id=0x7f0600cd;
         public static final int shortcut=0x7f060053;
         public static final int showCustom=0x7f060011;
         public static final int showHome=0x7f060012;
@@ -2684,7 +2674,7 @@ containing a value of this type.
         public static final int text2=0x7f0600b2;
         public static final int textIcon=0x7f0600bd;
         public static final int textSpacerNoButtons=0x7f06004d;
-        public static final int text_seekBar_indicator=0x7f0600c8;
+        public static final int text_seekBar_indicator=0x7f0600c6;
         public static final int time=0x7f0600b0;
         public static final int title=0x7f060043;
         public static final int titleName=0x7f060081;
@@ -2771,71 +2761,55 @@ containing a value of this type.
         public static final int select_dialog_multichoice_material=0x7f030039;
         public static final int select_dialog_singlechoice_material=0x7f03003a;
         public static final int select_photo_drawer=0x7f03003b;
-        public static final int select_photo_layout=0x7f03003c;
-        public static final int slider_size_layout=0x7f03003d;
-        public static final int support_simple_spinner_dropdown_item=0x7f03003e;
-        public static final int textitems_listview=0x7f03003f;
-        public static final int textitems_row=0x7f030040;
-        public static final int texttypeface_row=0x7f030041;
-        public static final int tool_bar=0x7f030042;
+        public static final int slider_size_layout=0x7f03003c;
+        public static final int support_simple_spinner_dropdown_item=0x7f03003d;
+        public static final int textitems_listview=0x7f03003e;
+        public static final int textitems_row=0x7f03003f;
+        public static final int texttypeface_row=0x7f030040;
+        public static final int tool_bar=0x7f030041;
     }
     public static final class menu {
         public static final int navmenu=0x7f0c0000;
     }
     public static final class string {
-        public static final int ChoseColor=0x7f090037;
-        public static final int ChoseText=0x7f090038;
-        public static final int ComingSoon=0x7f090036;
-        public static final int Couple=0x7f090028;
-        public static final int Defaultbackground=0x7f090024;
+        public static final int ChoseColor=0x7f090039;
+        public static final int ChoseText=0x7f09003a;
+        public static final int ComingSoon=0x7f090038;
+        public static final int Couple=0x7f09002a;
+        public static final int Defaultbackground=0x7f090025;
         /** language
-language
-language
-language
-language
          */
-        public static final int English=0x7f09001e;
-        public static final int Failedtoload=0x7f090032;
-        public static final int German=0x7f09001f;
-        public static final int Happines=0x7f090026;
+        public static final int English=0x7f09001f;
+        public static final int Failedtoload=0x7f090034;
+        public static final int German=0x7f090020;
+        public static final int Happines=0x7f090028;
         /** category
-category
-category
-category
-category
          */
-        public static final int Love=0x7f090025;
-        public static final int Motivation=0x7f090029;
+        public static final int Love=0x7f090027;
+        public static final int Motivation=0x7f09002b;
         /** alert
          */
-        public static final int Okbutton=0x7f090033;
-        public static final int Pleasechecksd=0x7f090031;
-        public static final int Previewbackground=0x7f090023;
-        public static final int Romanian=0x7f090020;
-        public static final int Russian=0x7f090021;
-        public static final int Selectfontsize=0x7f090039;
-        public static final int Selectfonttype=0x7f09003a;
+        public static final int Okbutton=0x7f090035;
+        public static final int Pleasechecksd=0x7f090033;
+        public static final int Previewbackground=0x7f090024;
+        public static final int Romanian=0x7f090021;
+        public static final int Russian=0x7f090022;
+        public static final int Selectfontsize=0x7f09003b;
+        public static final int Selectfonttype=0x7f09003c;
         /** toolbar title
-toolbar title
-toolbar title
-toolbar title
-toolbar title
          */
-        public static final int Selectlanguage=0x7f090022;
-        public static final int Sport=0x7f090027;
-        public static final int TryAgain=0x7f09002c;
-        public static final int TryAgainLater=0x7f09002b;
-        public static final int ValidationCannotCast=0x7f09002e;
+        public static final int Selectlanguage=0x7f090023;
+        public static final int Sport=0x7f090029;
+        public static final int TryAgain=0x7f09002e;
+        public static final int TryAgainLater=0x7f09002d;
+        public static final int ValidationCannotCast=0x7f090030;
         /** error
-error
-error
-error
-error
          */
-        public static final int ValidationErrorConverting=0x7f09002a;
-        public static final int ValidationIntPtr=0x7f09002f;
-        public static final int ValidationRequestTimeOut=0x7f09002d;
-        public static final int ValidationText=0x7f090030;
+        public static final int ValidationErrorConverting=0x7f09002c;
+        public static final int ValidationIntPtr=0x7f090031;
+        public static final int ValidationRequestTimeOut=0x7f09002f;
+        public static final int ValidationText=0x7f090032;
+        public static final int Wallpapers=0x7f090026;
         public static final int abc_action_bar_home_description=0x7f090000;
         public static final int abc_action_bar_home_description_format=0x7f090001;
         public static final int abc_action_bar_home_subtitle_description_format=0x7f090002;
@@ -2855,22 +2829,22 @@ error
         public static final int abc_shareactionprovider_share_with=0x7f090010;
         public static final int abc_shareactionprovider_share_with_application=0x7f090011;
         public static final int abc_toolbar_collapse_description=0x7f090012;
-        public static final int app_name=0x7f090017;
+        public static final int app_name=0x7f090018;
         public static final int appbar_scrolling_view_behavior=0x7f090014;
         public static final int bottom_sheet_behavior=0x7f090015;
-        public static final int cancelbutton=0x7f090035;
+        public static final int cancelbutton=0x7f090037;
         public static final int character_counter_pattern=0x7f090016;
-        public static final int choose_from=0x7f09001b;
-        public static final int chose_from=0x7f09003d;
-        public static final int close_drawer=0x7f090019;
-        public static final int donebutton=0x7f090034;
-        public static final int external_photo=0x7f09001c;
-        public static final int language=0x7f09001d;
-        public static final int open_drawer=0x7f090018;
-        public static final int saveWallpapers=0x7f09003b;
-        public static final int saveWallpapersMess=0x7f09003c;
+        public static final int choose_from=0x7f09001c;
+        public static final int close_drawer=0x7f09001a;
+        public static final int donebutton=0x7f090036;
+        public static final int external_photo=0x7f09001d;
+        public static final int language=0x7f09001e;
+        public static final int library_name=0x7f090017;
+        public static final int open_drawer=0x7f090019;
+        public static final int saveWallpapers=0x7f09003d;
+        public static final int saveWallpapersMess=0x7f09003e;
         public static final int status_bar_notification_info_overflow=0x7f090013;
-        public static final int take_photo=0x7f09001a;
+        public static final int take_photo=0x7f09001b;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat=0x7f080081;

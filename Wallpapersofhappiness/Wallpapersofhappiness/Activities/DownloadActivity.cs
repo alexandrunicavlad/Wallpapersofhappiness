@@ -147,7 +147,6 @@ namespace Wallpapersofhappiness
 			base.OnWindowFocusChanged (hasFocus);
 		}
 
-
 		protected override void OnDestroy ()
 		{			
 			Picasso.With (this).CancelRequest (imageView);
@@ -169,7 +168,6 @@ namespace Wallpapersofhappiness
 					Finish ();
 				}
 			};
-
 			toolbar.NavigationIcon = Resources.GetDrawable (Resource.Drawable.ic_back);
 			toolbar.FindViewById<TextView> (Resource.Id.titleName).Text = GetString (Resource.String.Previewbackground);
 			saveButton = toolbar.FindViewById<ImageView> (Resource.Id.iconRight);

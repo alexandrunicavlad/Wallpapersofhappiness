@@ -10,7 +10,6 @@ using Android.Graphics;
 using System.Net;
 using Android.Support.V7.Widget;
 using Square.Picasso;
-using Android.Content.Res;
 
 namespace Wallpapersofhappiness
 {
@@ -56,10 +55,9 @@ namespace Wallpapersofhappiness
 				var subUrl = item.url.Substring (0, positionChar + 7);
 				var afterUrl = item.url.Substring (positionChar + 7);
 				var heught = 170 * context.Resources.DisplayMetrics.Density;
-				var newUrl = string.Format ("{0}w_{1},h_{2},c_fill/{3}", subUrl, context.Resources.DisplayMetrics.WidthPixels / 3, heught, afterUrl);
-				Picasso.With (context).Load (newUrl)		
-					.Error (Resource.Drawable.ic_edit_pencil)
-					.Into (vh.Image, delegate {							
+				var newUrl = string.Format ("{0}w_{1},h_{2}/{3}", subUrl, context.Resources.DisplayMetrics.WidthPixels / 6, heught / 2, afterUrl);
+				Picasso.With (context).Load (newUrl).Placeholder (Resource.Drawable.progress_animation).Fit ()
+					.Into (vh.Image, delegate {												
 					var b =	System.GC.GetTotalMemory (true);
 				}, delegate {
 					var a =	System.GC.GetTotalMemory (true);

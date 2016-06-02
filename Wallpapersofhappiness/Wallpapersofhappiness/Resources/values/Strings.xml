@@ -15,6 +15,7 @@
 	<string name="Selectlanguage">Select your language</string>
 	<string name="Previewbackground">Preview background</string>
 	<string name="Defaultbackground">Default background</string>
+	<string name="Wallpapers">WALLPAPERS</string>
 	<!--category-->
 	<string name="Love">Love</string>
 	<string name="Happines">Happines</string>
@@ -40,6 +41,6 @@
 	<string name="ChoseText">Choose Text</string>
 	<string name="Selectfontsize">Select font size</string>
 	<string name="Selectfonttype">Select font type</string>
-	<string name="saveWallpapers">Your wallpapers was saved to your album</string>
-	<string name="saveWallpapersMess">How to set as wallpaper?</string>
+	<string name="saveWallpapers">Your wallpaper was saved to your album</string>
+	<string name="saveWallpapersMess">Set as wallpaper</string>
 </resources>

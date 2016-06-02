@@ -34,7 +34,7 @@ namespace Wallpapersofhappiness
 			SetContentView (Resource.Layout.language_layout);
 			SetLocale ("de");
 			ConstructActionBar ();
-			UpdateTexts ();
+			//UpdateTexts ();
 			SetTitle (GetString (Resource.String.Selectlanguage));
 
 		}

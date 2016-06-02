@@ -121,13 +121,13 @@ namespace Wallpapersofhappiness
 			});
 		}
 
-		public void UpdateTexts ()
-		{
-			leftMenu.FindViewById<TextView> (Resource.Id.take_Text).Text = GetString (Resource.String.take_photo);
-			leftMenu.FindViewById<TextView> (Resource.Id.choseText).Text = GetString (Resource.String.chose_from);
-			leftMenu.FindViewById<TextView> (Resource.Id.externalText).Text = GetString (Resource.String.external_photo);
-			leftMenu.FindViewById<TextView> (Resource.Id.languageText).Text = GetString (Resource.String.language);
-		}
+		//		public void UpdateTexts ()
+		//		{
+		//			leftMenu.FindViewById<TextView> (Resource.Id.take_Text).Text = GetString (Resource.String.take_photo);
+		//			leftMenu.FindViewById<TextView> (Resource.Id.choseText).Text = GetString (Resource.String.choose_from);
+		//			leftMenu.FindViewById<TextView> (Resource.Id.externalText).Text = GetString (Resource.String.external_photo);
+		//			leftMenu.FindViewById<TextView> (Resource.Id.languageText).Text = GetString (Resource.String.language);
+		//		}
 
 		public void SetLocale (string lang)
 		{

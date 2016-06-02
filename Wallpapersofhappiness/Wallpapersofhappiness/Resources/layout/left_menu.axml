@@ -55,7 +55,7 @@
                     android:src="@drawable/ic_chose_photos" />
                 <TextView
                     android:layout_height="wrap_content"
-                    android:text="@string/chose_from"
+                    android:text="@string/choose_from"
                     android:textSize="18sp"
                     android:id="@+id/choseText"
                     android:textColor="@color/gray_text"
